@@ -1,147 +1,150 @@
-import 'dart:convert';
-import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-    runApp(
+  runApp(
     MaterialApp(
       title: 'Hupomnesis',
-      home: Reminder(),
+      home: MyHomePage(),
     ),
   );
   SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
 }
 
-class Reminder extends StatefulWidget {
-  @override
-  _ReminderState createState() => _ReminderState();
+class MyHomePage extends StatefulWidget {
+ @override
+ _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _ReminderState extends State<Reminder> {
-  bool _editing; 
-  //FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-
-  Future<Note> noteFromJson(String path) async {
-    final String response = await rootBundle.loadString(path);
-    final dynamic jsonData = json.decode(response);
-    return Note.fromJson(jsonData);
-  }
-
-  Future<String> noteToJson(Note data, String localPath) async {
-    final File temp = await file.localFile(localPath);
-    final dynamic dyn = data.toJson();
-    return json.encode(dyn);
-    return temp.writeAsString(data);
-  }
+class _MyHomePageState extends State<MyHomePage> {
+  SharedPreferences data;
+  List<String> texts;
+  List<String> names;
 
   @override
   void initState() {
     super.initState();
-    _editing = false; 
-    /*_firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
-    _firebaseMessaging.configure(
-        onMessage: (Map<String, dynamic> message) {
-          print('on message $message');
-        }
-    );*/
+    getInstance();
+  }
+
+  Future<void> getInstance() async {
+    data = await SharedPreferences.getInstance();
+    names = data.getStringList('names') ?? <String>['', '', '', ''];
+    texts = data.getStringList('texts') ?? <String>['', '', '', ''];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Colors.grey,
       body: Column(
-        children: <Widget> [
-          welcomingText(),    // The message that will be displayed for the person
-          //noteWidget(),       // The list of notes
+        children: <Widget>[
+          Container(
+            height: 450, 
+            child: reminders(),
+          ),
         ],
       ),
     );
   }
 
-  Widget welcomingText() {
+  Widget reminders() {
+    return ListView.builder(
+      padding: const EdgeInsets.only(left: 38),
+      itemBuilder: (BuildContext context, int index) => _itemBuilder(context, index),
+      itemCount: 4,
+      scrollDirection: Axis.horizontal,
+    );
+  }
+
+  Widget _itemBuilder(BuildContext context, int index) {
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        width: 300.0,
+        child: Column(
+          children: <Widget> [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: Text(names[index], style: const TextStyle(fontSize: 28, color: Colors.grey, fontFamily: 'Roboto-Bold'),),
+                ),
+                IconButton(icon: const Icon(Icons.create), color: Colors.blue, onPressed: (){
+                  _showDialog(index);
+                },),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 38, 12, 0),
+              child: Text.rich(
+                TextSpan(text: texts[index], style: const TextStyle(fontSize: 22, color: Colors.black, fontFamily: 'Roboto-Light'),),
+                textAlign: TextAlign.justify,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showDialog(int index) {
+    showDialog<SimpleDialog>(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text('What do you want to learn today ?', style: TextStyle(fontFamily: 'Roboto-Light'),),
+          contentPadding: const EdgeInsets.all(12),
+          backgroundColor: Colors.white,
+          children: <Widget>[
+            textField(index, 1, 22, 'reminder\'s name', ValueToChange.name),
+            textField(index, 9, 380, 'what should you remind ?', ValueToChange.text),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget textField(int index, int maxLines, int maxLength, String text, ValueToChange vtc) {
+    String val;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget> [
-        Text('Hi there,', style: TextStyle(fontSize: 30.0, color: Colors.white),),
-        Text('What did you learn ?', style: TextStyle(color: Colors.white),),
-        // Text("You have 3 tasks to do today.", style: TextStyle(color: Colors.white,),),
+      children: <Widget>[
+        TextField(
+          decoration: InputDecoration(
+            hintText: text,
+          ),
+          maxLines: maxLines,
+          maxLength: maxLength,
+          onSubmitted: (String value) => val = value,
+        ),
+        RaisedButton(
+          color: Colors.blue,
+          child: const Text('Submit!', style: TextStyle(fontFamily: 'Roboto-Light'),),
+          onPressed: () => updateData(index, val, vtc)
+        )
       ],
     );
   }
 
-  Widget noteWidget() {
-    return _buildList(context, dummySnapshot);
-  }
-
-Widget _buildList(BuildContext context, List<Map<String, dynamic>> snapshot) {
-
-  return ListView.builder(
-    scrollDirection: Axis.horizontal,
-    padding: const EdgeInsets.only(top: 20.0),
-    itemBuilder: ,
-  );
-}
-
-  Widget _buildListItem(BuildContext context, Map<String, dynamic> data) {
-    final dynamic note = Note.fromMap(data);
-    
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      /*child: GestureDetector(
-        onTap: () {
-          setState(() { _editing = true; });
-        },*/
-        /*child: Container(
-          width: 250,
-          child: Column(
-            children: <Widget>[
-              Text('${note.name}', style: const TextStyle(fontSize: 30.0, color: Colors.black),),
-              _editing ? TextField(
-                keyboardType: TextInputType.multiline,
-                maxLines: 9,
-                onSubmitted: (String value) {
-                  setState(() { 
-                    _editing = false;
-                    note.reference.updateData(<String, dynamic> {'text': value});
-                  });
-                }
-              ) : Text('${note.text}', style: const TextStyle(fontSize: 18.0, color: Colors.black),)
-            ],
-          ),
-        ),*/
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: ListTile(
-            title: Text(note.name),
-            trailing: Text(note.text),
-          ),
-        ),
-      //),
-    );
+  void updateData(int index, String value, ValueToChange vtc) {
+    setState(() {
+      if(vtc == ValueToChange.text) {
+        texts[index] = value;
+        data.setStringList('texts', texts);
+      } else {
+        names[index] = value;
+        data.setStringList('names', names);
+      }
+    });
   }
 }
 
-class Note {
-  Note({
-      this.name,
-      this.text,
-  });
-
-  factory Note.fromJson(Map<String, dynamic> json) => Note(
-      name: json['name'],
-      text: json['text'],
-  );
-
-  String name;
-  String text;
-
-  Map<String, dynamic> toJson() => <String, dynamic> {
-    'name': name,
-    'text': text,
-  };
-}
+enum ValueToChange{ text, name, }
