@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 void main() {
   runApp(
@@ -20,17 +21,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   SharedPreferences data;
-  TextEditingController nameController;
-  TextEditingController textController;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController textController = TextEditingController();
   List<String> names;
   List<String> texts;
 
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController();
-    textController = TextEditingController();
     getInstance();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    textController.dispose();
   }
 
   @override
@@ -101,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
           contentPadding: const EdgeInsets.all(12),
           backgroundColor: Colors.white,
           children: <Widget>[
-            textField(nameController, index, 1, 22, 'reminder\'s name', ValueToChange.name),
+            textField(nameController, index, 1, 13, 'reminder\'s name', ValueToChange.name),
             textField(textController, index, 9, 380, 'what should you remind ?', ValueToChange.text),
           ],
         );
@@ -141,6 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if(vtc == ValueToChange.text) {
         texts[index] = textController.text;
         data.setStringList('texts', texts);
+        Navigator.of(context).pop();
       } else {
         names[index] = nameController.text.toUpperCase();
         data.setStringList('names', names);
