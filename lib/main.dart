@@ -20,19 +20,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   SharedPreferences data;
-  List<String> texts;
+  TextEditingController nameController;
+  TextEditingController textController;
   List<String> names;
+  List<String> texts;
 
   @override
   void initState() {
     super.initState();
+    nameController = TextEditingController();
+    textController = TextEditingController();
     getInstance();
-  }
-
-  Future<void> getInstance() async {
-    data = await SharedPreferences.getInstance();
-    names = data.getStringList('names') ?? <String>['', '', '', ''];
-    texts = data.getStringList('texts') ?? <String>['', '', '', ''];
   }
 
   @override
@@ -78,9 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.only(left: 12.0),
                   child: Text(names[index], style: const TextStyle(fontSize: 28, color: Colors.grey, fontFamily: 'Roboto-Bold'),),
                 ),
-                IconButton(icon: const Icon(Icons.create), color: Colors.blue, onPressed: (){
-                  _showDialog(index);
-                },),
+                IconButton(icon: const Icon(Icons.create), color: Colors.blue, onPressed: () => _showDialog(index)),
               ],
             ),
             Padding(
@@ -105,42 +101,48 @@ class _MyHomePageState extends State<MyHomePage> {
           contentPadding: const EdgeInsets.all(12),
           backgroundColor: Colors.white,
           children: <Widget>[
-            textField(index, 1, 22, 'reminder\'s name', ValueToChange.name),
-            textField(index, 9, 380, 'what should you remind ?', ValueToChange.text),
+            textField(nameController, index, 1, 22, 'reminder\'s name', ValueToChange.name),
+            textField(textController, index, 9, 380, 'what should you remind ?', ValueToChange.text),
           ],
         );
       },
     );
   }
 
-  Widget textField(int index, int maxLines, int maxLength, String text, ValueToChange vtc) {
-    String val;
+  Widget textField(TextEditingController controller, int index, int maxLines, int maxLength, String text, ValueToChange vtc) {
     return Column(
       children: <Widget>[
         TextField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: text,
           ),
           maxLines: maxLines,
           maxLength: maxLength,
-          onSubmitted: (String value) => val = value,
         ),
         RaisedButton(
           color: Colors.blue,
           child: const Text('Submit!', style: TextStyle(fontFamily: 'Roboto-Light'),),
-          onPressed: () => updateData(index, val, vtc)
+          onPressed: () => updateData(index, vtc)
         )
       ],
     );
   }
 
-  void updateData(int index, String value, ValueToChange vtc) {
+  Future<void> getInstance() async {
+    data = await SharedPreferences.getInstance();
+    names = data.getStringList('names') ?? <String>['', '', '', ''];
+    texts = data.getStringList('texts') ?? <String>['', '', '', ''];
+  }
+
+  void updateData(int index, ValueToChange vtc) {
     setState(() {
+      getInstance();
       if(vtc == ValueToChange.text) {
-        texts[index] = value;
+        texts[index] = textController.text;
         data.setStringList('texts', texts);
       } else {
-        names[index] = value;
+        names[index] = nameController.text.toUpperCase();
         data.setStringList('names', names);
       }
     });
