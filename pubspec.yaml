@@ -29,4 +29,6 @@ flutter:
   - family: Roboto-Bold
     fonts:
     - asset: assets/fonts/Roboto-Bold.ttf
-  
+
+  assets:
+  - assets/animations/intro.flr
