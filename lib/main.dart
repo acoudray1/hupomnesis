@@ -45,8 +45,11 @@ class _HomeState extends State<Home> {
             onPageChanged: (int index) => pIndex.value = index,
             itemBuilder: (BuildContext context, int index) {
               return Column(children: <Widget>[
-                textField(index, 1, names[index], ValueToChange.name, TextAlign.start, 'Title'),
-                textField(index, 15, texts[index], ValueToChange.text, TextAlign.justify, 'Note'),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: textField(index, 1, names[index], ValueToChange.name, 'Title'),
+                ),
+                textField(index, 15, texts[index], ValueToChange.text, 'Note'),
               ]);
             },
             itemCount: 4,
@@ -63,28 +66,28 @@ class _HomeState extends State<Home> {
       child: PageViewIndicator(
         pageIndexNotifier: pIndex,
         length: 4,
-        normalBuilder: (AnimationController aController) => Circle(size: 8.0, color: Colors.black54),
+        normalBuilder: (AnimationController aController) => Circle(size: 8.0, color: Colors.lightBlueAccent),
         highlightedBuilder: (AnimationController aController) => ScaleTransition(
           scale: CurvedAnimation(parent: aController, curve: Curves.ease),
-          child: Circle(size: 11.0, color: Colors.black54),
+          child: Circle(size: 11.0, color: Colors.blue),
         ),
       ),
     );
   }
 
-  Widget textField(int index, int maxLines, String text, ValueToChange vtc, TextAlign textAlign, String hint) {
-    final TextEditingController controller = TextEditingController();
-    controller.text = text;
+  Widget textField(int index, int maxLines, String text, ValueToChange vtc, String hint) {
+    final TextEditingController textC = TextEditingController(text: text);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(5, 24, 5, 12),
+      padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
       child: TextField(
-        decoration: InputDecoration.collapsed(hintText: hint, hintStyle: const TextStyle(fontSize: 28, color: Colors.black54, fontFamily: 'Roboto-Light')),
-        controller: controller,
-        textAlign: textAlign,
-        style: const TextStyle(fontSize: 28, color: Colors.black, fontFamily: 'Roboto-Light'),
-        maxLines: maxLines,
+        controller: textC,
         textInputAction: TextInputAction.done,
-        onSubmitted: (String value) => updateData(index, vtc, value),
+        decoration: InputDecoration.collapsed(hintText: hint,  hintStyle: const TextStyle(fontSize: 24, color: Colors.black54, fontFamily: 'Roboto-Light')),
+        style: const TextStyle(fontSize: 24, color: Colors.black, fontFamily: 'Roboto-Light'),
+        maxLines: maxLines,
+        onSubmitted: (String value) {
+          updateData(index, vtc, textC.text);
+        }
       ),
     );
   }
@@ -143,4 +146,4 @@ class _HomeState extends State<Home> {
   }
 }
 
-enum ValueToChange{ text, name, }
+enum ValueToChange{text, name}
