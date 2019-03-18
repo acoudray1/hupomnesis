@@ -6,10 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:page_view_indicator/page_view_indicator.dart';
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 
-void main() {runApp(MaterialApp(title: 'Hupomnesis', home: Home()));
-  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
-}
+void main() => runApp(MaterialApp(title: 'Hupomnesis', home: Home()));
 
 class Home extends StatefulWidget {
  @override
@@ -20,14 +19,16 @@ class _HomeState extends State<Home> {
   SharedPreferences data;
   FlutterLocalNotificationsPlugin localNotif = FlutterLocalNotificationsPlugin();
   final ValueNotifier<int> pIndex = ValueNotifier<int>(0);
-  bool introduction;
+  bool start;
   List<String> names, texts;
+  bool kOn = false;
 
   @override
   void initState() {
     super.initState();
     getInstance();
-    localNotif.initialize(const InitializationSettings(AndroidInitializationSettings('app_icon'), null));
+    localNotif.initialize(const InitializationSettings(AndroidInitializationSettings('icon'), null));
+    KeyboardVisibilityNotification().addNewListener(onChange: (bool visible) => setState(() => kOn = visible));
   }
 
   @override
@@ -35,9 +36,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
-      body: names == null && introduction == null
+      body: names == null && start == null
       ? const CircularProgressIndicator()
-      : introduction == false && names != null
+      : start == false && names != null
       ? checkIntro()
       : Stack(
         children: <Widget>[
@@ -47,9 +48,9 @@ class _HomeState extends State<Home> {
               return Column(children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 40),
-                  child: textField(index, 1, names[index], ValueToChange.name, 'Title'),
+                  child: textField(index, 1, names[index], Entry.name, 'Title'),
                 ),
-                textField(index, 15, texts[index], ValueToChange.text, 'Note'),
+                textField(index, kOn ? 15 : 23, texts[index], Entry.text, 'Note'),
               ]);
             },
             itemCount: 4,
@@ -66,27 +67,27 @@ class _HomeState extends State<Home> {
       child: PageViewIndicator(
         pageIndexNotifier: pIndex,
         length: 4,
-        normalBuilder: (AnimationController aController) => Circle(size: 8.0, color: Colors.lightBlueAccent),
-        highlightedBuilder: (AnimationController aController) => ScaleTransition(
-          scale: CurvedAnimation(parent: aController, curve: Curves.ease),
+        normalBuilder: (AnimationController aControl) => Circle(size: 8.0, color: Colors.lightBlueAccent),
+        highlightedBuilder: (AnimationController aControl) => ScaleTransition(
+          scale: CurvedAnimation(parent: aControl, curve: Curves.ease),
           child: Circle(size: 11.0, color: Colors.blue),
         ),
       ),
     );
   }
 
-  Widget textField(int index, int maxLines, String text, ValueToChange vtc, String hint) {
-    final TextEditingController textC = TextEditingController(text: text);
+  Widget textField(int index, int maxLines, String text, Entry vtc, String hint) {
+    final TextEditingController tControl = TextEditingController(text: text);
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
       child: TextField(
-        controller: textC,
+        controller: tControl,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration.collapsed(hintText: hint,  hintStyle: const TextStyle(fontSize: 24, color: Colors.black54, fontFamily: 'Roboto-Light')),
         style: const TextStyle(fontSize: 24, color: Colors.black, fontFamily: 'Roboto-Light'),
         maxLines: maxLines,
         onSubmitted: (String value) {
-          updateData(index, vtc, textC.text);
+          updateData(index, vtc, tControl.text);
         }
       ),
     );
@@ -97,7 +98,7 @@ class _HomeState extends State<Home> {
     setState(() {
       names = data.getStringList('names') ?? <String>['', '', '', ''];
       texts = data.getStringList('texts') ?? <String>['', '', '', ''];
-      introduction = data.getBool('introduction') ?? false;
+      start = data.getBool('start') ?? false;
     });
   }
 
@@ -105,7 +106,7 @@ class _HomeState extends State<Home> {
     return Stack(
       children: <Widget> [
         Center(
-          child: FlareActor('assets/animations/intro.flr',
+          child: FlareActor('assets/intro.flr',
             alignment: Alignment.center,
             fit: BoxFit.fitWidth,
             animation: 'frame',
@@ -116,7 +117,7 @@ class _HomeState extends State<Home> {
           icon: const Icon(Icons.touch_app),
           color: Colors.blue,
           onPressed: () => setState(() {
-            data.setBool('introduction', true);
+            data.setBool('start', true);
             getInstance();
           }),
         ),
@@ -124,11 +125,11 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void updateData(int index, ValueToChange vtc, String value) {
+  void updateData(int index, Entry vtc, String value) {
     _repeatNotification();
     setState(() {
       getInstance();
-      if(vtc == ValueToChange.text) {
+      if(vtc == Entry.text) {
         texts[index] = value;
         data.setStringList('texts', texts);
       } else {
@@ -140,10 +141,10 @@ class _HomeState extends State<Home> {
 
   Future<void> _repeatNotification() async {
     final int rnd = Random().nextInt(4);
-    final AndroidNotificationDetails androidChannel = AndroidNotificationDetails('repeating channel id', 'repeating channel name', 'repeating description');
-    final NotificationDetails channel = NotificationDetails(androidChannel, null);
+    final AndroidNotificationDetails aChannel = AndroidNotificationDetails('repeating channel id', 'repeating channel name', 'repeating description');
+    final NotificationDetails channel = NotificationDetails(aChannel, null);
     await localNotif.periodicallyShow(0, '${names[rnd]}','${texts[rnd]}', RepeatInterval.Hourly, channel);
   }
 }
 
-enum ValueToChange{text, name}
+enum Entry{text, name}
