@@ -33,6 +33,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    _repeatNotification();
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
@@ -125,15 +126,14 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void updateData(int index, Entry vtc, String value) {
-    _repeatNotification();
+  void updateData(int i, Entry e, String v) {
     setState(() {
       getInstance();
-      if(vtc == Entry.text) {
-        texts[index] = value;
+      if(e == Entry.text) {
+        texts[i] = v;
         data.setStringList('texts', texts);
       } else {
-        names[index] = value.toUpperCase();
+        names[i] = v.toUpperCase();
         data.setStringList('names', names);
       }
     });
