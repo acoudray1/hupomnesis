@@ -1,16 +1,8 @@
 # hupomnesis
 
-A new Flutter project.
+A Flutter project made for Flutter Create
 
-## Getting Started
+## Main objective of the application
 
-This project is a starting point for a Flutter application.
+The main objective of this application is to help you remember what you want by sending random notifications about the note that you took.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
