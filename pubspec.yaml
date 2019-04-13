@@ -23,9 +23,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-  - family: Roboto-Light
-    fonts:
-    - asset: assets/fonts/Roboto-Light.ttf
-  - family: Roboto-Bold
-    fonts:
-    - asset: assets/fonts/Roboto-Bold.ttf
+  - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Light.ttf
+          weight: 200
+        - asset: assets/fonts/Roboto-Medium.ttf
+          weight: 400
