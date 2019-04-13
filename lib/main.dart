@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hupomnesis/src/views/root.dart';
 
-void main(List<String> args) {
+void main() {
   runApp(
     Hupomnesis(),
   );
+  SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
+  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
 }
-
 
 class Hupomnesis extends StatelessWidget {
   @override

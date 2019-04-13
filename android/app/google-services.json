@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "475271504195",
+    "firebase_url": "https://reminder-ed319.firebaseio.com",
+    "project_id": "reminder-ed319",
+    "storage_bucket": "reminder-ed319.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475271504195:android:ce83a0859030f209",
+        "android_client_info": {
+          "package_name": "com.axelc.hupomnesis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475271504195-rhoqu9eruimmvhqsml1h6sp76kq15e72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIAvg7lqCCZjSblw_iVDEz5Ixwjin1abw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475271504195-rhoqu9eruimmvhqsml1h6sp76kq15e72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
