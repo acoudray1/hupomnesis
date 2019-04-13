@@ -33,8 +33,9 @@ android {
 
     defaultConfig {
         applicationId "com.axelc.hupomnesis"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
