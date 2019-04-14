@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hupomnesis/src/views/login_sign_up_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Root extends StatelessWidget {
+  SharedPreferences prefs;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.yellow,
-      body: Container(),
+      body: Container(
+        child: Text('${prefs.getString('id')}, ${prefs.getString('nickname')}, ${prefs.getString('photoUrl')}'),
+      ),
     );
   }
 }

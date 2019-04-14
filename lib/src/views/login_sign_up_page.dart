@@ -1,12 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hupomnesis/src/views/root.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hupomnesis/theme/text_style.dart';
 
 class LoginSignUpPage extends StatefulWidget {
+
+  const LoginSignUpPage({Key key, this.fName, this.fOptions}) : super(key: key);
+
+  final String fName; @required
+  final FirebaseOptions fOptions; @required
+
   @override
   _LoginSignUpPageState createState() => _LoginSignUpPageState();
 }
@@ -23,7 +31,20 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   @override
   void initState() {
     super.initState();
+    configure();
     isSignedIn();
+  }
+
+  ///
+  /// Firebase configuration
+  /// 
+  Future<void> configure() async {
+    final FirebaseApp app = await FirebaseApp.configure(
+      name: widget.fName,
+      options: widget.fOptions,
+    );
+    assert(app != null);
+    print('Configured $app');
   }
 
   ///
@@ -31,13 +52,14 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   /// 
   Future<void> isSignedIn() async {
     setState(() {
-      isLoading = true;
+      isLoading = false;
     });
 
     isLoggedIn = await googleSignIn.isSignedIn();
     if(isLoggedIn) {
-      Navigator.pop(context);
-      isLoading = false;
+      // Navigator.pushNamed(context, '/home');
+      isLoading = true;
+      return MaterialPageRoute<dynamic>(builder: (BuildContext context) => Root());
     }
   }
 
@@ -45,6 +67,9 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   /// Handle the authentification part
   /// 
   Future<void> handleSignIn() async {
+    setState(() {
+      isLoading = true;
+    });
     prefs = await SharedPreferences.getInstance();
     final GoogleSignInAccount googleUser = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -91,24 +116,26 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   ///
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: MediaQuery.of(context).size.height*0.75),
-        Center(
-          child: FlatButton(
-            onPressed: handleSignIn,
-            child: Text('SIGN IN WITH GOOGLE', style: Style.subtitleTextStyle),
-            color: const Color(0xffdd4b39),
-              highlightColor: const Color(0xffff7f7f),
-              splashColor: Colors.transparent,
-              textColor: Colors.white,
-              padding: const EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0)
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          SizedBox(height: MediaQuery.of(context).size.height*0.75),
+          Center(
+            child: FlatButton(
+              onPressed: handleSignIn,
+              child: Text('SIGN IN WITH GOOGLE', style: Style.subtitleTextStyle),
+              color: const Color(0xffdd4b39),
+                highlightColor: const Color(0xffff7f7f),
+                splashColor: Colors.transparent,
+                textColor: Colors.white,
+                padding: const EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0)
+            ),
           ),
-        ),
-        const SizedBox(height: 35.0,),
-        isLoading ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.cyan)) 
-                  : Container(),
-      ],
+          const SizedBox(height: 35.0,),
+          isLoading ? const CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.cyan)) 
+                    : Container(),
+        ],
+      ),
     );
   }
 }
