@@ -1,3 +1,6 @@
+///
+/// User class used to keep the user informations
+/// 
 class User {
 
   User({this.id, this.nickname, this.photoUrl});
@@ -6,3 +9,5 @@ class User {
   String nickname;
   String photoUrl;
 }
+
+User user = User(id: 'null', nickname: 'null', photoUrl: 'null');
