@@ -7,8 +7,31 @@ A Flutter project made for Flutter Create
 The main objective of this application is to help you remember what you want by sending random notifications about the note that you took.
 
 ## Work planning (User Stories)
-### HUP-1 : Firebase users and Google authentification
+### HUP-1 : Creating a user (back)
 __requirements :__ 
-* _I want to be able to sign in with google to the application._
-* _A new user must be created and saved in the firebase's database._
-* _There must be the possibility to register as much users as we want._
+1. _At first start the user must be able to enter data such as his name to enter in the application._
+2. _Those data must be stored locally in the application and can be re-used._
+3. _There is no need to register its name at each start._
+
+### HUP-2 : Getting notes (back)
+__requirements :__ 
+1. _I want to be able to read data from a json where notes are stored._
+2. _Once those notes are taken, they must be stored in objects._
+
+### HUP-3 : Writting notes (back)
+__requirements :__
+1. _I want to be able to edit those notes and change them permanently._
+
+### HUP-4 : Creating notes (back)
+__requirements :__
+1. _I want to be able to create as much notes as I want._
+2. _I must be able to edit those notes._
+3. _Initially the notes must be empty._
+
+### HUP-5 : Deleting notes (back)
+__requirements :__
+1. _I want to be able to delete notes._
+2. _Those notes must be deleted permanently._
+
+### HUP-6 : Welcome screen (front)
+__requirements :__
