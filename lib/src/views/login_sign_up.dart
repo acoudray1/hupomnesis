@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/resources/storing_manager.dart';
+import 'package:hupomnesis/src/views/root.dart';
 import 'package:hupomnesis/theme/text_style.dart';
 
 class LoginSignUpPage extends StatelessWidget {
@@ -11,7 +12,7 @@ class LoginSignUpPage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            return snapshot.data ? Navigator.pushNamed(context, '/home') : loginScreen(context);
+            return snapshot.data ? Root() : loginScreen(context);
             break;
           default: 
             return const CircularProgressIndicator();
