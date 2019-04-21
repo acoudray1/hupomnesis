@@ -19,10 +19,28 @@ class StoringManager {
   }
 
   // add data from shared prefereces to User object
-  Future<void> initializeUser() async {
+  // @return true if the user exists
+  //         false if user hasn't been already initialized
+  Future<bool> initializeUser() async {
     prefs = await SharedPreferences.getInstance();
 
-    user.name = prefs.getString('user_name') ?? 'default';
+    final String name = prefs.getString('user_name') ?? 'default';
+    bool ret;
+
+    if(name == 'default') {
+      ret = false;
+    } else {
+      ret = true;
+      user.name = name;
+    }
+
+    return ret;
+  }
+
+  Future<void> deleteUser() async {
+    prefs = await SharedPreferences.getInstance();
+
+    
   }
 }
 
