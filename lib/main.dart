@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hupomnesis/src/views/login_sign_up.dart';
 import 'package:hupomnesis/src/views/root.dart';
 
 void main() {
@@ -30,6 +31,10 @@ class Hupomnesis extends StatelessWidget {
         accentColor: Colors.blueAccent,
         brightness: Brightness.light,
       ),
+      routes: <String, WidgetBuilder>{
+        '/login_page' : (BuildContext context) => LoginSignUpPage(),
+        '/home' : (BuildContext context) => Root(),
+      },
     );
   }
 }
