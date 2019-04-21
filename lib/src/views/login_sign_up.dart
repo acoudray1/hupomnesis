@@ -51,7 +51,7 @@ class LoginSignUpPage extends StatelessWidget {
                 ),
                 onSubmitted: (String value) {
                   data.saveUser(value);
-                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/home');
                 },
               ),
             ),
