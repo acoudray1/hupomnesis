@@ -35,7 +35,7 @@ class _RootState extends State<Root> {
             child: const Text('DELETE USER'),
             onPressed: () {
               data.deleteUser();
-              Navigator.pop(context);
+              Navigator.pushNamed(context, '/login_page');
             },
           ),)
         ],

@@ -47,7 +47,7 @@ class LoginSignUpPage extends StatelessWidget {
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.accessibility),
                   border: OutlineInputBorder(),
-                  labelText: 'User Name',
+                  labelText: 'Username',
                 ),
                 onSubmitted: (String value) {
                   data.saveUser(value);
