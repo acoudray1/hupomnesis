@@ -37,10 +37,12 @@ class StoringManager {
     return ret;
   }
 
+  // delete user's data (object and shared preferences)
   Future<void> deleteUser() async {
     prefs = await SharedPreferences.getInstance();
 
-    
+    prefs.setString('user_name', 'default');
+    user.name = null;
   }
 }
 
