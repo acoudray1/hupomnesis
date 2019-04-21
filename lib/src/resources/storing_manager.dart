@@ -1,3 +1,4 @@
+import 'package:hupomnesis/src/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///
@@ -10,17 +11,18 @@ class StoringManager {
 
   SharedPreferences prefs;
 
-
-  Future<void>saveUser(String name) async {
+  // Save user's data locally
+  Future<void> saveUser(String name) async {
     prefs = await SharedPreferences.getInstance();
 
     prefs.setString('user_name', name);
   }
 
-  Future<String> getUserName() async {
+  // add data from shared prefereces to User object
+  Future<void> initializeUser() async {
     prefs = await SharedPreferences.getInstance();
 
-    return prefs.getString('user_name') ?? 'default';
+    user.name = prefs.getString('user_name') ?? 'default';
   }
 }
 
