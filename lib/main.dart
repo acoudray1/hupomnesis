@@ -23,7 +23,7 @@ class Hupomnesis extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Hupomnesis',
-      home: Root(),
+      home: LoginSignUpPage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         canvasColor: Colors.white,

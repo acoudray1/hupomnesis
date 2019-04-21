@@ -9,24 +9,28 @@ class LoginSignUpPage extends StatelessWidget {
     return FutureBuilder<bool>(
       future: data.initializeUser(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        switch (snapshot.data) {
-          case false:
-            return Scaffold(
-              body: Column(
-                children: <Widget>[
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.7,),
-                  TextField(
-                    
-                  ),
-                ],
-              ),
-            );
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            return snapshot.data ? Navigator.pushNamed(context, '/home') : loginScreen(context);
             break;
-          case true:
-            Navigator.pushNamed(context, '/home');
+          default: 
+            return const CircularProgressIndicator();
             break;
         }
       },
+    );
+  }
+
+  Widget loginScreen(BuildContext context) {
+    print(user.name);
+    return Scaffold(
+      backgroundColor: Colors.red,
+      body: Column(
+        children: <Widget>[
+          SizedBox(height: MediaQuery.of(context).size.height * 0.7,),
+          Container()
+        ],
+      ),
     );
   }
 }
