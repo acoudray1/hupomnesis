@@ -1,6 +1,6 @@
 # hupomnesis
 
-A Flutter project made for Flutter Create
+Note application.
 
 ## Main objective of the application
 
