@@ -33,5 +33,11 @@ __requirements :__
 1. _I want to be able to delete notes._
 2. _Those notes must be deleted permanently._
 
-### HUP-6 : Welcome screen (front)
+### HUP-6 : Login Screen (front)
+__requirements :__
+1. _The user must be able to create its profile by entering :_
+    > _its name_
+2. _A beautiful and attractive login screen._
+
+### HUP-7 : Welcome screen (front)
 __requirements :__
