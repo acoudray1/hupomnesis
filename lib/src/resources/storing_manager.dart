@@ -46,4 +46,5 @@ class StoringManager {
   }
 }
 
+// We create a singleton for the app
 StoringManager data = StoringManager();
