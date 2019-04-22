@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/services.dart';
 import 'package:hupomnesis/config.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/resources/note_manager.dart';

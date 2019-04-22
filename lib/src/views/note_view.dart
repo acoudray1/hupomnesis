@@ -59,8 +59,19 @@ class NoteView extends StatelessWidget {
   /// List of Notes to display if there is no notes
   Widget emptyListOfNotes(BuildContext context) {
 
-    return Center(
-      child: const Text('There was no data in the file'),
+    return Column(
+      children: <Widget>[
+        SizedBox(height: MediaQuery.of(context).size.height * 0.45),
+        Center(child: const Text('There was no data in the file')),
+        FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            final Note testNote = Note(name: 'NOTE #1', text: 'Lorem Ipsum tatata');
+            notes.add(testNote);
+            noteBloc.bwriteNoteToJson(notes);
+          },
+        )
+      ],
     );
   }
 }
