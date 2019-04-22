@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:hupomnesis/config.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/resources/note_manager.dart';
@@ -30,9 +31,9 @@ class Repository {
   }
 
   Future<File> writeCounter(int counter) async {
-  final file = await _localFile;
+    final File file = await _localFile(properties['NOTES_FILE_NAME']);
 
-  // Write the file
-  return file.writeAsString('$counter');
-}
+    // Write the file
+    return file.writeAsString('$counter');
+  }
 }
