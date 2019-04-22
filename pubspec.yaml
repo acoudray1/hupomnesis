@@ -33,3 +33,5 @@ flutter:
         weight: 200
       - asset: assets/fonts/Roboto-Medium.ttf
         weight: 400
+  assets:
+    - assets/notes.json
