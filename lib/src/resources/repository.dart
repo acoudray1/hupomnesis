@@ -6,6 +6,8 @@ import 'package:hupomnesis/src/resources/note_manager.dart';
 /// 
 class Repository {
 
+  Repository();
+
   final NoteManager noteManager = NoteManager();
 
   // Method used to fetch notes from a json file
