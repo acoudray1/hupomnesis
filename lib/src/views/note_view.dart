@@ -44,7 +44,13 @@ class NoteView extends StatelessWidget {
       child: Card(
         child: Container(
           color: Colors.yellow,
-          child: Text(notes[index].name),
+          child: Column(
+            children: <Widget>[
+              Center(child: Text(notes[index].name)),
+              const SizedBox(height: 2.0,),
+              Center(child: Text(notes[index].text)),
+            ],
+          )
         ),
       ),
     );
