@@ -18,7 +18,7 @@ class NoteView extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
           if (snapshot.hasData) {
             notes = snapshot.data;
-            return listOfNotes(context);
+            return notes.isNotEmpty ? listOfNotes(context) : emptyListOfNotes(context);
           } else {
             return const CircularProgressIndicator();
           }
@@ -53,6 +53,14 @@ class NoteView extends StatelessWidget {
           )
         ),
       ),
+    );
+  }
+
+  /// List of Notes to display if there is no notes
+  Widget emptyListOfNotes(BuildContext context) {
+
+    return Center(
+      child: const Text('There was no data in the file'),
     );
   }
 }
