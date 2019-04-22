@@ -41,3 +41,8 @@ __requirements :__
 
 ### HUP-7 : Welcome screen (front)
 __requirements :__
+
+## Buffer (Other User Stories)
+### HUP-config : Configuration file
+__requirements :__
+1. _A configuration file exists where we could store paths to files and other important data_
