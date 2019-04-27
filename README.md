@@ -42,9 +42,27 @@ _As a user, I want to be able to manage notes through a light menu bar._
 
 __requirements :__
 1. _There are those functionnalities :_
-    > _Creating note (implemented)_
+    > _Creating note (unimplemented fully)_
     > _Settings (unimplemented for now)_
 2. _Needs to be light and beautiful_
+
+### HUP-6 : Managing cards through different status (back)
+_As a user, I want to be able to move cards in different status._
+
+__requirements :__
+1. _There is different status :_
+    > _archived_
+    > _pinned_
+    > _normal_
+
+### HUP-7 : Beautiful cards (front)
+_As a user, I want to see beautiful cards that I can move through different status._
+
+__requirements :__
+1. _Can choose actions while holding on the note :_
+    > _able to delete selection_
+    > _able to archive selection_
+    > _able to pin it_
 
 ## Buffer (Other User Stories)
 ### HUP-config : Configuration file
