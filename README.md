@@ -37,8 +37,14 @@ _As a user, I want to be able to delete notes that I created._
 __requirements :__
 1. _Those notes must be deleted permanently._
 
-### HUP-5 : Welcome screen (front)
+### HUP-5 : Light menu bar (front)
+_As a user, I want to be able to manage notes through a light menu bar._
+
 __requirements :__
+1. _There are those functionnalities :_
+    > _Creating note (implemented)_
+    > _Settings (unimplemented for now)_
+2. _Needs to be light and beautiful_
 
 ## Buffer (Other User Stories)
 ### HUP-config : Configuration file
