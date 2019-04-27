@@ -64,4 +64,11 @@ class Repository {
     // Write the file
     return file.writeAsString('$data');
   }
+
+  // Read data and return a String
+  Future<String> readData(String fileName) async {
+    final File file = await _localFile(fileName);
+
+    return file.readAsString();
+  }
 }
