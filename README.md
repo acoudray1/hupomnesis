@@ -37,14 +37,7 @@ _As a user, I want to be able to delete notes that I created._
 __requirements :__
 1. _Those notes must be deleted permanently._
 
-### HUP-5 : Login Screen (front)
-_As a user, I must be able to create my own profile by entering :_
-    > _my name_
-
-__requirements :__
-1. _A beautiful and attractive login screen._
-
-### HUP-6 : Welcome screen (front)
+### HUP-5 : Welcome screen (front)
 __requirements :__
 
 ## Buffer (Other User Stories)
@@ -54,5 +47,17 @@ _As a programmer, I want to have a configuration file where I could store paths 
 ### HUP-markdown : Take notes in markdown
 _As a user, I want to be able to write my notes in markdown, in order to have more formatting possibilities._
 
+### HUP-export_import : Export and import notes
+_As a user, I want to be able to export my current notes to a .json file or get them from a .json file._
+
 __requirements :__
-1. _Every type of markdown formatting is available._
+1. _I can export my notes in a .json file that the user can manage._
+1. _I can import new notes from a .json file._
+
+## US that could be done
+### HUP-XXX : Login Screen (front) 
+_As a user, I must be able to create my own profile by entering :_
+    > _my name_
+
+__requirements :__
+1. _A beautiful and attractive login screen._
