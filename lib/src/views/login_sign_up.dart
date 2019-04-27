@@ -26,7 +26,6 @@ class LoginSignUpPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
-        // TODO: Background color or image, we'll see
         /*decoration: BoxDecoration(
           color: Colors.redAccent,
           image: DecorationImage(

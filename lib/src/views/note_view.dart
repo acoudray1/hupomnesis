@@ -1,35 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hupomnesis/src/bloc/note_bloc.dart';
 import 'package:hupomnesis/src/model/note.dart';
 
 class NoteView extends StatelessWidget {
   final NoteBloc noteBloc = NoteBloc();
 
-  
-
   @override
   Widget build(BuildContext context) {
     noteBloc.bfetchNotesFromJson();
 
     return Scaffold(
-      body: StreamBuilder<List<Note>>(
-        stream: noteBloc.notesStream,
-        initialData: noteBloc.notes,
-        builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
-          if (snapshot.hasData) {
-            noteBloc.notes = snapshot.data;
-            return noteBloc.notes.isNotEmpty ? listOfNotes(context) : emptyListOfNotes(context);
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
+      body: Column(
+        children: <Widget>[ 
+          // Builds the header
+          buildHeader(context),
+          // Builds the list of notes
+          Expanded(
+            child: StreamBuilder<List<Note>>(
+              stream: noteBloc.notesStream,
+              initialData: noteBloc.notes,
+              builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
+                if (snapshot.hasData) {
+                  noteBloc.notes = snapshot.data;
+                  return noteBloc.notes.isNotEmpty ? listOfNotes(context) : emptyListOfNotes(context);
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
+            ),
+          ),
+          
+        ],
       ),
+    );
+  }
+
+  /// Header builder
+  Widget buildHeader(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Container(
+          color: Colors.blue,
+          height: 24.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                // TODO: Send to note creation page
+                noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                // TODO: Implement settigs configuration
+                print('settings');
+              },
+            )
+          ],
+        ),
+      ],
     );
   }
 
   /// List of Notes builder
   Widget listOfNotes(BuildContext context) {
-
     return Column(
       children: <Widget>[
         Expanded(
