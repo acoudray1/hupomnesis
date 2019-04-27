@@ -7,7 +7,7 @@ Note application.
 The main objective of this application is to help you remember what you want by sending random notifications about the note that you took.
 
 ## Work planning (User Stories)
-### HUP-1 : Creating a user (back)
+### HUP-1 : Creating a user (back)  [x]
 _As a user, I want to be able to create my own profile on the app._
 
 __requirements :__ 
@@ -15,14 +15,14 @@ __requirements :__
 2. _Those data must be stored locally in the application and can be re-used._
 3. _There is no need to register its name at each start._
 
-### HUP-2 : Getting notes (back)
+### HUP-2 : Getting notes (back)    [x]
 _As a user, I want to be able to read notes._
 
 __requirements :__ 
 1. _Possibility to read data from a json where notes are stored._
 2. _Once those notes are taken, they must be stored in objects._
 
-### HUP-3 : Editing and creating notes (back)
+### HUP-3 : Editing and creating notes (back)   [x]
 _As a user, I want to be able to create and edit notes from the application._
 
 __requirements :__
@@ -31,13 +31,13 @@ __requirements :__
 3. _Initially the notes must be empty._
 4. _Data are stored locally in a json file._
 
-### HUP-4 : Deleting notes (back)
+### HUP-4 : Deleting notes (back)   [x]
 _As a user, I want to be able to delete notes that I created._
 
 __requirements :__
 1. _Those notes must be deleted permanently._
 
-### HUP-5 : Light menu bar (front)
+### HUP-5 : Light menu bar (front)  [x]
 _As a user, I want to be able to manage notes through a light menu bar._
 
 __requirements :__
@@ -46,7 +46,7 @@ __requirements :__
     > _Settings (unimplemented for now)_
 2. _Needs to be light and beautiful_
 
-### HUP-6 : Managing cards through different status (back)
+### HUP-6 : Managing cards through different status (back)  []
 _As a user, I want to be able to move cards in different status._
 
 __requirements :__
@@ -55,7 +55,7 @@ __requirements :__
     > _pinned_
     > _normal_
 
-### HUP-7 : Beautiful cards (front)
+### HUP-7 : Beautiful cards (front) []
 _As a user, I want to see beautiful cards that I can move through different status._
 
 __requirements :__
@@ -65,13 +65,13 @@ __requirements :__
     > _able to pin it_
 
 ## Buffer (Other User Stories)
-### HUP-config : Configuration file
+### HUP-config : Configuration file [x]
 _As a programmer, I want to have a configuration file where I could store paths to files and other important data, in order to have all these informations stored in the same place._
 
-### HUP-markdown : Take notes in markdown
+### HUP-markdown : Take notes in markdown   []
 _As a user, I want to be able to write my notes in markdown, in order to have more formatting possibilities._
 
-### HUP-export_import : Export and import notes
+### HUP-export_import : Export and import notes []
 _As a user, I want to be able to export my current notes to a .json file or get them from a .json file._
 
 __requirements :__
@@ -79,7 +79,7 @@ __requirements :__
 1. _I can import new notes from a .json file._
 
 ## US that could be done
-### HUP-XXX : Login Screen (front) 
+### HUP-XXX : Login Screen (front) []
 _As a user, I must be able to create my own profile by entering :_
     > _my name_
 
