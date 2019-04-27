@@ -7,6 +7,8 @@ class NoteBloc {
   
   Repository repository = Repository();
 
+  List<Note> notes = <Note>[];
+
   final BehaviorSubject<List<Note>> _notesFetcher = BehaviorSubject<List<Note>>();
 
   Observable<List<Note>> get notesStream => _notesFetcher.stream;
@@ -15,16 +17,25 @@ class NoteBloc {
 
   // Fetch notes from json and then add them to the StreamBuilder sink
   Future<void> bfetchNotesFromJson() async {
-    final List<Note> notes = await repository.fetchAllNotes();
+    final List<Note> snapshot = await repository.fetchAllNotes();
 
-    notesSink.add(notes);
+    notesSink.add(snapshot);
   }
 
   // Writes note from a String in a file and fetch the notes to display after
-  Future<void> bwriteNoteToJson(List<Note> notes) async {
-    await repository.writeAllNotes(notes);
+  Future<void> bwriteNoteToJson(List<Note> data) async {
+    await repository.writeAllNotes(data);
 
     bfetchNotesFromJson();
+  }
+
+  // Create a note
+  void createNote(String name, String text) {
+    final Note noteToCreate = Note(name: name, text: text);
+
+    notes.add(noteToCreate);
+
+    bwriteNoteToJson(notes);
   }
 
   // dispose the different controllers used
