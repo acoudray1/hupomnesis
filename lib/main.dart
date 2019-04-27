@@ -12,7 +12,6 @@ void main() {
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
-  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]);
 }
 
 ///
@@ -24,7 +23,8 @@ class Hupomnesis extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Hupomnesis',
-      home: LoginSignUpPage(),
+      // home: Root()   // In order to implement user page
+      home: NoteView(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         canvasColor: Colors.white,
