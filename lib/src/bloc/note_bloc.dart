@@ -38,6 +38,13 @@ class NoteBloc {
     bwriteNoteToJson(notes);
   }
 
+  // Delete a note
+  void deleteNote(Note note) {
+    notes.remove(note);
+
+    bwriteNoteToJson(notes);
+  }
+
   // dispose the different controllers used
   void dispose() {
     _notesFetcher.close();
