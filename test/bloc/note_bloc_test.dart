@@ -1,9 +1,9 @@
+import 'package:test/test.dart';
 import 'package:hupomnesis/config.dart';
 import 'package:hupomnesis/src/bloc/note_bloc.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/resources/note_manager.dart';
 import 'package:hupomnesis/src/resources/repository.dart';
-import 'package:test/test.dart';
 
 void main() {
   test('NoteBloc.createNote() creates a note, add it to Note.class and write it in json', () async {
