@@ -18,7 +18,7 @@ class NoteView extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
           if (snapshot.hasData) {
             notes = snapshot.data;
-            return listOfNotes(context);
+            return notes.isNotEmpty ? listOfNotes(context) : emptyListOfNotes(context);
           } else {
             return const CircularProgressIndicator();
           }
@@ -30,9 +30,23 @@ class NoteView extends StatelessWidget {
   /// List of Notes builder
   Widget listOfNotes(BuildContext context) {
 
-    return ListView.builder(
-      itemBuilder: _buildCard,
-      itemCount: notes.length,
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: _buildCard,
+            itemCount: notes.length,
+          ),
+        ),
+        FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            final Note testNote = Note(name: 'NOTE #1', text: 'Lorem Ipsum tatata');
+            notes.add(testNote);
+            noteBloc.bwriteNoteToJson(notes);
+          },
+        ),
+      ]
     );
   }
 
@@ -53,6 +67,25 @@ class NoteView extends StatelessWidget {
           )
         ),
       ),
+    );
+  }
+
+  /// List of Notes to display if there is no notes
+  Widget emptyListOfNotes(BuildContext context) {
+
+    return Column(
+      children: <Widget>[
+        SizedBox(height: MediaQuery.of(context).size.height * 0.45),
+        Center(child: const Text('There was no data in the file')),
+        FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            final Note testNote = Note(name: 'NOTE #1', text: 'Lorem Ipsum tatata');
+            notes.add(testNote);
+            noteBloc.bwriteNoteToJson(notes);
+          },
+        )
+      ],
     );
   }
 }
