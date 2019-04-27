@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hupomnesis/src/model/user.dart';
 import 'package:hupomnesis/src/resources/storing_manager.dart';
 import 'package:hupomnesis/src/views/login_sign_up.dart';
+import 'package:hupomnesis/src/views/note_view.dart';
 class Root extends StatefulWidget {
   @override
   _RootState createState() => _RootState();
@@ -15,32 +15,13 @@ class _RootState extends State<Root> {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            return snapshot.data ? home(context) : LoginSignUpPage();
+            return snapshot.data ? NoteView() : LoginSignUpPage();
             break;
           default: 
             return const CircularProgressIndicator();
             break;
         }
       },
-    );
-  }
-
-  Widget home(BuildContext context) {
-     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.height * 0.3,),
-          Center(child: Text('Welcome ${user.name}')),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.3,),
-          Center(child: RaisedButton(
-            child: const Text('DELETE USER'),
-            onPressed: () {
-              data.deleteUser();
-              Navigator.pop(context);
-            },
-          ),)
-        ],
-      )
     );
   }
 }

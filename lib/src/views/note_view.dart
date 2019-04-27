@@ -38,19 +38,24 @@ class NoteView extends StatelessWidget {
             itemCount: noteBloc.notes.length,
           ),
         ),
-        FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
+              },
+            ),
+            FloatingActionButton(
+              child: const Icon(Icons.remove),
+              onPressed: () {
+                noteBloc.deleteNote(noteBloc.notes.last);
+              },
+            ),
+          ],
         ),
-        FloatingActionButton(
-          child: const Icon(Icons.remove),
-          onPressed: () {
-            noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
-          },
-        ),
-      ]
+      ],
     );
   }
 
@@ -68,7 +73,7 @@ class NoteView extends StatelessWidget {
               const SizedBox(height: 2.0,),
               Center(child: Text(noteBloc.notes[index].text)),
             ],
-          )
+          ),
         ),
       ),
     );
@@ -86,7 +91,7 @@ class NoteView extends StatelessWidget {
           onPressed: () {
             noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
           },
-        )
+        ),
       ],
     );
   }
