@@ -5,7 +5,7 @@ import 'package:hupomnesis/src/model/note.dart';
 class NoteView extends StatelessWidget {
   final NoteBloc noteBloc = NoteBloc();
 
-  List<Note> notes = <Note>[];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,11 @@ class NoteView extends StatelessWidget {
     return Scaffold(
       body: StreamBuilder<List<Note>>(
         stream: noteBloc.notesStream,
-        initialData: notes,
+        initialData: noteBloc.notes,
         builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
           if (snapshot.hasData) {
-            notes = snapshot.data;
-            return notes.isNotEmpty ? listOfNotes(context) : emptyListOfNotes(context);
+            noteBloc.notes = snapshot.data;
+            return noteBloc.notes.isNotEmpty ? listOfNotes(context) : emptyListOfNotes(context);
           } else {
             return const CircularProgressIndicator();
           }
@@ -35,15 +35,19 @@ class NoteView extends StatelessWidget {
         Expanded(
           child: ListView.builder(
             itemBuilder: _buildCard,
-            itemCount: notes.length,
+            itemCount: noteBloc.notes.length,
           ),
         ),
         FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
-            final Note testNote = Note(name: 'NOTE #1', text: 'Lorem Ipsum tatata');
-            notes.add(testNote);
-            noteBloc.bwriteNoteToJson(notes);
+            noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
+          },
+        ),
+        FloatingActionButton(
+          child: const Icon(Icons.remove),
+          onPressed: () {
+            noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
           },
         ),
       ]
@@ -60,9 +64,9 @@ class NoteView extends StatelessWidget {
           color: Colors.yellow,
           child: Column(
             children: <Widget>[
-              Center(child: Text(notes[index].name)),
+              Center(child: Text(noteBloc.notes[index].name)),
               const SizedBox(height: 2.0,),
-              Center(child: Text(notes[index].text)),
+              Center(child: Text(noteBloc.notes[index].text)),
             ],
           )
         ),
@@ -80,9 +84,7 @@ class NoteView extends StatelessWidget {
         FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
-            final Note testNote = Note(name: 'NOTE #1', text: 'Lorem Ipsum tatata');
-            notes.add(testNote);
-            noteBloc.bwriteNoteToJson(notes);
+            noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
           },
         )
       ],
