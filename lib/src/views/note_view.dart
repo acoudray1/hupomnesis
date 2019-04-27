@@ -30,9 +30,23 @@ class NoteView extends StatelessWidget {
   /// List of Notes builder
   Widget listOfNotes(BuildContext context) {
 
-    return ListView.builder(
-      itemBuilder: _buildCard,
-      itemCount: notes.length,
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: _buildCard,
+            itemCount: notes.length,
+          ),
+        ),
+        FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            final Note testNote = Note(name: 'NOTE #1', text: 'Lorem Ipsum tatata');
+            notes.add(testNote);
+            noteBloc.bwriteNoteToJson(notes);
+          },
+        ),
+      ]
     );
   }
 
