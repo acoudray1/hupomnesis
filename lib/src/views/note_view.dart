@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/bloc/note_bloc.dart';
-import 'package:hupomnesis/src/model/enum_status.dart';
 import 'package:hupomnesis/src/model/note.dart';
 
 class NoteView extends StatelessWidget {
@@ -113,14 +112,12 @@ class NoteView extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.portrait),
                     onPressed: () {
-                      // TODO: Send to note creation page
                       noteBloc.statusNormal(noteBloc.pinnedNotes[index]);
                     },
                   ),
                   IconButton(
                     icon: const Icon(Icons.restaurant),
                     onPressed: () {
-                      // TODO: Implement settigs configuration
                       noteBloc.statusArchived(noteBloc.pinnedNotes[index]);
                     },
                   )
@@ -154,14 +151,12 @@ class NoteView extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.pin_drop),
                     onPressed: () {
-                      // TODO: Send to note creation page
                       noteBloc.statusPinned(noteBloc.normalNotes[index]);
                     },
                   ),
                   IconButton(
                     icon: const Icon(Icons.restaurant),
                     onPressed: () {
-                      // TODO: Implement settigs configuration
                       noteBloc.statusArchived(noteBloc.normalNotes[index]);
                     },
                   )
@@ -195,14 +190,12 @@ class NoteView extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.portrait),
                     onPressed: () {
-                      // TODO: Send to note creation page
                       noteBloc.statusNormal(noteBloc.archivedNotes[index]);
                     },
                   ),
                   IconButton(
                     icon: const Icon(Icons.pin_drop),
                     onPressed: () {
-                      // TODO: Implement settigs configuration
                       noteBloc.statusPinned(noteBloc.archivedNotes[index]);
                     },
                   )
