@@ -18,4 +18,12 @@ class Note {
 
   String name;
   String text;
+  Status status = Status.NORMAL;
+}
+
+///
+/// Represents the different types of status allowed
+/// 
+enum Status {
+  NORMAL, ARCHIVED, PINNED,
 }

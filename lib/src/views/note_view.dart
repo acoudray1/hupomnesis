@@ -22,7 +22,6 @@ class NoteView extends StatelessWidget {
               initialData: noteBloc.notes,
               builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
                 if (snapshot.hasData) {
-                  noteBloc.notes = snapshot.data;
                   return noteBloc.notes.isNotEmpty ? listOfNotes(context) : emptyListOfNotes(context);
                 } else {
                   return const CircularProgressIndicator();
@@ -59,6 +58,7 @@ class NoteView extends StatelessWidget {
               onPressed: () {
                 // TODO: Implement settigs configuration
                 print('settings');
+                noteBloc.deleteNote(noteBloc.notes.last);
               },
             )
           ],

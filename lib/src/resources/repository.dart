@@ -53,7 +53,6 @@ class Repository {
       response = await file.readAsString();
     }
 
-    print(response);
     return response;
   }
 
