@@ -3,7 +3,9 @@
 /// 
 class User {
 
-  User({this.name});
+  User({
+    this.name,
+  });
 
   String name;
 }

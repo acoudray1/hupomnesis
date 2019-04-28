@@ -8,7 +8,7 @@ class EnumManager<T> {
   Map<T, String> reverseMap;
 
   Map<T, String> get reverse {
-      reverseMap ??= reverseMap = map.map((String k, T v) => MapEntry<T, String>(v, k));
+      reverseMap ??= map.map((String k, T v) => MapEntry<T, String>(v, k));
 
       return reverseMap;
   }

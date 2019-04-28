@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hupomnesis/src/bloc/note_bloc.dart';
 import 'package:hupomnesis/src/model/note.dart';
 
@@ -57,7 +56,6 @@ class NoteView extends StatelessWidget {
               icon: const Icon(Icons.settings),
               onPressed: () {
                 // TODO: Implement settigs configuration
-                print('settings');
                 noteBloc.deleteNote(noteBloc.notes.last);
               },
             )
@@ -95,7 +93,7 @@ class NoteView extends StatelessWidget {
               const SizedBox(height: 2.0,),
               Center(child: Text(noteBloc.notes[index].text)),
               const SizedBox(height: 2.0,),
-              Center(child: Text(noteBloc.notes[index].status.toString())),
+              Center(child: Text('${noteBloc.notes[index].status}')),
             ],
           ),
         ),
