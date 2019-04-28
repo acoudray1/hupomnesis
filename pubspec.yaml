@@ -38,5 +38,4 @@ flutter:
         weight: 400
 
   # To add assets to your application
-  assets:
-  - assets/notes.json
+# assets:

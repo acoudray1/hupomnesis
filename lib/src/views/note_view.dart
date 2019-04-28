@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hupomnesis/src/bloc/note_bloc.dart';
 import 'package:hupomnesis/src/model/note.dart';
 
 class NoteView extends StatelessWidget {
   final NoteBloc noteBloc = NoteBloc();
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,6 @@ class NoteView extends StatelessWidget {
               initialData: noteBloc.notes,
               builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
                 if (snapshot.hasData) {
-                  noteBloc.notes = snapshot.data;
                   return noteBloc.notes.isNotEmpty ? listOfNotes(context) : emptyListOfNotes(context);
                 } else {
                   return const CircularProgressIndicator();
@@ -58,7 +58,7 @@ class NoteView extends StatelessWidget {
               icon: const Icon(Icons.settings),
               onPressed: () {
                 // TODO: Implement settigs configuration
-                print('settings');
+                noteBloc.deleteNote(noteBloc.notes.last);
               },
             )
           ],
@@ -71,18 +71,33 @@ class NoteView extends StatelessWidget {
   Widget listOfNotes(BuildContext context) {
     return Column(
       children: <Widget>[
-        Expanded(
+        noteBloc.pinnedNotes.isEmpty ? Container() : Expanded(
           child: ListView.builder(
-            itemBuilder: _buildCard,
-            itemCount: noteBloc.notes.length,
+            itemBuilder: _buildPinnedCard,
+            itemCount: noteBloc.pinnedNotes.length,
+          ),
+        ),
+
+        noteBloc.normalNotes.isEmpty ? Container() : Expanded(
+          child: ListView.builder(
+            itemBuilder: _buildNormalCard,
+            itemCount: noteBloc.normalNotes.length,
+          ),
+        ),
+
+        noteBloc.archivedNotes.isEmpty ? Container() : Expanded(
+          child: ListView.builder(
+            itemBuilder: _buildArchivedCard,
+            itemCount: noteBloc.archivedNotes.length,
           ),
         ),
       ],
     );
   }
 
-  /// Note card builder
-  Widget _buildCard(BuildContext context, int index) {
+  // TODO: Refactor code for _buildCar method
+  /// Pinned note card builder
+  Widget _buildPinnedCard(BuildContext context, int index) {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -91,9 +106,106 @@ class NoteView extends StatelessWidget {
           color: Colors.yellow,
           child: Column(
             children: <Widget>[
-              Center(child: Text(noteBloc.notes[index].name)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.portrait),
+                    onPressed: () {
+                      noteBloc.statusNormal(noteBloc.pinnedNotes[index]);
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.restaurant),
+                    onPressed: () {
+                      noteBloc.statusArchived(noteBloc.pinnedNotes[index]);
+                    },
+                  )
+                ],
+              ),
+              Center(child: Text(noteBloc.pinnedNotes[index].name)),
               const SizedBox(height: 2.0,),
-              Center(child: Text(noteBloc.notes[index].text)),
+              Center(child: Text(noteBloc.pinnedNotes[index].text)),
+              const SizedBox(height: 2.0,),
+              Center(child: Text('${noteBloc.pinnedNotes[index].status}')),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Pinned note card builder
+  Widget _buildNormalCard(BuildContext context, int index) {
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: Card(
+        child: Container(
+          color: Colors.yellow,
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.pin_drop),
+                    onPressed: () {
+                      noteBloc.statusPinned(noteBloc.normalNotes[index]);
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.restaurant),
+                    onPressed: () {
+                      noteBloc.statusArchived(noteBloc.normalNotes[index]);
+                    },
+                  )
+                ],
+              ),
+              Center(child: Text(noteBloc.normalNotes[index].name)),
+              const SizedBox(height: 2.0,),
+              Center(child: Text(noteBloc.normalNotes[index].text)),
+              const SizedBox(height: 2.0,),
+              Center(child: Text('${noteBloc.normalNotes[index].status}')),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Pinned note card builder
+  Widget _buildArchivedCard(BuildContext context, int index) {
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: Card(
+        child: Container(
+          color: Colors.yellow,
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.portrait),
+                    onPressed: () {
+                      noteBloc.statusNormal(noteBloc.archivedNotes[index]);
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.pin_drop),
+                    onPressed: () {
+                      noteBloc.statusPinned(noteBloc.archivedNotes[index]);
+                    },
+                  )
+                ],
+              ),
+              Center(child: Text(noteBloc.archivedNotes[index].name)),
+              const SizedBox(height: 2.0,),
+              Center(child: Text(noteBloc.archivedNotes[index].text)),
+              const SizedBox(height: 2.0,),
+              Center(child: Text('${noteBloc.archivedNotes[index].status}')),
             ],
           ),
         ),

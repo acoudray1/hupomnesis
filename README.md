@@ -31,11 +31,18 @@ __requirements :__
 3. _Initially the notes must be empty._
 4. _Data are stored locally in a json file._
 
+__to test :__
+1. _Editing a note and verifying that the json file is well saved with the good data._
+2. _Creating a note and verifying if it is empty with a normal status._
+
 ### HUP-4 : Deleting notes (back) &#9745;
 _As a user, I want to be able to delete notes that I created._
 
 __requirements :__
 1. _Those notes must be deleted permanently._
+
+__to test :__
+1. _Deleting a note and verifying that the json file is well saved._
 
 ### HUP-5 : Light menu bar (front) &#9745;
 _As a user, I want to be able to manage notes through a light menu bar._
@@ -44,7 +51,7 @@ __requirements :__
 1. _There are those functionnalities :_
     > _Creating note (unimplemented fully)_
     > _Settings (unimplemented for now)_
-2. _Needs to be light and beautiful_
+2. _Needs to be light and beautiful._
 
 ### HUP-6 : Managing cards through different status (back) &#9744;
 _As a user, I want to be able to move cards in different status._
@@ -54,6 +61,9 @@ __requirements :__
     > _archived_
     > _pinned_
     > _normal_
+
+__to test :__
+1. _Methods that changes the status and verify that the file is well saved after._
 
 ### HUP-7 : Beautiful cards (front) &#9744;
 _As a user, I want to see beautiful cards that I can move through different status._
