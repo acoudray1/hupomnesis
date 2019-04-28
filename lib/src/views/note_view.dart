@@ -77,23 +77,6 @@ class NoteView extends StatelessWidget {
             itemCount: noteBloc.notes.length,
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            FloatingActionButton(
-              child: const Icon(Icons.add),
-              onPressed: () {
-                noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
-              },
-            ),
-            FloatingActionButton(
-              child: const Icon(Icons.remove),
-              onPressed: () {
-                noteBloc.deleteNote(noteBloc.notes.last);
-              },
-            ),
-          ],
-        ),
       ],
     );
   }
