@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:hupomnesis/src/model/enum_status.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -40,7 +41,7 @@ class NoteBloc {
           break;
       }
     }
-    
+
     notes = snapshot;
 
     notesSink.add(snapshot);
@@ -55,7 +56,7 @@ class NoteBloc {
 
   // Create a note
   void createNote(String name, String text) {
-    final Note noteToCreate = Note(name: name, text: text);
+    final Note noteToCreate = Note(name: name, text: text, status: Status.NORMAL);
 
     notes.add(noteToCreate);
 
@@ -65,6 +66,27 @@ class NoteBloc {
   // Delete a note
   void deleteNote(Note note) {
     notes.remove(note);
+
+    bwriteNoteToJson(notes);
+  }
+
+  // Change status to archived
+  void statusArchived(Note note) {
+    note.status = Status.ARCHIVED;
+
+    bwriteNoteToJson(notes);
+  }
+
+  // Change status to pinned
+  void statusPinned(Note note) {
+    note.status = Status.PINNED;
+
+    bwriteNoteToJson(notes);
+  }
+
+  // Change status to normal
+  void statusNormal(Note note) {
+    note.status = Status.NORMAL;
 
     bwriteNoteToJson(notes);
   }

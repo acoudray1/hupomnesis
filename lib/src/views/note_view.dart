@@ -94,6 +94,8 @@ class NoteView extends StatelessWidget {
               Center(child: Text(noteBloc.notes[index].name)),
               const SizedBox(height: 2.0,),
               Center(child: Text(noteBloc.notes[index].text)),
+              const SizedBox(height: 2.0,),
+              Center(child: Text(noteBloc.notes[index].status.toString())),
             ],
           ),
         ),
