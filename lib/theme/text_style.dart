@@ -5,31 +5,29 @@ class Style {
   static const TextStyle robotoBaseTextStyle = TextStyle(
     fontFamily: 'Roboto'
   );
-  static final TextStyle titleTextStyle = robotoBaseTextStyle.copyWith(
-    color: Colors.white,
-    fontSize: 22.0,
-    fontWeight: FontWeight.w600
-  );
   static final TextStyle headerTextStyle = robotoBaseTextStyle.copyWith(
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 40.0,
     fontWeight: FontWeight.bold
   );
-  // Poppins Style - Small & Common & Subtitle
-  static const TextStyle baseTextStyle = TextStyle(
-    fontFamily: 'Poppins'
+  static final TextStyle titleTextStyle = robotoBaseTextStyle.copyWith(
+    color: Colors.black,
+    fontSize: 22.0,
+    fontWeight: FontWeight.w600
   );
-  final TextStyle smallTextStyle = commonTextStyle.copyWith(
-    fontSize: 9.0,
-  );
-  static final TextStyle commonTextStyle =baseTextStyle.copyWith(
-      color: const Color(0xffb6b2df),
-    fontSize: 14.0,
-      fontWeight: FontWeight.w400
-  );
-  static final TextStyle subtitleTextStyle = baseTextStyle.copyWith(
-    color: Colors.white,
+  static final TextStyle subtitleTextStyle = robotoBaseTextStyle.copyWith(
+    color: Colors.black,
     fontSize: 16.0,
+    fontWeight: FontWeight.w400
+  );
+  static final TextStyle commonTextStyle = robotoBaseTextStyle.copyWith(
+    color: Colors.black,
+    fontSize: 14.0,
+    fontWeight: FontWeight.w400
+  );
+  static final TextStyle smallTextStyle = robotoBaseTextStyle.copyWith(
+    color: Colors.black,
+    fontSize: 12.0,
     fontWeight: FontWeight.w400
   );
 }

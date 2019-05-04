@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hupomnesis/src/views/login_sign_up.dart';
-import 'package:hupomnesis/src/views/note_page/note_view.dart';
+import 'package:hupomnesis/src/views/note_page/note_page.dart';
 import 'package:hupomnesis/src/views/root.dart';
 
 void main() {
@@ -24,7 +24,7 @@ class Hupomnesis extends StatelessWidget {
     return MaterialApp(
       title: 'Hupomnesis',
       // home: Root()   // In order to implement user page
-      home: NoteView(),
+      home: NotePage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         canvasColor: Colors.white,

@@ -24,12 +24,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-  - family: Poppins
-    fonts:
-      - asset: assets/fonts/Poppins-Regular.ttf
-        weight: 400
-      - asset: assets/fonts/Poppins-SemiBold.ttf
-        weight: 600
   - family: Roboto
     fonts:
       - asset: assets/fonts/Roboto-Light.ttf

@@ -4,6 +4,9 @@ import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
 
+///
+/// Business Logic class to manage notes
+/// 
 class NoteBloc {
   
   Repository repository = Repository();
