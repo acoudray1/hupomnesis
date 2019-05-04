@@ -53,7 +53,7 @@ __requirements :__
     > _Settings (unimplemented for now)_
 2. _Needs to be light and beautiful._
 
-### HUP-6 : Managing cards through different status (back) &#9744;
+### HUP-6 : Managing cards through different status (back) &#9745;
 _As a user, I want to be able to move cards in different status._
 
 __requirements :__
