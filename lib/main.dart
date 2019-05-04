@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hupomnesis/src/views/login_sign_up.dart';
-import 'package:hupomnesis/src/views/note_view.dart';
+import 'package:hupomnesis/src/views/note_page/note_view.dart';
 import 'package:hupomnesis/src/views/root.dart';
 
 void main() {

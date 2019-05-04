@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/resources/storing_manager.dart';
 import 'package:hupomnesis/src/views/login_sign_up.dart';
-import 'package:hupomnesis/src/views/note_view.dart';
+import 'package:hupomnesis/src/views/note_page/note_view.dart';
 
 class Root extends StatefulWidget {
   @override
