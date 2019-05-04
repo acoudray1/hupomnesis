@@ -22,8 +22,8 @@ class NoteBloc {
 
   StreamSink<List<Note>> get notesSink => _notesFetcher.sink;
 
-  // Fetch notes from json and then add them to the StreamBuilder sink
-  // Dispatch notes in three list of notes depending on their status
+  /// Fetch notes from json and then add them to the StreamBuilder sink
+  /// Dispatch notes in three list of notes depending on their status
   Future<void> bfetchNotesFromJson() async {
     final List<Note> snapshot = await repository.fetchAllNotes();
 
@@ -50,14 +50,14 @@ class NoteBloc {
     notesSink.add(snapshot);
   }
 
-  // Writes note from a String in a file and fetch the notes to display after
+  /// Writes note from a String in a file and fetch the notes to display after
   Future<void> bwriteNoteToJson(List<Note> data) async {
     await repository.writeAllNotes(data);
 
     bfetchNotesFromJson();
   }
 
-  // Create a note
+  /// Create a note
   void createNote(String name, String text) {
     final Note noteToCreate = Note(name: name, text: text, status: Status.NORMAL);
 
@@ -66,35 +66,35 @@ class NoteBloc {
     bwriteNoteToJson(notes);
   }
 
-  // Delete a note
+  /// Delete a note
   void deleteNote(Note note) {
     notes.remove(note);
 
     bwriteNoteToJson(notes);
   }
 
-  // Change status to archived
+  /// Change status to archived
   void statusArchived(Note note) {
     note.status = Status.ARCHIVED;
 
     bwriteNoteToJson(notes);
   }
 
-  // Change status to pinned
+  /// Change status to pinned
   void statusPinned(Note note) {
     note.status = Status.PINNED;
 
     bwriteNoteToJson(notes);
   }
 
-  // Change status to normal
+  /// Change status to normal
   void statusNormal(Note note) {
     note.status = Status.NORMAL;
 
     bwriteNoteToJson(notes);
   }
 
-  // dispose the different controllers used
+  /// dispose the different controllers used
   void dispose() {
     _notesFetcher.close();
   }

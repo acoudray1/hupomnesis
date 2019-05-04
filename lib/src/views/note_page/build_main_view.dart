@@ -11,10 +11,11 @@ import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 /// 
 /// Widget Tree : **NotePage** -> **BuildMainView**
 ///                                        -> **BuildHeader**
-///                                        -> noteBloc.notes.isEmpty() 
-///                                           ? **BuildEmptyListOfNotes**
-///                                                  -> 
-///                                           : **BuildListOfNotes**
+///                                        -> noteBloc.notes.isNotEmpty() 
+///                                           ? **BuildListOfNotes**
+///                                                  -> **BuildStickyHeaderGrid**
+///                                                          -> BuildCard()
+///                                           : **BuildEmptyListOfNotes**
 ///                                                  -> 
 ///                                        -> **BuildBottomNavBar**
 class BuildMainView extends StatelessWidget {
