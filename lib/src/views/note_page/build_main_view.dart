@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/note.dart';
-import 'package:hupomnesis/src/views/note_page/build_bottom_navigation_bar.dart';
 import 'package:hupomnesis/src/views/note_page/build_empty_list_of_notes.dart';
 import 'package:hupomnesis/src/views/note_page/build_header.dart';
 import 'package:hupomnesis/src/views/note_page/build_list_of_notes.dart';
@@ -46,7 +45,6 @@ class BuildMainView extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BuildBottomNavBar(),
     );
   }
 }

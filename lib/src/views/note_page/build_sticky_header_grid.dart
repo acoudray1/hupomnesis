@@ -31,7 +31,7 @@ class BuildStickyHeaderGrid extends StatelessWidget {
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text('$title', style: Style.subtitleTextStyle.copyWith(fontWeight: FontWeight.w500)),
+          child: Text(notes.isNotEmpty ? '$title' : '', style: Style.subtitleTextStyle.copyWith(fontWeight: FontWeight.w500)),
         ),
       ),
       sliver: SliverStaggeredGrid.countBuilder(

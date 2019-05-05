@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_bloc.dart';
-import 'package:hupomnesis/src/bloc/note_bloc/note_navigation_bloc.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_page_bloc.dart';
 
 ///
@@ -12,13 +11,11 @@ class NotePageRoot extends InheritedWidget {
   const NotePageRoot({
     Key key,
     this.noteBloc,
-    this.noteNavigationBloc,
     this.notePageBloc,
     Widget child,
   }) : super(key: key, child: child);
 
   final NoteBloc noteBloc;
-  final NoteNavigationBloc noteNavigationBloc;
   final NotePageBloc notePageBloc;
   
     @override
