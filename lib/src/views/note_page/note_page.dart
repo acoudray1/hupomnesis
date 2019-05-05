@@ -20,3 +20,4 @@ class NotePage extends StatelessWidget {
     );
   }
 }
+

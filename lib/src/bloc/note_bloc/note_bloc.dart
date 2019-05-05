@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 /// 
 class NoteBloc {
   
-  Repository repository = Repository();
+  final Repository repository = Repository();
 
   List<Note> notes = <Note>[];
   List<Note> normalNotes = <Note>[];
