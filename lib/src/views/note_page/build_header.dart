@@ -22,14 +22,14 @@ class BuildHeader extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
-                // TODO: Send to note creation page
+                // TODO(onPressed): Send to note creation page
                 notePageRoot.noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
               },
             ),
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                // TODO: Implement settigs configuration
+                // TODO(onPressed): Implement settigs configuration
                 notePageRoot.noteBloc.deleteNote(notePageRoot.noteBloc.notes.last);
               },
             )

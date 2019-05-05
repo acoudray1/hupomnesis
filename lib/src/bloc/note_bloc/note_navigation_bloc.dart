@@ -71,6 +71,12 @@ class NoteNavigationBloc {
     pageIndexSink.add(2);
     pageIndex = 2;
   }
+
+  /// dispose the different controllers used
+  void dispose() {
+    _notesToShow.close();
+    _pageIndex.close();
+  }
 }
 
 ///

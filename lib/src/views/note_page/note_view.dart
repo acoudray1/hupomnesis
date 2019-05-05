@@ -49,14 +49,14 @@ class NoteView extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
-                // TODO: Send to note creation page
+                // TODO(onPressed): Send to note creation page
                 noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
               },
             ),
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                // TODO: Implement settigs configuration
+                // TODO(onPressed): Implement settigs configuration
                 noteBloc.deleteNote(noteBloc.notes.last);
               },
             )
@@ -94,7 +94,6 @@ class NoteView extends StatelessWidget {
     );
   }
 
-  // TODO: Refactor code for _buildCar method
   /// Pinned note card builder
   Widget _buildPinnedCard(BuildContext context, int index) {
 
