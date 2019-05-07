@@ -9,33 +9,35 @@ class NoteSelection {
   Observable<bool> get isSelectingStream => _isSelecting.stream;
   StreamSink<bool> get isSelectingSink => _isSelecting.sink;
 
+  int numberOfNotesSelected = 0;
+
   ///
   /// handle the long press on a note 
   /// 
-  void handleSelection(Note note) {
+  void handleNoteSelection(Note note) {
     note.isSelected = true;
+    numberOfNotesSelected++;
     isSelectingSink.add(true);
   }
 
   ///
   /// handle the discard on a note 
   /// 
-  void handleDiscard(Note note) {
+  void handleNoteDiscard(Note note) {
     note.isSelected = false;
+    numberOfNotesSelected--;
     isSelectingSink.add(true);
   }
 
   ///
   /// handle the toggle of a note
   /// 
-  void handleToggle(Note note) {
+  void handleNoteToggle(Note note) {
     switch (note.isSelected) {
       case true:
-        isSelectingSink.add(false);
         note.isSelected = false;
         break;
       case false:
-        isSelectingSink.add(true);
         note.isSelected = true;
         break;
     }
