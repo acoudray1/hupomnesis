@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/views/note_page/build_empty_list_of_notes.dart';
@@ -23,7 +22,8 @@ class BuildMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotePageRoot notePageRoot = NotePageRoot.of(context);
-    
+    notePageRoot.noteBloc.bfetchNotesFromJson();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -45,11 +45,6 @@ class BuildMainView extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.red,
-        ),
       ),
     );
   }

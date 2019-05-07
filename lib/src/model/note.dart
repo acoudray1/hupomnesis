@@ -27,4 +27,5 @@ class Note {
   String name;
   String text;
   Status status;
+  bool isSelected = false;
 }
