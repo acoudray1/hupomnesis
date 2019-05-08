@@ -59,8 +59,8 @@ class Repository {
   // Write data in a created File
   Future<File> writeData(String data, String fileName) async {
     final File file = await _localFile(fileName);
-
-    return file.writeAsString('$data');
+    
+    return file.writeAsString('$data', mode: FileMode.writeOnly);
   }
 
   // Read data and return a String

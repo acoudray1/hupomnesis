@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
@@ -7,6 +9,7 @@ import 'package:hupomnesis/theme/style_texte.dart';
 /// Builds the header of the main view
 /// 
 class BuildHeader extends StatelessWidget {
+  final Random random = Random();
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +52,17 @@ class BuildHeader extends StatelessWidget {
                     IconButton(
                       icon:  const Icon(StyleIcons.pin),
                       onPressed: () =>
-                        notePageRoot.noteSelectionBloc.noteToPinned(notePageRoot.noteBloc.notes, notePageRoot.noteBloc),
+                        notePageRoot.noteBloc.noteToPinned(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                     ),
                     IconButton(
                       icon: const Icon(Icons.archive),
                       onPressed: () =>
-                        notePageRoot.noteSelectionBloc.noteToArchived(notePageRoot.noteBloc.notes, notePageRoot.noteBloc),
+                        notePageRoot.noteBloc.noteToArchived(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () =>
+                        notePageRoot.noteBloc.deleteNote(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                     ),
                   ],
                 ) : Row(
@@ -64,14 +72,14 @@ class BuildHeader extends StatelessWidget {
                       icon: const Icon(Icons.add),
                       onPressed: () {
                         // TODO(onPressed): Send to note creation page
-                        notePageRoot.noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
+                        notePageRoot.noteBloc.createNote('NOTE #TEST-${random.nextInt(10)}', 'Lorem ipsum tititi');
                       },
                     ),
                     IconButton(
                       icon: const Icon(Icons.settings),
                       onPressed: () {
                         // TODO(onPressed): Implement settigs configuration
-                        notePageRoot.noteBloc.deleteNote(notePageRoot.noteBloc.notes.last);
+                        notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
                       },
                     )
                   ],
