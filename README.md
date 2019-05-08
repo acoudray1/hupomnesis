@@ -53,7 +53,7 @@ __requirements :__
     > _Settings (unimplemented for now)_
 2. _Needs to be light and beautiful._
 
-### HUP-6 : Managing cards through different status (back) &#9744;
+### HUP-6 : Managing cards through different status (back) &#9745;
 _As a user, I want to be able to move cards in different status._
 
 __requirements :__
@@ -65,14 +65,42 @@ __requirements :__
 __to test :__
 1. _Methods that changes the status and verify that the file is well saved after._
 
-### HUP-7 : Beautiful cards (front) &#9744;
+### HUP-7 : Beautiful cards (front) &#9745;
 _As a user, I want to see beautiful cards that I can move through different status._
 
 __requirements :__
 1. _Can choose actions while holding on the note :_
-    > _able to delete selection_
-    > _able to archive selection_
-    > _able to pin it_
+    > _able to delete selection._
+    > _able to archive selection._
+    > _able to pin it._
+
+### HUP-8 : Header Improvement (front) &#9744;
+_As a user, I want to have a nice header with different functionnalities, that changes when I enter in selection mode._
+
+__requirements :__
+1. _When in normal mode I want to be able to :_
+    > _Create a new note (not implemented)._
+    > _Search a note by it's title._
+    > _Export and import data in or from a text file (not implemented)._
+2. _When in selection mode I want to be able to :_
+    > _Discard selection mode._
+    > _Add selected notes to archive, favorites or delete these._
+    > _Add a reminder parameter to selected notes (not implemented)._
+    > _Change a note's 'pastille' color._
+
+### HUP-9 : Note Edition in Markdown (front) &#9744;
+
+### HUP-10 : Note Reminder Implementation (back) &#9744;
+
+### HUP-11 : Export data in a json file (back) &#9744;
+
+### HUP-12 : Import data from a json file (back) &#9744;
+
+### HUP-13 : Application finalization &#9744;
+_As a user, I want to have a nice app icon and I want to be able to download the app on my smartphone directly from the PlayStore._
+
+__requirements :__
+1. _There must be a code coverage of atleast 50%._
 
 ## Buffer (Other User Stories)
 ### HUP-config : Configuration file &#9745;

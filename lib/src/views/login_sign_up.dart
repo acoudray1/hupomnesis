@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/resources/storing_manager.dart';
 import 'package:hupomnesis/src/views/root.dart';
-import 'package:hupomnesis/theme/text_style.dart';
+import 'package:hupomnesis/theme/style_texte.dart';
+
 
 class LoginSignUpPage extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/resources/storing_manager.dart';
 import 'package:hupomnesis/src/views/login_sign_up.dart';
-import 'package:hupomnesis/src/views/note_view.dart';
+import 'package:hupomnesis/src/views/note_page/note_page.dart';
 
 class Root extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _RootState extends State<Root> {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            return snapshot.data ? NoteView() : LoginSignUpPage();
+            return snapshot.data ? NotePage() : LoginSignUpPage();
             break;
           default: 
             return const CircularProgressIndicator();
