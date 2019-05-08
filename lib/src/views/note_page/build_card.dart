@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';
 import 'package:hupomnesis/src/model/note.dart';
-import 'package:hupomnesis/theme/text_style.dart';
+import 'package:hupomnesis/theme/style_texte.dart';
 
 ///
 /// Widget that builds a card

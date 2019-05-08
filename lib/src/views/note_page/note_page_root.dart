@@ -25,5 +25,4 @@ class NotePageRoot extends InheritedWidget {
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
   static NotePageRoot of(BuildContext context) => context.inheritFromWidgetOfExactType(NotePageRoot);
-  
 }

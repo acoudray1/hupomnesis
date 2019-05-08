@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:hupomnesis/src/bloc/note_bloc/note_bloc.dart';
+import 'package:hupomnesis/src/model/enum_status.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -33,6 +35,18 @@ class NoteSelectionBloc {
         _handleAllStates(note, Change.ADD);
         break;
     }
+  }
+
+  ///
+  /// handle complete discard
+  /// 
+  void handleCompleteDiscard(List<Note> notes) {
+    for (Note note in notes) {
+      if(note.isSelected)
+        note.isSelected = false;
+    }
+    numberOfNotesSelected = 0;
+    isSelectingSink.add(false);
   }
 
   ///
@@ -74,6 +88,55 @@ class NoteSelectionBloc {
     } else {
       throw Exception('There is an error : note\'s selected number shouldn\'t be lower than zero');
     }
+  }
+
+  ///
+  /// handle the note status to pinned
+  /// 
+  void noteToPinned(List<Note> notes, NoteBloc noteBloc) {
+    for (Note note in notes) {
+      if(note.isSelected) {
+        if(note.status != Status.PINNED) {
+          noteBloc.statusPinned(note);
+        } else if (note.status == Status.PINNED) {
+          noteBloc.statusNormal(note);
+        }
+      }
+    }
+    handleCompleteDiscard(notes);
+  }
+
+  ///
+  /// handle the note status to normal
+  /// 
+  void noteToNormal(List<Note> notes, NoteBloc noteBloc) {
+    for (Note note in notes) {
+      if(note.isSelected && note.status != Status.NORMAL)
+        noteBloc.statusNormal(note);
+    }
+    handleCompleteDiscard(notes);
+  }
+
+  ///
+  /// handle the note status to archived
+  /// 
+  void noteToArchived(List<Note> notes, NoteBloc noteBloc) {
+    for (Note note in notes) {
+      if(note.isSelected && note.status != Status.ARCHIVED)
+        noteBloc.statusArchived(note);
+    }
+    handleCompleteDiscard(notes);
+  }
+
+  ///
+  /// handle the note deleting
+  /// 
+  void noteDelete(List<Note> notes, NoteBloc noteBloc) {
+    for (Note note in notes) {
+      if(note.isSelected)
+        noteBloc.deleteNote(note);
+    }
+    handleCompleteDiscard(notes);
   }
 }
 
