@@ -16,17 +16,48 @@ class NoteSelection {
   /// 
   void handleNoteSelection(Note note) {
     note.isSelected = true;
-    numberOfNotesSelected++;
-    isSelectingSink.add(true);
+    _handleAllStates(note, Change.ADD);
   }
 
   ///
   /// handle the discard on a note 
   /// 
-  void handleNoteDiscard(Note note) {
-    note.isSelected = false;
-    numberOfNotesSelected--;
-    isSelectingSink.add(true);
+  void _handleAllStates(Note note, Change change) {
+    if(numberOfNotesSelected == 0) {
+      switch (change) {
+        case Change.ADD:
+          numberOfNotesSelected++;
+          isSelectingSink.add(true);
+          break;
+        case Change.MINUS:
+          throw Exception('There is an error : there already is zero note selected');
+          break;
+      }
+    } else if(numberOfNotesSelected == 1) {
+      switch (change) {
+        case Change.ADD:
+          numberOfNotesSelected++;
+          isSelectingSink.add(true);
+          break;
+        case Change.MINUS:
+          numberOfNotesSelected--;
+          isSelectingSink.add(false);
+          break;
+      }
+    } else if(numberOfNotesSelected > 1) {
+      switch (change) {
+        case Change.ADD:
+          numberOfNotesSelected++;
+          isSelectingSink.add(true);
+          break;
+        case Change.MINUS:
+          numberOfNotesSelected--;
+          isSelectingSink.add(true);
+          break;
+      }
+    } else {
+      throw Exception('There is an error : note\'s selected number shouldn\'t be lower than zero');
+    }
   }
 
   ///
@@ -36,10 +67,16 @@ class NoteSelection {
     switch (note.isSelected) {
       case true:
         note.isSelected = false;
+        _handleAllStates(note, Change.MINUS);
         break;
       case false:
         note.isSelected = true;
+        _handleAllStates(note, Change.ADD);
         break;
     }
   }
+}
+
+enum Change {
+  ADD, MINUS,
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hupomnesis/config.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_bloc.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_page_bloc.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';

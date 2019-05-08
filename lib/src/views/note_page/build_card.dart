@@ -36,7 +36,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                     splashColor: Colors.blue.withAlpha(70),
                     // TODO(interactions): Implement actions
                     onTap: () {},
-                    onLongPress: () => noteSelection.handleSelection(notes[index]),
+                    onLongPress: () => noteSelection.handleNoteSelection(notes[index]),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                       child: Column(
@@ -57,7 +57,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                 left: 10.0,
                 right: 10.0,
                 child: GestureDetector(
-                  onTap: () => noteSelection.handleToggle(notes[index]),
+                  onTap: () => noteSelection.handleNoteToggle(notes[index]),
                   child: ClipRect(
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
