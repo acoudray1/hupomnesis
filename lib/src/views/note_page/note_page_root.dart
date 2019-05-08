@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hupomnesis/config.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_bloc.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_page_bloc.dart';
-import 'package:hupomnesis/src/resources/repository.dart';
+import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';
 
 ///
 /// This class is the root of the note page
@@ -14,21 +14,17 @@ class NotePageRoot extends InheritedWidget {
     Key key,
     this.noteBloc,
     this.notePageBloc,
+    this.noteSelection,
     Widget child,
   }) : super(key: key, child: child);
 
   final NoteBloc noteBloc;
   final NotePageBloc notePageBloc;
+  final NoteSelection noteSelection;
   
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) => false;
-  
+  bool updateShouldNotify(InheritedWidget oldWidget) => true;
+
   static NotePageRoot of(BuildContext context) => context.inheritFromWidgetOfExactType(NotePageRoot);
   
-  Future<void> test() async {
-    final Repository repo = Repository();
-
-    final String ret = await repo.readData(properties['NOTES_FILE_NAME']);
-    print(ret);
-  }
 }
