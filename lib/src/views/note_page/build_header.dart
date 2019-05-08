@@ -47,16 +47,14 @@ class BuildHeader extends StatelessWidget {
                       style: Style.subtitleTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 18),),
                     const SizedBox(width: 100.0),
                     IconButton(
-                      icon: const Icon(StyleIcons.pin),
-                      onPressed: () {
-                        notePageRoot.noteSelectionBloc.noteToPinned(notePageRoot.noteBloc.notes, notePageRoot.noteBloc);
-                      },
+                      icon:  const Icon(StyleIcons.pin),
+                      onPressed: () =>
+                        notePageRoot.noteSelectionBloc.noteToPinned(notePageRoot.noteBloc.notes, notePageRoot.noteBloc),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        notePageRoot.noteSelectionBloc.handleCompleteDiscard(notePageRoot.noteBloc.notes);
-                      },
+                      icon: const Icon(Icons.archive),
+                      onPressed: () =>
+                        notePageRoot.noteSelectionBloc.noteToArchived(notePageRoot.noteBloc.notes, notePageRoot.noteBloc),
                     ),
                   ],
                 ) : Row(

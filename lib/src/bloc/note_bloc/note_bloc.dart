@@ -72,22 +72,43 @@ class NoteBloc {
   }
 
   /// Change status to archived
-  void statusArchived(Note note) {
-    note.status = Status.ARCHIVED;
-
+  void statusArchived({Note note, List<Note> listOfNotes}) {
+    assert (note != null && listOfNotes == null || note == null && listOfNotes != null);
+    if(note != null) {
+      note.status = Status.ARCHIVED;
+    } else if(listOfNotes != null) {
+      for(note in listOfNotes) {
+        note.status = Status.ARCHIVED;
+      }
+    }
+    
     bwriteNoteToJson(notes);
   }
 
   /// Change status to pinned
-  void statusPinned(Note note) {
-    note.status = Status.PINNED;
+  void statusPinned({Note note, List<Note> listOfNotes}) {
+    assert (note != null && listOfNotes == null || note == null && listOfNotes != null);
+    if(note != null) {
+      note.status = Status.PINNED;
+    } else if(listOfNotes != null) {
+      for(note in listOfNotes) {
+        note.status = Status.PINNED;
+      }
+    }
 
     bwriteNoteToJson(notes);
   }
 
   /// Change status to normal
-  void statusNormal(Note note) {
-    note.status = Status.NORMAL;
+  void statusNormal({Note note, List<Note> listOfNotes}) {
+    assert (note != null && listOfNotes == null || note == null && listOfNotes != null);
+    if(note != null) {
+      note.status = Status.NORMAL;
+    } else if(listOfNotes != null) {
+      for(note in listOfNotes) {
+        note.status = Status.NORMAL;
+      }
+    }
 
     bwriteNoteToJson(notes);
   }

@@ -94,26 +94,21 @@ class NoteSelectionBloc {
   /// handle the note status to pinned
   /// 
   void noteToPinned(List<Note> notes, NoteBloc noteBloc) {
+    final List<Note> notesToPin = <Note>[];
+    final List<Note> notesToNormal = <Note>[];
+
     for (Note note in notes) {
       if(note.isSelected) {
         if(note.status != Status.PINNED) {
-          noteBloc.statusPinned(note);
+          notesToPin.add(note);
         } else if (note.status == Status.PINNED) {
-          noteBloc.statusNormal(note);
+          notesToNormal.add(note);
         }
       }
     }
-    handleCompleteDiscard(notes);
-  }
 
-  ///
-  /// handle the note status to normal
-  /// 
-  void noteToNormal(List<Note> notes, NoteBloc noteBloc) {
-    for (Note note in notes) {
-      if(note.isSelected && note.status != Status.NORMAL)
-        noteBloc.statusNormal(note);
-    }
+    noteBloc.statusPinned(listOfNotes: notesToPin);
+    noteBloc.statusNormal(listOfNotes: notesToNormal);
     handleCompleteDiscard(notes);
   }
 
@@ -121,10 +116,21 @@ class NoteSelectionBloc {
   /// handle the note status to archived
   /// 
   void noteToArchived(List<Note> notes, NoteBloc noteBloc) {
+    final List<Note> notesToArchive = <Note>[];
+    final List<Note> notesToNormal = <Note>[];
+
     for (Note note in notes) {
-      if(note.isSelected && note.status != Status.ARCHIVED)
-        noteBloc.statusArchived(note);
+      if(note.isSelected) {
+        if(note.status != Status.ARCHIVED) {
+          notesToArchive.add(note);
+        } else if (note.status == Status.ARCHIVED) {
+          notesToNormal.add(note);
+        }
+      }
     }
+    
+    noteBloc.statusArchived(listOfNotes: notesToArchive);
+    noteBloc.statusNormal(listOfNotes: notesToNormal);
     handleCompleteDiscard(notes);
   }
 
