@@ -11,14 +11,14 @@ import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 class NotePage extends StatelessWidget {
   final NoteBloc noteBloc = NoteBloc();
   final NotePageBloc notePageBloc = NotePageBloc();
-  final NoteSelection noteSelection = NoteSelection();
+  final NoteSelectionBloc noteSelectionBloc = NoteSelectionBloc();
 
   @override
   Widget build(BuildContext context) {
     return NotePageRoot(
       noteBloc: noteBloc,
       notePageBloc: notePageBloc,
-      noteSelection: noteSelection,
+      noteSelectionBloc: noteSelectionBloc,
       child: BuildMainView(),
     );
   }

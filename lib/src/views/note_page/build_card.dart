@@ -8,7 +8,7 @@ import 'package:hupomnesis/theme/text_style.dart';
 ///
 /// Widget that builds a card
 /// 
-Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelection noteSelection) {
+Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectionBloc noteSelection) {
   Color _color = Colors.grey;
 
   return StreamBuilder<bool>(

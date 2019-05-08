@@ -13,13 +13,13 @@ class NotePageRoot extends InheritedWidget {
     Key key,
     this.noteBloc,
     this.notePageBloc,
-    this.noteSelection,
+    this.noteSelectionBloc,
     Widget child,
   }) : super(key: key, child: child);
 
   final NoteBloc noteBloc;
   final NotePageBloc notePageBloc;
-  final NoteSelection noteSelection;
+  final NoteSelectionBloc noteSelectionBloc;
   
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;

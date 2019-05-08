@@ -10,7 +10,7 @@ class NotePageBloc {
   List<StaggeredTile> generateRandomTiles(int count) {
     final Random rnd = Random();
     return List<StaggeredTile>.generate(count,
-      (int i) => StaggeredTile.count(2, rnd.nextInt(3).isEven ? 2 : 1));
+      (int i) => StaggeredTile.count(2, rnd.nextInt(3).isEven ? 2.5 : 1.5));
   }
 
   ///

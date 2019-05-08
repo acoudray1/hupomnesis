@@ -35,7 +35,7 @@ class BuildStickyHeaderGrid extends StatelessWidget {
         ),
       ),
       sliver: SliverStaggeredGrid.countBuilder(
-        itemBuilder: (BuildContext context, int index) => buildCard(context, index, notes, notePageRoot.noteSelection),
+        itemBuilder: (BuildContext context, int index) => buildCard(context, index, notes, notePageRoot.noteSelectionBloc),
         itemCount: notes.length,
         crossAxisCount: 4,
         mainAxisSpacing: 2.0,

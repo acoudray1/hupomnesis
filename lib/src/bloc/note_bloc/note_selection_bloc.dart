@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:rxdart/rxdart.dart';
 
-class NoteSelection {
+class NoteSelectionBloc {
 
   final BehaviorSubject<bool> _isSelecting = BehaviorSubject<bool>();
   Observable<bool> get isSelectingStream => _isSelecting.stream;
@@ -20,7 +20,23 @@ class NoteSelection {
   }
 
   ///
-  /// handle the discard on a note 
+  /// handle the toggle of a note
+  /// 
+  void handleNoteToggle(Note note) {
+    switch (note.isSelected) {
+      case true:
+        note.isSelected = false;
+        _handleAllStates(note, Change.MINUS);
+        break;
+      case false:
+        note.isSelected = true;
+        _handleAllStates(note, Change.ADD);
+        break;
+    }
+  }
+
+  ///
+  /// handle the stream controller instead of what we are doing
   /// 
   void _handleAllStates(Note note, Change change) {
     if(numberOfNotesSelected == 0) {
@@ -57,22 +73,6 @@ class NoteSelection {
       }
     } else {
       throw Exception('There is an error : note\'s selected number shouldn\'t be lower than zero');
-    }
-  }
-
-  ///
-  /// handle the toggle of a note
-  /// 
-  void handleNoteToggle(Note note) {
-    switch (note.isSelected) {
-      case true:
-        note.isSelected = false;
-        _handleAllStates(note, Change.MINUS);
-        break;
-      case false:
-        note.isSelected = true;
-        _handleAllStates(note, Change.ADD);
-        break;
     }
   }
 }
