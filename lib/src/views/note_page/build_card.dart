@@ -8,11 +8,11 @@ import 'package:hupomnesis/theme/text_style.dart';
 ///
 /// Widget that builds a card
 /// 
-Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectionBloc noteSelection) {
+Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectionBloc noteSelectionBloc) {
   Color _color = Colors.grey;
 
   return StreamBuilder<bool>(
-    stream: noteSelection.isSelectingStream,
+    stream: noteSelectionBloc.isSelectingStream,
     initialData: notes[index].isSelected,
     builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
       if (snapshot.hasData) {
@@ -27,16 +27,17 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                 left: 2.0,
                 right: 2.0,
                 child: Card(
+                  elevation: notes[index].isSelected ? 3 : 0,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(color: _color, width: 1.0),
-                    borderRadius: BorderRadius.circular(4.0)
+                    borderRadius: BorderRadius.circular(6.0)
                   ),
                   color: Colors.white,
                   child: InkWell(
                     splashColor: Colors.blue.withAlpha(70),
                     // TODO(interactions): Implement actions
-                    onTap: () {},
-                    onLongPress: () => noteSelection.handleNoteSelection(notes[index]),
+                    onTap: () => snapshot.data ? noteSelectionBloc.handleNoteToggle(notes[index]) : true,
+                    onLongPress: () => noteSelectionBloc.handleNoteSelection(notes[index]),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                       child: Column(
@@ -51,16 +52,16 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                   ),
                 ),
               ),
-              snapshot.data ? Positioned(
+              notes[index].isSelected ? Positioned(
                 top: 10.0,
                 bottom: 10.0,
                 left: 10.0,
                 right: 10.0,
                 child: GestureDetector(
-                  onTap: () => noteSelection.handleNoteToggle(notes[index]),
+                  onTap: () => noteSelectionBloc.handleNoteToggle(notes[index]),
                   child: ClipRect(
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                      filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
                       child: Container(
                         //padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                         decoration: BoxDecoration(
