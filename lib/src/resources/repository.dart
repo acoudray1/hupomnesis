@@ -13,35 +13,45 @@ class Repository {
 
   final NoteManager noteManager = NoteManager();
 
-  // Method used to fetch notes from a json file
+  ///
+  /// Method used to fetch notes from a json file
+  /// 
   Future<List<Note>> fetchAllNotes() async {
     final String str = await fetchFile('${properties['NOTES_FILE_NAME']}');
     
     return noteManager.noteFromJson(str);
   }
 
-  // Method used to write a list of notes in a file
+  ///
+  /// Method used to write a list of notes in a file
+  /// 
   Future<void> writeAllNotes(List<Note> notes) async {
     final String str = noteManager.noteToJson(notes);
 
     writeData(str, properties['NOTES_FILE_NAME']);
   }  
 
-  // Method that allows us to get the Document path where documents are stored
+  ///
+  /// Method that allows us to get the Document path where documents are stored
+  /// 
   Future<String> get _localPath async {
     final dynamic directory = await getApplicationDocumentsDirectory();
 
     return directory.path;
   }
 
-  // Create the reference to the file we want to create
+  ///
+  /// Create the reference to the file we want to create
+  /// 
   Future<File> _localFile(String fileName) async {
     final String path = await _localPath;
 
     return File('$path/$fileName');
   }
 
-  // Fetch data as a String from a file (if no data is here, create a new empty file)
+  ///
+  /// Fetch data as a String from a file (if no data is here, create a new empty file)
+  /// 
   Future<String> fetchFile(String fileName) async {
     final File file = await _localFile(fileName);
     String response;
@@ -56,14 +66,21 @@ class Repository {
     return response;
   }
 
-  // Write data in a created File
-  Future<File> writeData(String data, String fileName) async {
+  ///
+  /// Write data in a created File
+  /// 
+  Future<void> writeData(String data, String fileName) async {
     final File file = await _localFile(fileName);
     
-    return file.writeAsString('$data', mode: FileMode.writeOnly);
+    file.writeAsString('$data');
+
+    final String listData = await readData(fileName);
+    print('data after writing : $listData');
   }
 
-  // Read data and return a String
+  ///
+  /// Read data and return a String
+  /// 
   Future<String> readData(String fileName) async {
     final File file = await _localFile(fileName);
 

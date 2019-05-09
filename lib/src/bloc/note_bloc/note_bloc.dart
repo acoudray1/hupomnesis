@@ -57,9 +57,7 @@ class NoteBloc {
   /// Writes note from a String in a file and fetch the notes to display after
   /// 
   Future<void> bwriteNoteToJson(List<Note> data) async {
-    await repository.writeAllNotes(data);
-
-    bfetchNotesFromJson();
+    await repository.writeAllNotes(data).then((_) => bfetchNotesFromJson());
   }
 
   ///
