@@ -80,7 +80,7 @@ _As a user, I want to have a nice header with different functionnalities, that c
 __requirements :__
 1. _When in normal mode I want to be able to :_
     > * _Create a new note (not implemented)._
-    > * _Search a note by it's title._
+    > * _~~Search a note by it's title.~~ : (maybe later) can create some bugs and is not that usefull._
     > * _Export and import data in or from a text file (not implemented)._
 2. _When in selection mode I want to be able to :_
     > * _Discard selection mode._
