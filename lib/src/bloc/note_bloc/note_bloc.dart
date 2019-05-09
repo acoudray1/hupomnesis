@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';
+import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/model/enum_status.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/resources/repository.dart';
@@ -64,9 +66,32 @@ class NoteBloc {
   /// Create a note
   /// 
   void createNote(String name, String text) {
-    final Note noteToCreate = Note(name: name, text: text, status: Status.NORMAL);
+    final Note noteToCreate = Note(name: name, text: text, status: Status.NORMAL, colorSelected: ColorSelected.NORMAL);
 
     notes.add(noteToCreate);
+
+    bwriteNoteToJson(notes);
+  }
+
+  ///
+  /// Change the note color of selected notes
+  /// 
+  void changeColor({Note note, List<Note> listOfNotes, NoteSelectionBloc noteSelectionBloc, @required ColorSelected colorSelected}) {
+    assert ((note != null && listOfNotes == null) || (note == null && listOfNotes != null));
+
+    if(note != null) {
+      if(note.isSelected)
+        note.colorSelected == colorSelected ? note.colorSelected = ColorSelected.NORMAL : note.colorSelected = colorSelected;
+    } else if(listOfNotes != null) {
+      for(Note n in listOfNotes) {
+        if(n.isSelected) {
+          n.colorSelected == colorSelected ? n.colorSelected = ColorSelected.NORMAL : n.colorSelected = colorSelected;
+        }
+      }
+    }
+
+    if (noteSelectionBloc != null) 
+      noteSelectionBloc.handleCompleteDiscard(notes);
 
     bwriteNoteToJson(notes);
   }

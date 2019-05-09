@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
@@ -68,9 +69,70 @@ class BuildHeader extends StatelessWidget {
                       icon: const Icon(Icons.notifications),
                       onPressed: () => true,
                     ),
-                    IconButton(
+                    PopupMenuButton<ColorSelected>(
                       icon: const Icon(Icons.color_lens),
-                      onPressed: () => true,
+                      offset: const Offset(100,100),
+                      itemBuilder: (BuildContext context) => <PopupMenuEntry<ColorSelected>> [
+                        // TODO(later): /!\ REFACTOR THIS /!\
+                        PopupMenuItem<ColorSelected>(
+                          value: ColorSelected.BLUE,
+                          height: 35.0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 1.0),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                        const PopupMenuDivider(height: 12.0,),
+                        PopupMenuItem<ColorSelected>(
+                          value: ColorSelected.GREEN,
+                          height: 35.0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 1.0),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ),
+                        const PopupMenuDivider(height: 12.0,),
+                        PopupMenuItem<ColorSelected>(
+                          value: ColorSelected.YELLOW,
+                          height: 35.0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 1.0),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.yellow,
+                            ),
+                          ),
+                        ),
+                        const PopupMenuDivider(height: 12.0,),
+                        PopupMenuItem<ColorSelected>(
+                          value: ColorSelected.PURPLE,
+                          height: 35.0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 1.0),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.purple,
+                            ),
+                          ),
+                        ),
+                        const PopupMenuDivider(height: 12.0,),
+                        PopupMenuItem<ColorSelected>(
+                          value: ColorSelected.RED,
+                          height: 35.0,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ) : Row(
