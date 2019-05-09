@@ -49,8 +49,8 @@ _As a user, I want to be able to manage notes through a light menu bar._
 
 __requirements :__
 1. _There are those functionnalities :_
-    > _* Creating note (unimplemented fully)_
-    > _* Settings (unimplemented for now)_
+    > * _Creating note (unimplemented fully)_
+    > * _Settings (unimplemented for now)_
 2. _Needs to be light and beautiful._
 
 ### HUP-6 : Managing cards through different status (back) &#9745;
@@ -58,9 +58,9 @@ _As a user, I want to be able to move cards in different status._
 
 __requirements :__
 1. _There is different status :_
-    > _* archived_
-    > _* pinned_
-    > _* normal_
+    > * _archived_
+    > * _pinned_
+    > * _normal_
 
 __to test :__
 1. _Methods that changes the status and verify that the file is well saved after._
@@ -70,23 +70,23 @@ _As a user, I want to see beautiful cards that I can move through different stat
 
 __requirements :__
 1. _Can choose actions while holding on the note :_
-    > _able to delete selection._
-    > _able to archive selection._
-    > _able to pin it._
+    > * _able to delete selection._
+    > * _able to archive selection._
+    > * _able to pin it._
 
 ### HUP-8 : Header Improvement (front) &#9744;
 _As a user, I want to have a nice header with different functionnalities, that changes when I enter in selection mode._
 
 __requirements :__
 1. _When in normal mode I want to be able to :_
-    > _Create a new note (not implemented)._
-    > _Search a note by it's title._
-    > _Export and import data in or from a text file (not implemented)._
+    > * _Create a new note (not implemented)._
+    > * _Search a note by it's title._
+    > * _Export and import data in or from a text file (not implemented)._
 2. _When in selection mode I want to be able to :_
-    > _Discard selection mode._
-    > _Add selected notes to archive, favorites or delete these._
-    > _Add a reminder parameter to selected notes (not implemented)._
-    > _Change a note's 'pastille' color._
+    > * _Discard selection mode._
+    > * _Add selected notes to archive, favorites or delete these._
+    > * _Add a reminder parameter to selected notes (not implemented)._
+    > * _Change a note's 'pastille' color._
 
 ### HUP-9 : Note Edition in Markdown (front) &#9744;
 
@@ -119,7 +119,7 @@ __requirements :__
 ## US that could be done
 ### HUP-XXX : Login Screen (front) &#9744;
 _As a user, I must be able to create my own profile by entering :_
-    > _my name_
+    > * _my name_
 
 __requirements :__
 1. _A beautiful and attractive login screen._
