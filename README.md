@@ -49,8 +49,8 @@ _As a user, I want to be able to manage notes through a light menu bar._
 
 __requirements :__
 1. _There are those functionnalities :_
-    > _Creating note (unimplemented fully)_
-    > _Settings (unimplemented for now)_
+    > _* Creating note (unimplemented fully)_
+    > _* Settings (unimplemented for now)_
 2. _Needs to be light and beautiful._
 
 ### HUP-6 : Managing cards through different status (back) &#9745;
@@ -58,9 +58,9 @@ _As a user, I want to be able to move cards in different status._
 
 __requirements :__
 1. _There is different status :_
-    > _archived_
-    > _pinned_
-    > _normal_
+    > _* archived_
+    > _* pinned_
+    > _* normal_
 
 __to test :__
 1. _Methods that changes the status and verify that the file is well saved after._
