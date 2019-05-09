@@ -64,19 +64,28 @@ class BuildHeader extends StatelessWidget {
                       onPressed: () =>
                         notePageRoot.noteBloc.deleteNote(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                     ),
+                    IconButton(
+                      icon: const Icon(Icons.notifications),
+                      onPressed: () => true,
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.color_lens),
+                      onPressed: () => true,
+                    ),
                   ],
                 ) : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.add),
+                    MaterialButton(
+                      height: 72,
                       onPressed: () {
                         // TODO(onPressed): Send to note creation page
-                        notePageRoot.noteBloc.createNote('NOTE #TEST-${random.nextInt(10)}', 'Lorem ipsum tititi');
+                        notePageRoot.noteBloc.createNote('NOTE #TEST-${random.nextInt(99)}', 'Lorem ipsum tititi');
                       },
+                      child: Text('Create a new note...', style: Style.commonTextStyle.copyWith(color: Colors.grey),),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.settings),
+                      icon: const Icon(Icons.import_export),
                       onPressed: () {
                         // TODO(onPressed): Implement settigs configuration
                         notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
