@@ -73,9 +73,6 @@ class Repository {
     final File file = await _localFile(fileName);
     
     file.writeAsString('$data');
-
-    final String listData = await readData(fileName);
-    print('data after writing : $listData');
   }
 
   ///

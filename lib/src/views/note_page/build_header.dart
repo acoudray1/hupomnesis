@@ -72,64 +72,14 @@ class BuildHeader extends StatelessWidget {
                     PopupMenuButton<ColorSelected>(
                       icon: const Icon(Icons.color_lens),
                       offset: const Offset(100,100),
+                      padding: const EdgeInsets.all(0.0),
+                      tooltip: 'Choose a color for your notes!',
                       itemBuilder: (BuildContext context) => <PopupMenuEntry<ColorSelected>> [
-                        // TODO(later): /!\ REFACTOR THIS /!\
-                        PopupMenuItem<ColorSelected>(
+                        PopupMenuItem(
                           value: ColorSelected.BLUE,
-                          height: 35.0,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 1.0),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ),
-                        const PopupMenuDivider(height: 12.0,),
-                        PopupMenuItem<ColorSelected>(
-                          value: ColorSelected.GREEN,
-                          height: 35.0,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 1.0),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.green,
-                            ),
-                          ),
-                        ),
-                        const PopupMenuDivider(height: 12.0,),
-                        PopupMenuItem<ColorSelected>(
-                          value: ColorSelected.YELLOW,
-                          height: 35.0,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 1.0),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.yellow,
-                            ),
-                          ),
-                        ),
-                        const PopupMenuDivider(height: 12.0,),
-                        PopupMenuItem<ColorSelected>(
-                          value: ColorSelected.PURPLE,
-                          height: 35.0,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 1.0),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.purple,
-                            ),
-                          ),
-                        ),
-                        const PopupMenuDivider(height: 12.0,),
-                        PopupMenuItem<ColorSelected>(
-                          value: ColorSelected.RED,
-                          height: 35.0,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.red,
-                            ),
+                          child: ListTile(
+                            leading: ,
+                            title: Text('BLUE GRADIENT', style: Style.smallTextStyle.copyWith(color: Colors.grey),),
                           ),
                         ),
                       ],
