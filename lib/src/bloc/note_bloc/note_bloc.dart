@@ -78,8 +78,9 @@ class NoteBloc {
     assert ((note != null && listOfNotes == null) || (note == null && listOfNotes != null));
 
     if(note != null) {
-      if(note.isSelected)
+      if(note.isSelected) {
         note.colorSelected == colorSelected ? note.colorSelected = ColorSelected.NORMAL : note.colorSelected = colorSelected;
+      }
     } else if(listOfNotes != null) {
       for(Note n in listOfNotes) {
         if(n.isSelected) {

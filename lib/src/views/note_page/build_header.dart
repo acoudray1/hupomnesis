@@ -74,14 +74,14 @@ class BuildHeader extends StatelessWidget {
                       offset: const Offset(100,100),
                       padding: const EdgeInsets.all(0.0),
                       tooltip: 'Choose a color for your notes!',
+                      onSelected: (ColorSelected colorSelected) => 
+                        notePageRoot.noteBloc.changeColor(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc, colorSelected: colorSelected),
                       itemBuilder: (BuildContext context) => <PopupMenuEntry<ColorSelected>> [
-                        PopupMenuItem(
-                          value: ColorSelected.BLUE,
-                          child: ListTile(
-                            leading: ,
-                            title: Text('BLUE GRADIENT', style: Style.smallTextStyle.copyWith(color: Colors.grey),),
-                          ),
-                        ),
+                        buildPopupMenuItem(ColorSelected.YELLOW, 'YELLOW GRADIENT', Colors.yellow),
+                        buildPopupMenuItem(ColorSelected.BLUE, 'BLUE GRADIENT', Colors.blue),
+                        buildPopupMenuItem(ColorSelected.GREEN, 'GREEN GRADIENT', Colors.green),
+                        buildPopupMenuItem(ColorSelected.PURPLE, 'PURPLE GRADIENT', Colors.purple),
+                        buildPopupMenuItem(ColorSelected.RED, 'RED GRADIENT', Colors.red),
                       ],
                     ),
                   ],
@@ -113,6 +113,20 @@ class BuildHeader extends StatelessWidget {
           return Container();
         }
       }
+    );
+  }
+
+  ///
+  /// Function that builds PopupMenuItem for PopupMenuButton
+  /// 
+  PopupMenuItem<ColorSelected> buildPopupMenuItem(ColorSelected colorSelected, String textToDisplay, Color color) {
+
+    return PopupMenuItem<ColorSelected>(
+      value: colorSelected,
+      child: ListTile(
+        leading: Icon(Icons.fiber_manual_record, color: color,),
+        title: Text('$textToDisplay', style: Style.smallTextStyle.copyWith(color: Colors.black54),),
+      ),
     );
   }
 }

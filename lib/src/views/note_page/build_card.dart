@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';
+import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
 
@@ -9,14 +10,40 @@ import 'package:hupomnesis/theme/style_texte.dart';
 /// Widget that builds a card
 /// 
 Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectionBloc noteSelectionBloc) {
-  Color _color = Colors.grey;
+  Color _borderColor = Colors.grey;
+  Color _noteColor;
 
   return StreamBuilder<bool>(
     stream: noteSelectionBloc.isSelectingStream,
     initialData: notes[index].isSelected,
     builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
       if (snapshot.hasData) {
-        notes[index].isSelected ? _color = Colors.blue : _color = Colors.grey;
+        notes[index].isSelected ? _borderColor = Colors.blue : _borderColor = Colors.grey;
+
+        switch (notes[index].colorSelected) {
+          case ColorSelected.BLUE:
+            _noteColor = Colors.blue;
+            break;
+          case ColorSelected.PURPLE:
+            _noteColor = Colors.purple;
+            break;
+          case ColorSelected.GREEN:
+            _noteColor = Colors.green;
+            break;
+          case ColorSelected.YELLOW:
+            _noteColor = Colors.yellow;
+            break;
+          case ColorSelected.RED:
+            _noteColor = Colors.red;
+            break;
+          case ColorSelected.NORMAL:
+            _noteColor = Colors.white;
+            break;
+          default:
+            _noteColor = Colors.white;
+            break;
+        }
+
         return Padding(
           padding: const EdgeInsets.fromLTRB(1.0, 2.0, 0.0, 2.0),
           child: Stack(
@@ -29,7 +56,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                 child: Card(
                   elevation: notes[index].isSelected ? 3 : 0,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: _color, width: 1.0),
+                    side: BorderSide(color: _borderColor, width: 1.0),
                     borderRadius: BorderRadius.circular(6.0)
                   ),
                   color: Colors.white,
@@ -43,7 +70,13 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('${notes[index].name}', style: Style.subtitleTextStyle, textAlign: TextAlign.start,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text('${notes[index].name}', style: Style.subtitleTextStyle, textAlign: TextAlign.start,),
+                              Icon(Icons.fiber_manual_record, color: _noteColor,),
+                            ],
+                          ),
                           const SizedBox(height: 1.0,),
                           Text('${notes[index].text}', style: Style.commonTextStyle, textAlign: TextAlign.justify,)
                         ],
