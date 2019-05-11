@@ -82,6 +82,7 @@ __requirements :__
     > * _Create a new note (not implemented)._
     > * _~~Search a note by it's title.~~ : (maybe later) can create some bugs and is not that usefull._
     > * _Export and import data in or from a text file (not implemented)._
+    > * _A toggle dark mode button (not implemented)_
 2. _When in selection mode I want to be able to :_
     > * _Discard selection mode._
     > * _Add selected notes to archive, favorites or delete these._

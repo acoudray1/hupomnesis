@@ -37,10 +37,10 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
             _noteColor = Colors.red;
             break;
           case ColorSelected.NORMAL:
-            _noteColor = Colors.white;
+            _noteColor = Colors.transparent;
             break;
           default:
-            _noteColor = Colors.white;
+            _noteColor = Colors.transparent;
             break;
         }
 
@@ -74,7 +74,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text('${notes[index].name}', style: Style.subtitleTextStyle, textAlign: TextAlign.start,),
-                              Icon(Icons.fiber_manual_record, color: _noteColor,),
+                              Icon(Icons.brightness_1, color: _noteColor,),
                             ],
                           ),
                           const SizedBox(height: 1.0,),

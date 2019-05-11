@@ -77,16 +77,16 @@ class BuildHeader extends StatelessWidget {
                       onSelected: (ColorSelected colorSelected) => 
                         notePageRoot.noteBloc.changeColor(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc, colorSelected: colorSelected),
                       itemBuilder: (BuildContext context) => <PopupMenuEntry<ColorSelected>> [
-                        buildPopupMenuItem(ColorSelected.YELLOW, 'YELLOW GRADIENT', Colors.yellow),
-                        buildPopupMenuItem(ColorSelected.BLUE, 'BLUE GRADIENT', Colors.blue),
-                        buildPopupMenuItem(ColorSelected.GREEN, 'GREEN GRADIENT', Colors.green),
-                        buildPopupMenuItem(ColorSelected.PURPLE, 'PURPLE GRADIENT', Colors.purple),
-                        buildPopupMenuItem(ColorSelected.RED, 'RED GRADIENT', Colors.red),
+                        buildPopupMenuItem(ColorSelected.YELLOW, 'YELLOW', Colors.yellow),
+                        buildPopupMenuItem(ColorSelected.BLUE, 'BLUE', Colors.blue),
+                        buildPopupMenuItem(ColorSelected.GREEN, 'GREEN', Colors.green),
+                        buildPopupMenuItem(ColorSelected.PURPLE, 'PURPLE', Colors.purple),
+                        buildPopupMenuItem(ColorSelected.RED, 'RED', Colors.red),
                       ],
                     ),
                   ],
                 ) : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     MaterialButton(
                       height: 72,
@@ -96,10 +96,18 @@ class BuildHeader extends StatelessWidget {
                       },
                       child: Text('Create a new note...', style: Style.commonTextStyle.copyWith(color: Colors.grey),),
                     ),
+                    const SizedBox(width: 150.0),
+                    IconButton(
+                      icon: const Icon(Icons.brightness_2),
+                      onPressed: () {
+                        // TODO(onPressed): Implement dark mode
+                        notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
+                      },
+                    ),
                     IconButton(
                       icon: const Icon(Icons.import_export),
                       onPressed: () {
-                        // TODO(onPressed): Implement settigs configuration
+                        // TODO(onPressed): Implement import / export
                         notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
                       },
                     )
@@ -124,7 +132,7 @@ class BuildHeader extends StatelessWidget {
     return PopupMenuItem<ColorSelected>(
       value: colorSelected,
       child: ListTile(
-        leading: Icon(Icons.fiber_manual_record, color: color,),
+        leading: Icon(Icons.brightness_1, color: color,),
         title: Text('$textToDisplay', style: Style.smallTextStyle.copyWith(color: Colors.black54),),
       ),
     );
