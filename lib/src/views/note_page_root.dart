@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_bloc.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_page_bloc.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';
+import 'package:hupomnesis/src/bloc/note_edition_bloc/note_edition_page_bloc.dart';
 
 ///
 /// This class is the root of the note page
@@ -14,12 +15,14 @@ class NotePageRoot extends InheritedWidget {
     this.noteBloc,
     this.notePageBloc,
     this.noteSelectionBloc,
+    this.noteEditionPageBloc,
     Widget child,
   }) : super(key: key, child: child);
 
   final NoteBloc noteBloc;
   final NotePageBloc notePageBloc;
   final NoteSelectionBloc noteSelectionBloc;
+  final NoteEditionPageBloc noteEditionPageBloc;
   
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;

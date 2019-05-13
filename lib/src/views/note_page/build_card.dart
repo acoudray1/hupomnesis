@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/model/note.dart';
+import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
 
 ///
@@ -63,7 +64,9 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                   child: InkWell(
                     splashColor: Colors.blue.withAlpha(70),
                     // TODO(interactions): Implement actions
-                    onTap: () => snapshot.data ? noteSelectionBloc.handleNoteToggle(notes[index]) : true,
+                    onTap: () => snapshot.data 
+                      ? noteSelectionBloc.handleNoteToggle(notes[index]) 
+                      : Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(builder: (BuildContext context) => NoteEditionPage(index: index, notePageContext: context,))),
                     onLongPress: () => noteSelectionBloc.handleNoteSelection(notes[index]),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),

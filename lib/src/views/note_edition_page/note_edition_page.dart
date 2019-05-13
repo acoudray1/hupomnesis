@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:zefyr/zefyr.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:hupomnesis/src/model/enum_edition_status.dart';
+import 'package:hupomnesis/src/views/note_edition_page/build_writing_mode_bar.dart';
+import 'package:hupomnesis/src/views/note_page_root.dart';
 
-class NoteEditionPage extends StatefulWidget {
-  @override
-  NoteEditionPageState createState() => NoteEditionPageState();
-}
+import 'build_header.dart';
 
-class NoteEditionPageState extends State<NoteEditionPage> {
-  ZefyrController _controller;
-  FocusNode _focusNode;
+class NoteEditionPage extends StatelessWidget {
+  const NoteEditionPage({Key key, this.index, this.notePageContext}) : super(key: key);
 
-  @override
-  void initState() {
-    super.initState();
-    // Create an empty document or load existing if you have one.
-    // Here we create an empty document:
-    final NotusDocument document = NotusDocument();
-    _controller = ZefyrController(document);
-    _focusNode = FocusNode();
-  }
+  final int index;
+  final BuildContext notePageContext;
 
   @override
   Widget build(BuildContext context) {
-    return ZefyrScaffold(
-      child: ZefyrEditor(
-        controller: _controller,
-        focusNode: _focusNode,
+    final NotePageRoot notePageRoot = NotePageRoot.of(notePageContext);
+    
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          BuildHeader(),
+          StreamBuilder<EditionStatus>(
+            stream: notePageRoot.noteEditionBloc.editionStatusStream,
+            initialData: notePageRoot.noteEditionBloc.editionStatus,
+            builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
+              if (snapshot.hasData) {
+                return snapshot.data == EditionStatus.WRITING ? BuildWritingModeBar() : Container();
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ],
       ),
     );
   }
