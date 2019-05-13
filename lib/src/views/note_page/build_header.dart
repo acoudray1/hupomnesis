@@ -92,7 +92,8 @@ class BuildHeader extends StatelessWidget {
                       height: 72,
                       onPressed: () {
                         // TODO(onPressed): Send to note creation page
-                        notePageRoot.noteBloc.createNote('NOTE #TEST-${random.nextInt(99)}', 'Lorem ipsum tititi');
+                        // notePageRoot.noteBloc.createNote('NOTE #TEST-${random.nextInt(99)}', 'Lorem ipsum tititi');
+                        Navigator.pushNamed(context, '/note_edition');
                       },
                       child: Text('Create a new note...', style: Style.commonTextStyle.copyWith(color: Colors.grey),),
                     ),

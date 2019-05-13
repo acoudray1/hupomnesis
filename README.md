@@ -74,7 +74,7 @@ __requirements :__
     > * _able to archive selection._
     > * _able to pin it._
 
-### HUP-8 : Header Improvement (front) &#9744;
+### HUP-8 : Header Improvement (front) &#9745;
 _As a user, I want to have a nice header with different functionnalities, that changes when I enter in selection mode._
 
 __requirements :__
@@ -82,7 +82,7 @@ __requirements :__
     > * _Create a new note (not implemented)._
     > * _~~Search a note by it's title.~~ : (maybe later) can create some bugs and is not that usefull._
     > * _Export and import data in or from a text file (not implemented)._
-    > * _A toggle dark mode button (not implemented)_
+    > * _A toggle dark mode button (not implemented)._
 2. _When in selection mode I want to be able to :_
     > * _Discard selection mode._
     > * _Add selected notes to archive, favorites or delete these._
@@ -90,6 +90,12 @@ __requirements :__
     > * _Change a note's 'pastille' color._
 
 ### HUP-9 : Note Edition in Markdown (front) &#9744;
+_As a user, I want to be able to edit the created notes easily and with markdown or rich text editor._
+
+__requirements :__
+1. _I can edit the notes with rich text editor / markdown._
+2. _The notes are saved instantly when going back on the home page._
+3. _There is an easy to use user interface._
 
 ### HUP-10 : Note Reminder Implementation (back) &#9744;
 
