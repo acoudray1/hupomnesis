@@ -20,6 +20,12 @@ class BuildWritingModeBar extends StatelessWidget {
           IconButton(icon: Icon(Icons.repeat),),
           IconButton(icon: Icon(Icons.repeat),),
           IconButton(icon: Icon(Icons.repeat),),
+          IconButton(icon: Icon(Icons.repeat),),
+          IconButton(icon: Icon(Icons.repeat),),
+          IconButton(icon: Icon(Icons.repeat),),
+          IconButton(icon: Icon(Icons.repeat),),
+          IconButton(icon: Icon(Icons.repeat),),
+          IconButton(icon: Icon(Icons.repeat),),
         ],
       ),
     );

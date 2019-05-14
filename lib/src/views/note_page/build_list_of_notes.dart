@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hupomnesis/src/views/note_page/build_sticky_header_grid.dart';
-import 'package:hupomnesis/src/views/note_page_root.dart';
+import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 
 ///
 /// Builds the list of notes with a stream builder attached to NavigationBloc

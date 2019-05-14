@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hupomnesis/src/views/note_page_root.dart';
+import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 
 class BuildEmptyListOfNotes extends StatelessWidget {
 

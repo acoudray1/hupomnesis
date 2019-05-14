@@ -66,7 +66,10 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                     // TODO(interactions): Implement actions
                     onTap: () => snapshot.data 
                       ? noteSelectionBloc.handleNoteToggle(notes[index]) 
-                      : Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(builder: (BuildContext context) => NoteEditionPage(index: index, notePageContext: context,))),
+                      : Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
+                        builder: (BuildContext context) => NoteEditionPage(
+                          note: notes[index],
+                        ))),
                     onLongPress: () => noteSelectionBloc.handleNoteSelection(notes[index]),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),

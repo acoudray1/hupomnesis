@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/views/note_page/build_card.dart';
-import 'package:hupomnesis/src/views/note_page_root.dart';
+import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
 
 ///

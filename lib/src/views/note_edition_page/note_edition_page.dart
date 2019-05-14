@@ -1,38 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:hupomnesis/src/model/enum_edition_status.dart';
-import 'package:hupomnesis/src/views/note_edition_page/build_writing_mode_bar.dart';
-import 'package:hupomnesis/src/views/note_page_root.dart';
-
-import 'build_header.dart';
+import 'package:hupomnesis/src/bloc/note_edition_bloc/note_edition_page_bloc.dart';
+import 'package:hupomnesis/src/model/note.dart';
+import 'package:hupomnesis/src/views/note_edition_page/build_main_view.dart';
+import 'package:hupomnesis/src/views/note_edition_page/note_edition_page_root.dart';
 
 class NoteEditionPage extends StatelessWidget {
-  const NoteEditionPage({Key key, this.index, this.notePageContext}) : super(key: key);
+  
+  NoteEditionPage({
+    Key key,
+    this.note,
+  }) : super(key: key);
 
-  final int index;
-  final BuildContext notePageContext;
+  final Note note;
+  final NoteEditionPageBloc noteEditionPageBloc = NoteEditionPageBloc();
 
   @override
   Widget build(BuildContext context) {
-    final NotePageRoot notePageRoot = NotePageRoot.of(notePageContext);
-    
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          BuildHeader(),
-          StreamBuilder<EditionStatus>(
-            stream: notePageRoot.noteEditionBloc.editionStatusStream,
-            initialData: notePageRoot.noteEditionBloc.editionStatus,
-            builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
-              if (snapshot.hasData) {
-                return snapshot.data == EditionStatus.WRITING ? BuildWritingModeBar() : Container();
-              } else {
-                return Container();
-              }
-            },
-          ),
-        ],
-      ),
+    return NoteEditionPageRoot(
+      noteEditionPageBloc: noteEditionPageBloc,
+      note: note,
+      child: BuildMainView(),
     );
   }
 }
