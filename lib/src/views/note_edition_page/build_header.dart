@@ -10,13 +10,8 @@ class BuildHeader extends StatelessWidget {
           height: 24.0,
         ),
         Container(
-          height: 72,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: <BoxShadow>[
-              BoxShadow(offset: const Offset(0, 0.2), color: Colors.grey)
-            ]
-          ),
+          height: 50,
+          color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
