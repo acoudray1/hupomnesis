@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/enum_edition_status.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -13,6 +14,9 @@ class NoteEditionPageBloc {
   final BehaviorSubject<EditionStatus> _editionStatus = BehaviorSubject<EditionStatus>();
   Observable<EditionStatus> get editionStatusStream => _editionStatus.stream;
   StreamSink<EditionStatus> get editionStatusSink => _editionStatus.sink;
+
+  final TextEditingController textEditingController = TextEditingController();
+  FocusNode nodeController;
 
   ///
   /// Handle the change to Writing Mode or Rendering Mode
