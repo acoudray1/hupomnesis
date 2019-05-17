@@ -130,3 +130,7 @@ _As a user, I must be able to create my own profile by entering :_
 
 __requirements :__
 1. _A beautiful and attractive login screen._
+
+### HUP-XXX : Performance and optimization of the application (back - front) &#9744;
+_As a user, I want an app that is Green and that does not require a lot of processor and memory use :_
+    > * _Saving and writting data only when the app is closed._
