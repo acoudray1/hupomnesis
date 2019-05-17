@@ -47,7 +47,7 @@ class NoteBloc {
           break;
       }
     }
-
+    
     notes = snapshot;
 
     notesSink.add(snapshot);

@@ -103,7 +103,9 @@ __requirements :__
 
 ### HUP-12 : Import data from a json file (back) &#9744;
 
-### HUP-13 : Application finalization &#9744;
+### HUP-13 : Button to markdown help webview (front) &#9744;
+
+### HUP-14 : Application finalization &#9744;
 _As a user, I want to have a nice app icon and I want to be able to download the app on my smartphone directly from the PlayStore._
 
 __requirements :__

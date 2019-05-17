@@ -21,9 +21,9 @@ class BuildListOfNotes extends StatelessWidget {
 
     return CustomScrollView(
       slivers: <Widget>[
-        BuildStickyHeaderGrid(title: 'PINNED', notes: notePageRoot.noteBloc.pinnedNotes, tiles: pinnedTiles,),
-        BuildStickyHeaderGrid(title: 'NORMAL', notes: notePageRoot.noteBloc.normalNotes, tiles: normalTiles,),
-        BuildStickyHeaderGrid(title: 'ARCHIVED', notes: notePageRoot.noteBloc.archivedNotes, tiles: archivedTiles,),
+        notePageRoot.noteBloc.pinnedNotes.isEmpty ? SliverToBoxAdapter( child: Container()) : BuildStickyHeaderGrid(title: 'PINNED', notes: notePageRoot.noteBloc.pinnedNotes, tiles: pinnedTiles,),
+        notePageRoot.noteBloc.normalNotes.isEmpty ? SliverToBoxAdapter( child: Container()) : BuildStickyHeaderGrid(title: 'NORMAL', notes: notePageRoot.noteBloc.normalNotes, tiles: normalTiles,),
+        notePageRoot.noteBloc.archivedNotes.isEmpty ? SliverToBoxAdapter( child: Container()) : BuildStickyHeaderGrid(title: 'ARCHIVED', notes: notePageRoot.noteBloc.archivedNotes, tiles: archivedTiles,),
       ]
     );
   }
