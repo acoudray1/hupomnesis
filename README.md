@@ -98,6 +98,15 @@ __requirements :__
 3. _There is an easy to use user interface._
 
 ### HUP-10 : Note Reminder Implementation (back) &#9744;
+_As a user, I want to be able to get notifications for specified notes in order to remember and learn faster what I wrote on the note._
+
+__requirements :_
+1. _The notification information is displayed on the note card as a Material experience._
+2. _I can create notfications :_
+    > * _Hourly_
+    > * _Every 6 hours_
+    > * _Daily_
+    > * _Weekly_
 
 ### HUP-11 : Export data in a json file (back) &#9744;
 
