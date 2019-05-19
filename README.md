@@ -89,13 +89,14 @@ __requirements :__
     > * _Add a reminder parameter to selected notes (not implemented)._
     > * _Change a note's 'pastille' color._
 
-### HUP-9 : Note Edition in Markdown (front) &#9744;
+### HUP-9 : Note Edition in Markdown (front) &#9745;
 _As a user, I want to be able to edit the created notes easily and with markdown or rich text editor._
 
 __requirements :__
 1. _I can edit the notes with rich text editor / markdown._
 2. _The notes are saved instantly when going back on the home page._
 3. _There is an easy to use user interface._
+4. _A popup button with markdown specifications can be use (help button)._
 
 ### HUP-10 : Note Reminder Implementation (back) &#9744;
 _As a user, I want to be able to get notifications for specified notes in order to remember and learn faster what I wrote on the note._
