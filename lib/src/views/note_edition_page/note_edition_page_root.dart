@@ -12,17 +12,19 @@ class NoteEditionPageRoot extends InheritedWidget {
 
   NoteEditionPageRoot({
     Key key,
-    this.noteEditionPageBloc,
-    this.noteBloc,
+    @required this.noteEditionPageBloc,
+    @required this.noteBloc,
+    @required this.status,
+    @required this.index,
     this.note,
-    this.status,
     Widget child,
   }) : super(key: key, child: child);
 
   final NoteBloc noteBloc;
   final NoteEditionPageBloc noteEditionPageBloc;
-  final Note note;
   final Status status;
+  final int index;
+  final Note note;
   
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;

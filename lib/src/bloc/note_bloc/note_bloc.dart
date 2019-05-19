@@ -221,6 +221,28 @@ class NoteBloc {
   }
 
   ///
+  /// Update a note
+  ///
+  Future<bool> updateNote(String textForUpdate, int index, Status status) async {
+
+    switch (status) {
+      case Status.PINNED:
+        pinnedNotes[index].text = textForUpdate;
+        break;
+      case Status.NORMAL:
+        normalNotes[index].text = textForUpdate;
+        break;
+      case Status.ARCHIVED:
+        archivedNotes[index].text = textForUpdate;
+        break;
+    }
+    
+    bwriteNoteToJson(notes);
+    print('notes saved!');
+    return true;
+  }
+
+  ///
   /// dispose the different controllers used
   /// 
   void dispose() {

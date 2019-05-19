@@ -9,7 +9,7 @@ class BuildMainView extends StatefulWidget {
 
   const BuildMainView({
     Key key,
-    @required this.text
+    @required this.text,
   }) : super(key: key);
 
   final String text;
@@ -21,7 +21,6 @@ class BuildMainView extends StatefulWidget {
 class _BuildMainViewState extends State<BuildMainView> {
 
   TextEditingController _textEditingController;
-  NoteEditionPageRoot noteEditionPageRoot;
 
   ///
   /// init the textEditingController and allow us to not be initialized at the beginning of the text field each time we tap the text field
@@ -42,20 +41,20 @@ class _BuildMainViewState extends State<BuildMainView> {
 
   @override
   Widget build(BuildContext context) {
-    noteEditionPageRoot = NoteEditionPageRoot.of(context);
+    final NoteEditionPageRoot noteEditionPageRoot = NoteEditionPageRoot.of(context);
     
     return WillPopScope(
-      onWillPop: noteEditionPageRoot.noteEditionPageBloc.saveAndPop,
+      onWillPop: () => noteEditionPageRoot.noteBloc.updateNote(_textEditingController.text, noteEditionPageRoot.index, noteEditionPageRoot.status),
       child: Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
-            buildHeader(),
+            buildHeader(noteEditionPageRoot),
             StreamBuilder<EditionStatus>(
               stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
               initialData: noteEditionPageRoot.noteEditionPageBloc.editionStatus,
               builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
                 if (snapshot.hasData) {
-                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor() : Container();
+                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot) : Container();
                 } else {
                   return Container();
                 }
@@ -70,7 +69,7 @@ class _BuildMainViewState extends State<BuildMainView> {
   ///
   /// Build the Header
   /// 
-  SliverAppBar buildHeader() {
+  SliverAppBar buildHeader(NoteEditionPageRoot noteEditionPageRoot) {
     return SliverAppBar(
       leading: Container(),
       elevation: 1.0,
@@ -90,13 +89,20 @@ class _BuildMainViewState extends State<BuildMainView> {
               children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () {
+                    noteEditionPageRoot.noteBloc.updateNote(_textEditingController.text, noteEditionPageRoot.index, noteEditionPageRoot.status);
+                    Navigator.of(context).pop();
+                  },
                 ),
                 Row(
                   children: <Widget>[
                     IconButton(
                       icon: const Icon(Icons.remove_red_eye),
-                      onPressed: () => true,
+                      onPressed: () {
+                        if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING)
+                          noteEditionPageRoot.noteBloc.updateNote(_textEditingController.text, noteEditionPageRoot.index, noteEditionPageRoot.status);
+                        noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode();
+                      },
                     ),
                     IconButton(
                       icon: const Icon(Icons.help_outline),
@@ -115,7 +121,7 @@ class _BuildMainViewState extends State<BuildMainView> {
   ///
   /// Build Text Editor
   /// 
-  SliverFillRemaining buildTextEditor() {
+  SliverFillRemaining buildTextEditor(NoteEditionPageRoot noteEditionPageRoot) {
     return SliverFillRemaining(
       child: Padding(
         padding: const EdgeInsets.all(4.0),

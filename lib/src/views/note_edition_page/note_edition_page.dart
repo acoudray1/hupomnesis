@@ -38,8 +38,10 @@ class NoteEditionPage extends StatelessWidget {
 
     return NoteEditionPageRoot(
       noteEditionPageBloc: noteEditionPageBloc,
-      note: note,
+      index: index,
       status: status,
+      noteBloc: noteBloc,
+      note: note,
       child: BuildMainView(text: note.text,),
     );
   }
