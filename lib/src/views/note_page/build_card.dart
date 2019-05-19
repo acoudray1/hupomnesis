@@ -88,7 +88,6 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           notes[index].colorSelected != ColorSelected.NORMAL 
                           ? Row(
@@ -99,7 +98,6 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                             ],
                           ) : Container(),
                           MarkdownBody(data: notes[index].text,),
-                          //Text('${}', style: Style.commonTextStyle, textAlign: TextAlign.justify,),
                         ],
                       ),
                     ),

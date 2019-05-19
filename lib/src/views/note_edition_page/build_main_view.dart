@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hupomnesis/src/model/enum_edition_status.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page_root.dart';
+import 'package:hupomnesis/theme/style_texte.dart';
+import 'package:hupomnesis/utils/markdown_help_sample.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 ///
 /// Builds the Main View for the text edition page
@@ -107,7 +110,7 @@ class _BuildMainViewState extends State<BuildMainView> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.help_outline),
-                      onPressed: () => true,
+                      onPressed: () => buildHelpPopup(context),
                     ),
                   ],
                 ),
@@ -151,6 +154,36 @@ class _BuildMainViewState extends State<BuildMainView> {
       child: Markdown(
         data: _textEditingController.text,
       ),
+    );
+  }
+
+  ///
+  /// Builds the help popup
+  /// 
+  Future<void> buildHelpPopup(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+          ),
+          title: Center(child: Text('MARKDOWN GUIDE', style: Style.subtitleTextStyle.copyWith(fontWeight: FontWeight.w500),)),
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              height: MediaQuery.of(context).size.height*0.6,
+              width: MediaQuery.of(context).size.width*0.8,
+              child: ListView(
+                children: <Widget>[
+                  Html(data: markdownSampleHtml, useRichText: true,)
+                  //Text(markdownSample, style: Style.commonTextStyle, textAlign: TextAlign.justify,),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

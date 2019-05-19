@@ -22,12 +22,10 @@ class NoteEditionPageBloc {
       case EditionStatus.WRITING:
         editionStatus = EditionStatus.RENDERING;
         editionStatusSink.add(editionStatus);
-        print(editionStatus);
         break;
       case EditionStatus.RENDERING:
         editionStatus = EditionStatus.WRITING;
         editionStatusSink.add(editionStatus);
-        print(editionStatus);
         break;
     }
   }

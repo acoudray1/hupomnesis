@@ -225,21 +225,33 @@ class NoteBloc {
   ///
   Future<bool> updateNote(String textForUpdate, int index, Status status) async {
 
+    bool textHasChanged = false;
+
     switch (status) {
       case Status.PINNED:
-        pinnedNotes[index].text = textForUpdate;
+        if(pinnedNotes[index].text != textForUpdate) {
+          pinnedNotes[index].text = textForUpdate;
+          textHasChanged = true;
+        }
         break;
       case Status.NORMAL:
-        normalNotes[index].text = textForUpdate;
+        if(normalNotes[index].text != textForUpdate) {
+          normalNotes[index].text = textForUpdate;
+          textHasChanged = true;
+        }
         break;
       case Status.ARCHIVED:
-        archivedNotes[index].text = textForUpdate;
+        if(archivedNotes[index].text != textForUpdate) {
+          archivedNotes[index].text = textForUpdate;
+          textHasChanged = true;
+        }
         break;
     }
     
-    bwriteNoteToJson(notes);
-    print('notes saved!');
-    return true;
+    if(textHasChanged)
+      bwriteNoteToJson(notes);
+
+    return textHasChanged;
   }
 
   ///
