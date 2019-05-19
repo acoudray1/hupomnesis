@@ -14,11 +14,11 @@ class BuildListOfNotes extends StatelessWidget {
   Widget build(BuildContext context) {
     final NotePageRoot notePageRoot = NotePageRoot.of(context);
     final List<StaggeredTile> pinnedTiles 
-      = notePageRoot.notePageBloc.generateRandomTiles(notePageRoot.noteBloc.pinnedNotes.length).toList();
+      = notePageRoot.notePageBloc.generateTiles(notePageRoot.noteBloc.pinnedNotes.length, notePageRoot.noteBloc.pinnedNotes).toList();
     final List<StaggeredTile> normalTiles 
-      = notePageRoot.notePageBloc.generateRandomTiles(notePageRoot.noteBloc.normalNotes.length).toList();
+      = notePageRoot.notePageBloc.generateTiles(notePageRoot.noteBloc.normalNotes.length, notePageRoot.noteBloc.normalNotes).toList();
     final List<StaggeredTile> archivedTiles 
-      = notePageRoot.notePageBloc.generateRandomTiles(notePageRoot.noteBloc.archivedNotes.length).toList();
+      = notePageRoot.notePageBloc.generateTiles(notePageRoot.noteBloc.archivedNotes.length, notePageRoot.noteBloc.archivedNotes).toList();
 
     return CustomScrollView(
       slivers: <Widget>[
