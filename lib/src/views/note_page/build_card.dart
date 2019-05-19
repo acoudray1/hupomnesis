@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hupomnesis/src/bloc/note_bloc/note_bloc.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
+import 'package:hupomnesis/src/model/enum_status.dart';
 import 'package:hupomnesis/src/model/note.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
@@ -10,7 +12,7 @@ import 'package:hupomnesis/theme/style_texte.dart';
 ///
 /// Widget that builds a card
 /// 
-Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectionBloc noteSelectionBloc) {
+Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectionBloc noteSelectionBloc, Status status, NoteBloc noteBloc) {
   Color _borderColor = Colors.grey;
   Color _noteColor;
 
@@ -68,7 +70,9 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                       ? noteSelectionBloc.handleNoteToggle(notes[index]) 
                       : Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
                         builder: (BuildContext context) => NoteEditionPage(
-                          note: notes[index],
+                          status: status,
+                          index: index,
+                          noteBloc: noteBloc,
                         ))),
                     onLongPress: () => noteSelectionBloc.handleNoteSelection(notes[index]),
                     child: Padding(
