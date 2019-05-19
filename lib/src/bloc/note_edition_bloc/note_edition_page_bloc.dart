@@ -19,13 +19,15 @@ class NoteEditionPageBloc {
   /// 
   void toggleEditionMode() {
     switch (editionStatus) {
-      case EditionStatus.RENDERING:
+      case EditionStatus.WRITING:
         editionStatus = EditionStatus.RENDERING;
         editionStatusSink.add(editionStatus);
+        print(editionStatus);
         break;
-      case EditionStatus.WRITING:
+      case EditionStatus.RENDERING:
         editionStatus = EditionStatus.WRITING;
         editionStatusSink.add(editionStatus);
+        print(editionStatus);
         break;
     }
   }

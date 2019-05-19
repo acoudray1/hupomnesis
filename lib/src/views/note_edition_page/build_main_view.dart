@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hupomnesis/src/model/enum_edition_status.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page_root.dart';
 
@@ -54,7 +55,7 @@ class _BuildMainViewState extends State<BuildMainView> {
               initialData: noteEditionPageRoot.noteEditionPageBloc.editionStatus,
               builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
                 if (snapshot.hasData) {
-                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot) : Container();
+                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot) : buildMarkdownRendering();
                 } else {
                   return Container();
                 }
@@ -119,7 +120,7 @@ class _BuildMainViewState extends State<BuildMainView> {
   }
 
   ///
-  /// Build Text Editor
+  /// Builds Text Editor
   /// 
   SliverFillRemaining buildTextEditor(NoteEditionPageRoot noteEditionPageRoot) {
     return SliverFillRemaining(
@@ -138,6 +139,17 @@ class _BuildMainViewState extends State<BuildMainView> {
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.newline,
         ),
+      ),
+    );
+  }
+
+  ///
+  /// Builds the markdown rendering
+  /// 
+  SliverFillRemaining buildMarkdownRendering() {
+    return SliverFillRemaining(
+      child: Markdown(
+        data: _textEditingController.text,
       ),
     );
   }
