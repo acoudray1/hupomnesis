@@ -92,9 +92,17 @@ class _BuildMainViewState extends State<BuildMainView> {
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.remove_red_eye),
-                  onPressed: () => true,
+                Row(
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.remove_red_eye),
+                      onPressed: () => true,
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.help_outline),
+                      onPressed: () => true,
+                    ),
+                  ],
                 ),
               ],
             ),
