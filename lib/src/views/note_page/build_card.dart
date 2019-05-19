@@ -87,7 +87,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                     onLongPress: () => noteSelectionBloc.handleNoteSelection(notes[index]),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                      child: Column(
+                      child: Wrap(
                         children: <Widget>[
                           notes[index].colorSelected != ColorSelected.NORMAL 
                           ? Row(
@@ -97,6 +97,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                               Icon(Icons.brightness_1, color: _noteColor,),
                             ],
                           ) : Container(),
+                          const SizedBox(height: 2.0,),
                           MarkdownBody(data: notes[index].text,),
                         ],
                       ),
