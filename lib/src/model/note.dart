@@ -6,7 +6,7 @@ import 'package:hupomnesis/src/model/enum_status.dart';
 /// 
 class Note {
   Note({
-    this.name,
+    this.id,
     this.text,
     this.status,
     this.colorSelected,
@@ -14,7 +14,7 @@ class Note {
 
   // Factory used to create notes from json file
   factory Note.fromJson(Map<String, dynamic> json) => Note(
-      name: json['name'],
+      id: json['id'],
       text: json['text'],
       status: statusValues.map[json['status']],
       colorSelected: colorSelectedValues.map[json['colorSelected']],
@@ -22,13 +22,13 @@ class Note {
 
   // Method used to map string and data in order to write in a json file
   Map<String, dynamic> toJson() => <String, dynamic>{
-      'name': name,
+      'id': id,
       'text': text,
       'status': statusValues.reverse[status],
       'colorSelected': colorSelectedValues.reverse[colorSelected],
   };
 
-  String name;
+  int id;
   String text;
   Status status;
   ColorSelected colorSelected;

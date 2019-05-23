@@ -63,8 +63,16 @@ class NoteBloc {
   ///
   /// Create a note
   /// 
-  void createNote(String name, String text) {
-    final Note noteToCreate = Note(name: name, text: text, status: Status.NORMAL, colorSelected: ColorSelected.NORMAL);
+  void createNote(String text) {
+
+    int id = 0;
+
+    for (Note n in notes) {
+      if (n.id == id)
+        id++;
+    }
+
+    final Note noteToCreate = Note(id: id, text: text, status: Status.NORMAL, colorSelected: ColorSelected.NORMAL);
 
     notes.add(noteToCreate);
 

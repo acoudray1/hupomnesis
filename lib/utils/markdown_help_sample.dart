@@ -35,8 +35,7 @@ _<em>italics</em>_
 <pre>[Text to display](http://www.example.com)</pre>
 
 <h3>Images</h3>
-<pre>![Minion](https://octodex.github.com/images/minion.png)
-![description of the image](http://www.web_adress_to_image.com/image.jpg)</pre>
+<pre>![description of the image](http://www.web_adress_to_image.com/image.jpg)</pre>
 
 
 <h3>Quotes</h3>

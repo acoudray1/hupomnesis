@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
+import 'package:hupomnesis/src/model/enum_status.dart';
+import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
 import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
@@ -100,8 +102,12 @@ class BuildHeader extends StatelessWidget {
                       height: 72,
                       onPressed: () {
                         // TODO(onPressed): Send to note creation page
-                        notePageRoot.noteBloc.createNote('NOTE #TEST-${random.nextInt(99)}', 'Lorem ipsum tititi');
-                        // Navigator.pushNamed(context, '/note_edition');
+                        //notePageRoot.noteBloc.createNote('Lorem ipsum tititi');
+                        Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
+                          builder: (BuildContext context) => NoteEditionPage(
+                            status: Status.NORMAL,
+                            noteBloc: notePageRoot.noteBloc,
+                          )));
                       },
                       child: Text('Create a new note...', style: Style.commonTextStyle.copyWith(color: Colors.grey),),
                     ),

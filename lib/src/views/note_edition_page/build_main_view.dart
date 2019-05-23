@@ -25,6 +25,7 @@ class BuildMainView extends StatefulWidget {
 class _BuildMainViewState extends State<BuildMainView> {
 
   TextEditingController _textEditingController;
+  FocusNode _focusNode;
 
   ///
   /// init the textEditingController and allow us to not be initialized at the beginning of the text field each time we tap the text field
@@ -32,14 +33,7 @@ class _BuildMainViewState extends State<BuildMainView> {
   @override
   void initState() {
     _textEditingController = TextEditingController(text: widget.text);
-    _textEditingController.addListener(() {
-      final String text = _textEditingController.text;
-      _textEditingController.value = _textEditingController.value.copyWith(
-        text: text,
-        selection: TextSelection(baseOffset: text.length, extentOffset: text.length),
-        composing: TextRange.empty,
-      );
-    });
+    _focusNode = FocusNode();
     super.initState();
   }
 
@@ -85,7 +79,8 @@ class _BuildMainViewState extends State<BuildMainView> {
             color: Colors.blue,
             height: 24.0,
           ),
-          Container(
+          AnimatedContainer(
+            duration: Duration(seconds: 1),
             height: 50,
             color: Colors.white,
             child: Row(
@@ -107,10 +102,12 @@ class _BuildMainViewState extends State<BuildMainView> {
                           noteEditionPageRoot.noteBloc.updateNote(_textEditingController.text, noteEditionPageRoot.index, noteEditionPageRoot.status);
                         noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode();
                       },
+                      splashColor: Colors.transparent,
                     ),
                     IconButton(
                       icon: const Icon(Icons.help_outline),
                       onPressed: () => buildHelpPopup(context),
+                      splashColor: Colors.transparent,
                     ),
                   ],
                 ),
@@ -130,13 +127,15 @@ class _BuildMainViewState extends State<BuildMainView> {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: TextField(
+          style: const TextStyle(fontSize: 14,
+            color: Colors.black,
+            fontFamily: 'Roboto-Light'),
+          cursorColor: Colors.black,
+          focusNode: _focusNode,
           decoration: InputDecoration.collapsed(
-            hintText: noteEditionPageRoot.note.text,
-            hintStyle: const TextStyle(fontSize: 24,
-              color: Colors.black54,
-              fontFamily: 'Roboto-Light'),
-            ),
-          autofocus: false,
+            hintText: 'Write your note',
+          ),
+          enableInteractiveSelection: true,
           maxLines: null,
           controller: _textEditingController,
           keyboardType: TextInputType.text,
@@ -153,6 +152,15 @@ class _BuildMainViewState extends State<BuildMainView> {
     return SliverFillRemaining(
       child: Markdown(
         data: _textEditingController.text,
+        padding: const EdgeInsets.all(4.0),
+        /*styleSheet: MarkdownStyleSheet().copyWith(
+          a: const TextStyle(fontSize: 16,
+            color: Colors.black,
+            fontFamily: 'Roboto-Light'),
+          codeblockDecoration: BoxDecoration(
+            color: Colors.grey,
+          )
+        )*/
       ),
     );
   }

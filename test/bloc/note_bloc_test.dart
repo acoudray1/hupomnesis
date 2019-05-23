@@ -10,14 +10,13 @@ void main() {
     final Repository repository = Repository();
     final NoteBloc noteBloc = NoteBloc();
     final NoteManager noteManager = NoteManager();
-    const String name = 'NOTE_TEST';
     const String text = 'This note is created for a test';
     String writtenData;
 
-    noteBloc.createNote(name, text);
+    noteBloc.createNote(text);
     writtenData = await repository.readData(properties['NOTES_FILE_NAME']);
 
-    expect(noteBloc.notes, contains(Note(name: name, text: text)));
+    expect(noteBloc.notes, contains(Note(text: text)));
     expect(noteBloc.notes, equals(noteManager.noteFromJson(writtenData)));
   });
 }

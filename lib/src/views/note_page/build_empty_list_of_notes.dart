@@ -15,7 +15,7 @@ class BuildEmptyListOfNotes extends StatelessWidget {
         FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
-            notePageRoot.noteBloc.createNote('NOTE #TEST', 'Lorem ipsum tititi');
+            notePageRoot.noteBloc.createNote('Lorem ipsum tititi');
           },
         ),
       ],

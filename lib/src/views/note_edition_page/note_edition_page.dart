@@ -11,7 +11,7 @@ class NoteEditionPage extends StatelessWidget {
   NoteEditionPage({
     Key key,
     @required this.status,
-    @required this.index,
+    this.index,
     @required this.noteBloc,
   }) : super(key: key);
 
@@ -22,6 +22,7 @@ class NoteEditionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    index ?? noteBloc.createNote('');
     Note note;
     // Depending on the status and the index we access to the right note
     switch (status) {
@@ -29,7 +30,10 @@ class NoteEditionPage extends StatelessWidget {
         note = noteBloc.pinnedNotes[index];
         break;
       case Status.NORMAL:
-        note = noteBloc.normalNotes[index];
+        if(index == null)
+          note = noteBloc.notes.last;
+        else
+          note = noteBloc.normalNotes[index];
         break;
       case Status.ARCHIVED:
         note = noteBloc.archivedNotes[index];
