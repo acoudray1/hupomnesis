@@ -80,8 +80,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                       ? noteSelectionBloc.handleNoteToggle(notes[index]) 
                       : Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
                         builder: (BuildContext context) => NoteEditionPage(
-                          status: status,
-                          index: index,
+                          note: notes[index],
                           noteBloc: noteBloc,
                         ))),
                     onLongPress: () => noteSelectionBloc.handleNoteSelection(notes[index]),

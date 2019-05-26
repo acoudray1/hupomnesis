@@ -25,7 +25,6 @@ class BuildMainView extends StatefulWidget {
 class _BuildMainViewState extends State<BuildMainView> {
 
   TextEditingController _textEditingController;
-  FocusNode _focusNode;
 
   ///
   /// init the textEditingController and allow us to not be initialized at the beginning of the text field each time we tap the text field
@@ -33,7 +32,6 @@ class _BuildMainViewState extends State<BuildMainView> {
   @override
   void initState() {
     _textEditingController = TextEditingController(text: widget.text);
-    _focusNode = FocusNode();
     super.initState();
   }
 
@@ -42,7 +40,10 @@ class _BuildMainViewState extends State<BuildMainView> {
     final NoteEditionPageRoot noteEditionPageRoot = NoteEditionPageRoot.of(context);
     
     return WillPopScope(
-      onWillPop: () => noteEditionPageRoot.noteBloc.updateNote(_textEditingController.text, noteEditionPageRoot.index, noteEditionPageRoot.status),
+      onWillPop: () {
+        noteEditionPageRoot.note.text = _textEditingController.text;
+        noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+      },
       child: Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
@@ -89,7 +90,8 @@ class _BuildMainViewState extends State<BuildMainView> {
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
-                    noteEditionPageRoot.noteBloc.updateNote(_textEditingController.text, noteEditionPageRoot.index, noteEditionPageRoot.status);
+                    noteEditionPageRoot.note.text = _textEditingController.text;
+                    noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -98,8 +100,10 @@ class _BuildMainViewState extends State<BuildMainView> {
                     IconButton(
                       icon: const Icon(Icons.remove_red_eye),
                       onPressed: () {
-                        if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING)
-                          noteEditionPageRoot.noteBloc.updateNote(_textEditingController.text, noteEditionPageRoot.index, noteEditionPageRoot.status);
+                        if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING) {
+                          noteEditionPageRoot.note.text = _textEditingController.text;
+                          noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                        }
                         noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode();
                       },
                       splashColor: Colors.transparent,
@@ -131,7 +135,6 @@ class _BuildMainViewState extends State<BuildMainView> {
             color: Colors.black,
             fontFamily: 'Roboto-Light'),
           cursorColor: Colors.black,
-          focusNode: _focusNode,
           decoration: InputDecoration.collapsed(
             hintText: 'Write your note',
           ),

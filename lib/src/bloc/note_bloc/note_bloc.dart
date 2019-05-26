@@ -4,15 +4,13 @@ import 'package:hupomnesis/src/bloc/note_bloc/note_selection_bloc.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/model/enum_status.dart';
 import 'package:hupomnesis/src/model/note.dart';
-import 'package:hupomnesis/src/resources/repository.dart';
+import 'package:hupomnesis/src/resources/note_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 ///
 /// Business Logic class to manage notes
 /// 
 class NoteBloc {
-  
-  final Repository repository = Repository();
 
   List<Note> notes = <Note>[];
   List<Note> normalNotes = <Note>[];
@@ -24,17 +22,18 @@ class NoteBloc {
   StreamSink<List<Note>> get notesSink => _notesFetcher.sink;
 
   ///
-  /// Fetch notes from json and then add them to the StreamBuilder sink
+  /// Get notes from the database and then add them to the StreamBuilder sink
   /// Dispatch notes in three list of notes depending on their status
   /// 
-  Future<void> bfetchNotesFromJson() async {
-    final List<Note> snapshot = await repository.fetchAllNotes();
+  Future<void> getNotesFromDatabase() async {
+
+    final List<Note> data = await NoteProvider.instance.notesFromDatabase();
 
     normalNotes.clear();
     archivedNotes.clear();
     pinnedNotes.clear();
 
-    for (Note n in snapshot) {
+    for (Note n in data) {
       switch (n.status) {
         case Status.NORMAL:
           normalNotes.add(n);
@@ -48,35 +47,52 @@ class NoteBloc {
       }
     }
     
-    notes = snapshot;
+    notes = data;
 
-    notesSink.add(snapshot);
+    /*for(Note n in data) {
+      print(n.id);
+      print(n.status);
+      print(n.text);
+      print(n.colorSelected);
+    }*/
+
+    notesSink.add(data);
   }
 
   ///
-  /// Writes note from a String in a file and fetch the notes to display after
+  /// Update a note in the database
+  ///
+  Future<void> _updateNote(Note note) async => NoteProvider.instance.updateNote(note);
+
+  ///
+  /// Delete a note in the database
   /// 
-  Future<void> bwriteNoteToJson(List<Note> data) async {
-    await repository.writeAllNotes(data).then((_) => bfetchNotesFromJson());
-  }
+  Future<void> _deleteNote(Note note) async => NoteProvider.instance.deleteNote(note);
+
+  ///
+  /// Insert new note in database
+  /// 
+  Future<void> _insertNote(Note note) async => NoteProvider.instance.insertNewNote(note);
 
   ///
   /// Create a note
   /// 
   void createNote(String text) {
-
     int id = 0;
 
+    notes.sort((Note a, Note b) => a.id.compareTo(b.id));
     for (Note n in notes) {
-      if (n.id == id)
+      if(n.id == id)
         id++;
     }
-
+    
     final Note noteToCreate = Note(id: id, text: text, status: Status.NORMAL, colorSelected: ColorSelected.NORMAL);
 
     notes.add(noteToCreate);
 
-    bwriteNoteToJson(notes);
+    _insertNote(noteToCreate);
+
+    notesSink.add(notes);
   }
 
   ///
@@ -100,7 +116,9 @@ class NoteBloc {
     if (noteSelectionBloc != null) 
       noteSelectionBloc.handleCompleteDiscard(notes);
 
-    bwriteNoteToJson(notes);
+    _updateNote(note);
+
+    notesSink.add(notes);
   }
 
   ///
@@ -125,7 +143,9 @@ class NoteBloc {
     if (noteSelectionBloc != null) 
       noteSelectionBloc.handleCompleteDiscard(notes);
 
-    bwriteNoteToJson(newList);
+    _deleteNote(note);
+
+    notesSink.add(notes);
   }
 
   ///
@@ -175,7 +195,9 @@ class NoteBloc {
     if (noteSelectionBloc != null) 
       noteSelectionBloc.handleCompleteDiscard(notes);
 
-    bwriteNoteToJson(notes);
+    _updateNote(note);
+
+    notesSink.add(notes);
   }
 
   ///
@@ -225,41 +247,19 @@ class NoteBloc {
     if (noteSelectionBloc != null) 
       noteSelectionBloc.handleCompleteDiscard(notes);
 
-    bwriteNoteToJson(notes);
+    _updateNote(note);
+
+    notesSink.add(notes);
   }
 
   ///
   /// Update a note
   ///
-  Future<bool> updateNote(String textForUpdate, int index, Status status) async {
+  Future<void> updateNote(Note note) async {
 
-    bool textHasChanged = false;
+    _updateNote(note);
 
-    switch (status) {
-      case Status.PINNED:
-        if(pinnedNotes[index].text != textForUpdate) {
-          pinnedNotes[index].text = textForUpdate;
-          textHasChanged = true;
-        }
-        break;
-      case Status.NORMAL:
-        if(normalNotes[index].text != textForUpdate) {
-          normalNotes[index].text = textForUpdate;
-          textHasChanged = true;
-        }
-        break;
-      case Status.ARCHIVED:
-        if(archivedNotes[index].text != textForUpdate) {
-          archivedNotes[index].text = textForUpdate;
-          textHasChanged = true;
-        }
-        break;
-    }
-    
-    if(textHasChanged)
-      bwriteNoteToJson(notes);
-
-    return textHasChanged;
+    notesSink.add(notes);
   }
 
   ///

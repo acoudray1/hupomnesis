@@ -1,6 +1,12 @@
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/model/enum_status.dart';
 
+const String tableNote = 'note';
+const String columnId = '_id';
+const String columnText = 'text';
+const String columnColorSelected = 'colorSelected';
+const String columnStatus = 'status';
+
 ///
 /// This object represents a note
 /// 
@@ -12,21 +18,28 @@ class Note {
     this.colorSelected,
   });
 
-  // Factory used to create notes from json file
-  factory Note.fromJson(Map<String, dynamic> json) => Note(
-      id: json['id'],
-      text: json['text'],
-      status: statusValues.map[json['status']],
-      colorSelected: colorSelectedValues.map[json['colorSelected']],
-  );
+  ///
+  /// Factory used to create a note from the database instance
+  /// 
+  Note.fromMap(Map<String, dynamic> map) {
+    id = map[columnId];
+    text = map[columnText];
+    status = statusValues.map[map[columnStatus]];
+    colorSelected = colorSelectedValues.map[map[columnColorSelected]];
+  }
 
-  // Method used to map string and data in order to write in a json file
-  Map<String, dynamic> toJson() => <String, dynamic>{
-      'id': id,
-      'text': text,
-      'status': statusValues.reverse[status],
-      'colorSelected': colorSelectedValues.reverse[colorSelected],
-  };
+  ///
+  /// Method used to map string and data in order to write it in database instance
+  ///
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = <String, dynamic>{
+      columnId: id,
+      columnText: text,
+      columnStatus: statusValues.reverse[status],
+      columnColorSelected: colorSelectedValues.reverse[colorSelected]
+    };
+    return map;
+  }
 
   int id;
   String text;
