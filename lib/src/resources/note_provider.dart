@@ -70,8 +70,10 @@ class NoteProvider {
     final List<Note> notes = <Note>[];
 
     for(Map<String, dynamic> map in noteMaps){
-      print(map);
-      notes.add(Note.fromMap(map));
+      if(map[columnText] != '') {
+        notes.add(Note.fromMap(map));
+        print(map);
+      }
     }
 
     return notes;
