@@ -25,13 +25,14 @@ class BuildMainView extends StatefulWidget {
 class _BuildMainViewState extends State<BuildMainView> {
 
   TextEditingController _textEditingController;
+  IconData backIcon = Icons.arrow_back;
 
   ///
   /// init the textEditingController and allow us to not be initialized at the beginning of the text field each time we tap the text field
   /// 
   @override
   void initState() {
-    _textEditingController = TextEditingController(text: widget.text);
+    _textEditingController = TextEditingController(text: widget.text)..addListener(() => backIcon = Icons.done,);
     super.initState();
   }
 
@@ -88,10 +89,12 @@ class _BuildMainViewState extends State<BuildMainView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: Icon(backIcon),
                   onPressed: () {
-                    noteEditionPageRoot.note.text = _textEditingController.text;
-                    noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                    if(noteEditionPageRoot.note.text != _textEditingController.text) {
+                      noteEditionPageRoot.note.text = _textEditingController.text;
+                      noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                    }
                     Navigator.of(context).pop();
                   },
                 ),

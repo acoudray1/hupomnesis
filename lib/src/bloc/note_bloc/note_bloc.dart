@@ -49,13 +49,6 @@ class NoteBloc {
     
     notes = data;
 
-    /*for(Note n in data) {
-      print(n.id);
-      print(n.status);
-      print(n.text);
-      print(n.colorSelected);
-    }*/
-
     notesSink.add(data);
   }
 
@@ -104,11 +97,13 @@ class NoteBloc {
     if(note != null) {
       if(note.isSelected) {
         note.colorSelected == colorSelected ? note.colorSelected = ColorSelected.NORMAL : note.colorSelected = colorSelected;
+        _updateNote(note);
       }
     } else if(listOfNotes != null) {
       for(Note n in listOfNotes) {
         if(n.isSelected) {
           n.colorSelected == colorSelected ? n.colorSelected = ColorSelected.NORMAL : n.colorSelected = colorSelected;
+          _updateNote(n);
         }
       }
     }
@@ -116,9 +111,7 @@ class NoteBloc {
     if (noteSelectionBloc != null) 
       noteSelectionBloc.handleCompleteDiscard(notes);
 
-    _updateNote(note);
-
-    notesSink.add(notes);
+    getNotesFromDatabase();
   }
 
   ///
@@ -127,15 +120,13 @@ class NoteBloc {
   void deleteNote({Note note, List<Note> listOfNotes, NoteSelectionBloc noteSelectionBloc}) {
     assert (note != null && listOfNotes == null || note == null && listOfNotes != null);
 
-    final List<Note> newList = <Note>[];
-
     if(note != null) {
-      if(note.isSelected == false)
-        newList.add(note);
+      if(note.isSelected)
+        _deleteNote(note);
     } else if(listOfNotes != null) {
       for(Note n in listOfNotes) {
-        if(n.isSelected == false) {
-          newList.add(n);
+        if(n.isSelected) {
+          _deleteNote(n);
         }
       }
     }
@@ -143,9 +134,7 @@ class NoteBloc {
     if (noteSelectionBloc != null) 
       noteSelectionBloc.handleCompleteDiscard(notes);
 
-    _deleteNote(note);
-
-    notesSink.add(notes);
+    getNotesFromDatabase();
   }
 
   ///
@@ -170,6 +159,7 @@ class NoteBloc {
             note.status = Status.ARCHIVED;
             break;
         }
+        _updateNote(note);
       }
     } else if(listOfNotes != null) {
       for(Note n in listOfNotes) {
@@ -188,6 +178,7 @@ class NoteBloc {
               n.status = Status.ARCHIVED;
               break;
           }
+          _updateNote(n);
         }
       }
     }
@@ -195,9 +186,7 @@ class NoteBloc {
     if (noteSelectionBloc != null) 
       noteSelectionBloc.handleCompleteDiscard(notes);
 
-    _updateNote(note);
-
-    notesSink.add(notes);
+    getNotesFromDatabase();
   }
 
   ///
@@ -222,6 +211,7 @@ class NoteBloc {
             note.status = Status.PINNED;
             break;
         }
+        _updateNote(note);
       }
     } else if(listOfNotes != null) {
       for(Note n in listOfNotes) {
@@ -240,6 +230,7 @@ class NoteBloc {
               n.status = Status.PINNED;
               break;
           }
+          _updateNote(n);
         }
       }
     }
@@ -247,9 +238,7 @@ class NoteBloc {
     if (noteSelectionBloc != null) 
       noteSelectionBloc.handleCompleteDiscard(notes);
 
-    _updateNote(note);
-
-    notesSink.add(notes);
+    getNotesFromDatabase();
   }
 
   ///
