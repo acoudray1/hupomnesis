@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hupomnesis/src/model/enum_edition_status.dart';
@@ -25,20 +27,20 @@ class BuildMainView extends StatefulWidget {
 class _BuildMainViewState extends State<BuildMainView> {
 
   TextEditingController _textEditingController;
-  IconData backIcon = Icons.arrow_back;
 
   ///
   /// init the textEditingController and allow us to not be initialized at the beginning of the text field each time we tap the text field
   /// 
   @override
   void initState() {
-    _textEditingController = TextEditingController(text: widget.text)..addListener(() => backIcon = Icons.done,);
+    _textEditingController = TextEditingController(text: widget.text);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final NoteEditionPageRoot noteEditionPageRoot = NoteEditionPageRoot.of(context);
+    _textEditingController..addListener(() => noteEditionPageRoot.noteEditionPageBloc.handleTextEdited(widget.text, _textEditingController.text),);
     
     return WillPopScope(
       onWillPop: () {
@@ -88,14 +90,24 @@ class _BuildMainViewState extends State<BuildMainView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                IconButton(
-                  icon: Icon(backIcon),
-                  onPressed: () {
-                    if(noteEditionPageRoot.note.text != _textEditingController.text) {
-                      noteEditionPageRoot.note.text = _textEditingController.text;
-                      noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                StreamBuilder<IconData>(
+                  stream: noteEditionPageRoot.noteEditionPageBloc.backIconStream,
+                  initialData: noteEditionPageRoot.noteEditionPageBloc.backIcon,
+                  builder: (BuildContext context, AsyncSnapshot<IconData> snapshot) {
+                    if (snapshot.hasData) {
+                      return IconButton(
+                        icon: Icon(snapshot.data),
+                        onPressed: () {
+                          if(noteEditionPageRoot.note.text != _textEditingController.text) {
+                            noteEditionPageRoot.note.text = _textEditingController.text;
+                            noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                          }
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    } else {
+                      return Container();
                     }
-                    Navigator.of(context).pop();
                   },
                 ),
                 Row(
