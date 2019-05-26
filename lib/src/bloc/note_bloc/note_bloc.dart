@@ -71,12 +71,17 @@ class NoteBloc {
   /// Create a note
   /// 
   void createNote(String text) {
-    notes.sort((Note a, Note b) => a.id.compareTo(b.id));
-    int id = notes.first.id;
-    for (Note n in notes) {
-      if(n.id == id)
-        id++;
-    }
+    int id;
+
+    if(notes.isNotEmpty) {
+      notes.sort((Note a, Note b) => a.id.compareTo(b.id));
+      id = notes.first.id;
+      for (Note n in notes) {
+        if(n.id == id)
+          id++;
+      }
+    } else 
+      id = 0;
     
     final Note noteToCreate = Note(id: id, text: text, status: Status.NORMAL, colorSelected: ColorSelected.NORMAL);
 
