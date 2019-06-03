@@ -44,7 +44,7 @@ class NoteProvider {
     await db.execute(
       '''
         CREATE TABLE $tableNote (
-          $columnId INTEGER PRIMARY KEY,
+          $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
           $columnText TEXT,
           $columnColorSelected TEXT NOT NULL,
           $columnStatus TEXT NOT NULL
@@ -70,9 +70,12 @@ class NoteProvider {
     final List<Note> notes = <Note>[];
 
     for(Map<String, dynamic> map in noteMaps){
+      print(map);
+      print('call to database');
       if(map[columnText] != '') {
         notes.add(Note.fromMap(map));
-        print(map);
+      } else if (map[columnText] == '') {
+        deleteNote(Note.fromMap(map));
       }
     }
 

@@ -33,11 +33,13 @@ class Note {
   ///
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> map = <String, dynamic>{
-      columnId: id,
       columnText: text,
       columnStatus: statusValues.reverse[status],
       columnColorSelected: colorSelectedValues.reverse[colorSelected]
     };
+    if (id != null) {
+      map[columnId] = id;
+    }
     return map;
   }
 
