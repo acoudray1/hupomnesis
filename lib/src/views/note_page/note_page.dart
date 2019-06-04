@@ -17,6 +17,9 @@ class NotePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    noteBloc.getNotesFromDatabase();
+    print('hello');
+
     return NotePageRoot(
       noteBloc: noteBloc,
       notePageBloc: notePageBloc,

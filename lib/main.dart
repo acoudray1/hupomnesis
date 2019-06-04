@@ -21,7 +21,6 @@ class Hupomnesis extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Hupomnesis',
-      // home: Root()   // In order to implement user page
       home: NotePage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,

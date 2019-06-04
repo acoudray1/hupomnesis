@@ -114,8 +114,7 @@ class NoteBloc {
     assert (note != null && listOfNotes == null || note == null && listOfNotes != null);
 
     if(note != null) {
-      if(note.isSelected)
-        _deleteNote(note);
+      _deleteNote(note);
     } else if(listOfNotes != null) {
       for(Note n in listOfNotes) {
         if(n.isSelected) {
