@@ -98,24 +98,13 @@ __requirements :__
 3. _There is an easy to use user interface._
 4. _A popup button with markdown specifications can be use (help button)._
 
-### HUP-10 : Note Reminder Implementation (back) &#9744;
-_As a user, I want to be able to get notifications for specified notes in order to remember and learn faster what I wrote on the note._
+### HUP-10 : Export data in a json file (back) &#9744;
 
-__requirements :_
-1. _The notification information is displayed on the note card as a Material experience._
-2. _I can create notfications :_
-    > * _Hourly_
-    > * _Every 6 hours_
-    > * _Daily_
-    > * _Weekly_
+### HUP-11 : Import data from a json file (back) &#9744;
 
-### HUP-11 : Export data in a json file (back) &#9744;
+### HUP-12 : Dark and Light theme implementation (front) &#9744;
 
-### HUP-12 : Import data from a json file (back) &#9744;
-
-### HUP-13 : Button to markdown help webview (front) &#9744;
-
-### HUP-14 : Application finalization &#9744;
+### HUP-13 : Application finalization &#9744;
 _As a user, I want to have a nice app icon and I want to be able to download the app on my smartphone directly from the PlayStore._
 
 __requirements :__
@@ -146,3 +135,14 @@ __requirements :__
 ### HUP-XXX : Performance and optimization of the application (back - front) &#9744;
 _As a user, I want an app that is Green and that does not require a lot of processor and memory use :_
     > * _Saving and writting data only when the app is closed._
+
+### HUP-XXX : Note Reminder Implementation (back) &#9744;
+_As a user, I want to be able to get notifications for specified notes in order to remember and learn faster what I wrote on the note._
+
+__requirements :_
+1. _The notification information is displayed on the note card as a Material experience._
+2. _I can create notfications :_
+    > * _Hourly_
+    > * _Every 6 hours_
+    > * _Daily_
+    > * _Weekly_
