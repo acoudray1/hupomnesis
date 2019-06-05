@@ -20,11 +20,17 @@ class NoteEditionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return NoteEditionPageRoot(
-      noteEditionPageBloc: noteEditionPageBloc,
-      noteBloc: noteBloc,
-      note: note,
-      child: BuildMainView(text: note.text,),
+    return note == null 
+      ? NoteEditionPageRoot(
+        noteEditionPageBloc: noteEditionPageBloc,
+        noteBloc: noteBloc,
+        child: const BuildMainView(text: '',),
+      )
+      : NoteEditionPageRoot(
+        noteEditionPageBloc: noteEditionPageBloc,
+        noteBloc: noteBloc,
+        note: note,
+        child: BuildMainView(text: note.text,),
     );
   }
 }

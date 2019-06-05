@@ -22,6 +22,7 @@ class BuildMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NotePageRoot notePageRoot = NotePageRoot.of(context);
+    notePageRoot.noteBloc.getNotesFromDatabase();
 
     return Scaffold(
       backgroundColor: Colors.white,

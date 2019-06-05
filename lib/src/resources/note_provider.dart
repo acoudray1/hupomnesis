@@ -72,11 +72,13 @@ class NoteProvider {
     for(Map<String, dynamic> map in noteMaps){
       print(map);
       print('call to database');
-      if(map[columnText] != '') {
-        notes.add(Note.fromMap(map));
+      notes.add(Note.fromMap(map));
+
+      /*if(map[columnText] != '') {
+        
       } else if (map[columnText] == '') {
         deleteNote(Note.fromMap(map));
-      }
+      }*/
     }
 
     return notes;

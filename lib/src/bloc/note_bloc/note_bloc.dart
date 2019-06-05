@@ -34,16 +34,20 @@ class NoteBloc {
     pinnedNotes.clear();
 
     for (Note n in data) {
-      switch (n.status) {
-        case Status.NORMAL:
-          normalNotes.add(n);
-          break;
-        case Status.ARCHIVED:
-          archivedNotes.add(n);
-          break;
-        case Status.PINNED:
-          pinnedNotes.add(n);
-          break;
+      if(n.text != '') {
+        switch (n.status) {
+          case Status.NORMAL:
+            normalNotes.add(n);
+            break;
+          case Status.ARCHIVED:
+            archivedNotes.add(n);
+            break;
+          case Status.PINNED:
+            pinnedNotes.add(n);
+            break;
+        }
+      } else if(n.text == '') {
+        _deleteNote(n);
       }
     }
     

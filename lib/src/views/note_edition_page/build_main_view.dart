@@ -44,8 +44,14 @@ class _BuildMainViewState extends State<BuildMainView> {
     
     return WillPopScope(
       onWillPop: () {
-        noteEditionPageRoot.note.text = _textEditingController.text;
-        noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+        if(noteEditionPageRoot.note == null) {
+          noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
+        } else {
+          if(noteEditionPageRoot.note.text != _textEditingController.text) {
+            noteEditionPageRoot.note.text = _textEditingController.text;
+            noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+          }
+        }
       },
       child: Scaffold(
         body: CustomScrollView(
@@ -98,9 +104,13 @@ class _BuildMainViewState extends State<BuildMainView> {
                       return IconButton(
                         icon: Icon(snapshot.data),
                         onPressed: () {
-                          if(noteEditionPageRoot.note.text != _textEditingController.text) {
-                            noteEditionPageRoot.note.text = _textEditingController.text;
-                            noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                          if(noteEditionPageRoot.note == null) {
+                            noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
+                          } else {
+                            if(noteEditionPageRoot.note.text != _textEditingController.text) {
+                              noteEditionPageRoot.note.text = _textEditingController.text;
+                              noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                            }
                           }
                           Navigator.of(context).pop();
                         },
@@ -116,8 +126,14 @@ class _BuildMainViewState extends State<BuildMainView> {
                       icon: const Icon(Icons.remove_red_eye),
                       onPressed: () {
                         if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING) {
-                          noteEditionPageRoot.note.text = _textEditingController.text;
-                          noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                          if(noteEditionPageRoot.note == null) {
+                            noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
+                          } else {
+                            if(noteEditionPageRoot.note.text != _textEditingController.text) {
+                              noteEditionPageRoot.note.text = _textEditingController.text;
+                              noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                            }
+                          }
                         }
                         noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode();
                       },

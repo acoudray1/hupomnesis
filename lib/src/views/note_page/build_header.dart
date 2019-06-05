@@ -98,10 +98,9 @@ class BuildHeader extends StatelessWidget {
                       height: 72,
                       onPressed: () {
                         // TODO(onPressed): Send to note creation page
-                        notePageRoot.noteBloc.createNote('');
+                        //notePageRoot.noteBloc.createNote('');
                         Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
                           builder: (BuildContext context) => NoteEditionPage(
-                            note: notePageRoot.noteBloc.notes.last,
                             noteBloc: notePageRoot.noteBloc,
                           )));
                       },
