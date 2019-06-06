@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hupomnesis/src/views/note_page/note_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(
