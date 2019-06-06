@@ -69,10 +69,6 @@ class BuildHeader extends StatelessWidget {
                           onPressed: () =>
                             notePageRoot.noteBloc.deleteNote(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.notifications),
-                          onPressed: () => true,
-                        ),
                         PopupMenuButton<ColorSelected>(
                           icon: const Icon(Icons.color_lens),
                           offset: const Offset(100,100),
