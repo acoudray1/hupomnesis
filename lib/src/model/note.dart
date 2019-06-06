@@ -19,14 +19,23 @@ class Note {
   });
 
   ///
+  /// Factory used to create notes from json file
+  /// 
+  factory Note.fromJson(Map<String, dynamic> json) => Note(
+      text: json['text'],
+      status: statusValues.map[json['status']],
+      colorSelected: colorSelectedValues.map[json['colorSelected']],
+  );
+
+  ///
   /// Factory used to create a note from the database instance
   /// 
-  Note.fromMap(Map<String, dynamic> map) {
-    id = map[columnId];
-    text = map[columnText];
-    status = statusValues.map[map[columnStatus]];
-    colorSelected = colorSelectedValues.map[map[columnColorSelected]];
-  }
+  factory Note.fromMap(Map<String, dynamic> map) => Note(
+    id: map[columnId],
+    text: map[columnText],
+    status: statusValues.map[map[columnStatus]],
+    colorSelected: colorSelectedValues.map[map[columnColorSelected]],
+  );
 
   ///
   /// Method used to map string and data in order to write it in database instance
@@ -42,6 +51,13 @@ class Note {
     }
     return map;
   }
+
+  // Method used to map string and data in order to write in a json file
+  Map<String, dynamic> toJson() => <String, dynamic>{
+      'text': text,
+      'status': statusValues.reverse[status],
+      'colorSelected': colorSelectedValues.reverse[colorSelected],
+  };
 
   int id;
   String text;
