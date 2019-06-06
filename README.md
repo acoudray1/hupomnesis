@@ -74,7 +74,7 @@ __requirements :__
     > * _able to archive selection._
     > * _able to pin it._
 
-### HUP-8 : Header Improvement (front) &#9744;
+### HUP-8 : Header Improvement (front) &#9745;
 _As a user, I want to have a nice header with different functionnalities, that changes when I enter in selection mode._
 
 __requirements :__
@@ -82,20 +82,27 @@ __requirements :__
     > * _Create a new note (not implemented)._
     > * _~~Search a note by it's title.~~ : (maybe later) can create some bugs and is not that usefull._
     > * _Export and import data in or from a text file (not implemented)._
-    > * _A toggle dark mode button (not implemented)_
+    > * _A toggle dark mode button (not implemented)._
 2. _When in selection mode I want to be able to :_
     > * _Discard selection mode._
     > * _Add selected notes to archive, favorites or delete these._
     > * _Add a reminder parameter to selected notes (not implemented)._
     > * _Change a note's 'pastille' color._
 
-### HUP-9 : Note Edition in Markdown (front) &#9744;
+### HUP-9 : Note Edition in Markdown (front) &#9745;
+_As a user, I want to be able to edit the created notes easily and with markdown or rich text editor._
 
-### HUP-10 : Note Reminder Implementation (back) &#9744;
+__requirements :__
+1. _I can edit the notes with rich text editor / markdown._
+2. _The notes are saved instantly when going back on the home page._
+3. _There is an easy to use user interface._
+4. _A popup button with markdown specifications can be use (help button)._
 
-### HUP-11 : Export data in a json file (back) &#9744;
+### HUP-10 : Export data in a json file (back) &#9744;
 
-### HUP-12 : Import data from a json file (back) &#9744;
+### HUP-11 : Import data from a json file (back) &#9744;
+
+### HUP-12 : Dark and Light theme implementation (front) &#9744;
 
 ### HUP-13 : Application finalization &#9744;
 _As a user, I want to have a nice app icon and I want to be able to download the app on my smartphone directly from the PlayStore._
@@ -124,3 +131,18 @@ _As a user, I must be able to create my own profile by entering :_
 
 __requirements :__
 1. _A beautiful and attractive login screen._
+
+### HUP-XXX : Performance and optimization of the application (back - front) &#9744;
+_As a user, I want an app that is Green and that does not require a lot of processor and memory use :_
+    > * _Saving and writting data only when the app is closed._
+
+### HUP-XXX : Note Reminder Implementation (back) &#9744;
+_As a user, I want to be able to get notifications for specified notes in order to remember and learn faster what I wrote on the note._
+
+__requirements :_
+1. _The notification information is displayed on the note card as a Material experience._
+2. _I can create notfications :_
+    > * _Hourly_
+    > * _Every 6 hours_
+    > * _Daily_
+    > * _Weekly_

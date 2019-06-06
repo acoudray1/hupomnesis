@@ -12,15 +12,7 @@ class NoteSelectionBloc {
   int numberOfNotesSelected = 0;
 
   ///
-  /// handle the long press on a note 
-  /// 
-  void handleNoteSelection(Note note) {
-    note.isSelected = true;
-    _handleAllStates(note, Change.ADD);
-  }
-
-  ///
-  /// handle the toggle of a note
+  /// handle the selection of a note of a note
   /// 
   void handleNoteToggle(Note note) {
     switch (note.isSelected) {

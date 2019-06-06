@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
+import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
 import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
@@ -10,7 +9,6 @@ import 'package:hupomnesis/theme/style_texte.dart';
 /// Builds the header of the main view
 /// 
 class BuildHeader extends StatelessWidget {
-  final Random random = Random();
 
   @override
   Widget build(BuildContext context) {
@@ -39,78 +37,93 @@ class BuildHeader extends StatelessWidget {
                 ),
                 child: snapshot.data 
                 ? Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        notePageRoot.noteSelectionBloc.handleCompleteDiscard(notePageRoot.noteBloc.notes);
-                      },
+                    Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            notePageRoot.noteSelectionBloc.handleCompleteDiscard(notePageRoot.noteBloc.notes);
+                          },
+                        ),
+                        Text('${notePageRoot.noteSelectionBloc.numberOfNotesSelected}', 
+                          style: Style.subtitleTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 18),
+                        ),
+                      ]
                     ),
-                    Text('${notePageRoot.noteSelectionBloc.numberOfNotesSelected}', 
-                      style: Style.subtitleTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 18),),
-                    const SizedBox(width: 100.0),
-                    IconButton(
-                      icon:  const Icon(StyleIcons.pin),
-                      onPressed: () =>
-                        notePageRoot.noteBloc.noteToPinned(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.archive),
-                      onPressed: () =>
-                        notePageRoot.noteBloc.noteToArchived(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () =>
-                        notePageRoot.noteBloc.deleteNote(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.notifications),
-                      onPressed: () => true,
-                    ),
-                    PopupMenuButton<ColorSelected>(
-                      icon: const Icon(Icons.color_lens),
-                      offset: const Offset(100,100),
-                      padding: const EdgeInsets.all(0.0),
-                      tooltip: 'Choose a color for your notes!',
-                      onSelected: (ColorSelected colorSelected) => 
-                        notePageRoot.noteBloc.changeColor(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc, colorSelected: colorSelected),
-                      itemBuilder: (BuildContext context) => <PopupMenuEntry<ColorSelected>> [
-                        buildPopupMenuItem(ColorSelected.YELLOW, 'YELLOW', Colors.yellow),
-                        buildPopupMenuItem(ColorSelected.BLUE, 'BLUE', Colors.blue),
-                        buildPopupMenuItem(ColorSelected.GREEN, 'GREEN', Colors.green),
-                        buildPopupMenuItem(ColorSelected.PURPLE, 'PURPLE', Colors.purple),
-                        buildPopupMenuItem(ColorSelected.RED, 'RED', Colors.red),
+                    Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon:  const Icon(StyleIcons.pin),
+                          onPressed: () =>
+                            notePageRoot.noteBloc.noteToPinned(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.archive),
+                          onPressed: () =>
+                            notePageRoot.noteBloc.noteToArchived(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () =>
+                            notePageRoot.noteBloc.deleteNote(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.notifications),
+                          onPressed: () => true,
+                        ),
+                        PopupMenuButton<ColorSelected>(
+                          icon: const Icon(Icons.color_lens),
+                          offset: const Offset(100,100),
+                          padding: const EdgeInsets.all(0.0),
+                          tooltip: 'Choose a color for your notes!',
+                          onSelected: (ColorSelected colorSelected) => 
+                            notePageRoot.noteBloc.changeColor(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc, colorSelected: colorSelected),
+                          itemBuilder: (BuildContext context) => <PopupMenuEntry<ColorSelected>> [
+                            buildPopupMenuItem(ColorSelected.YELLOW, 'YELLOW', Colors.yellow),
+                            buildPopupMenuItem(ColorSelected.BLUE, 'BLUE', Colors.blue),
+                            buildPopupMenuItem(ColorSelected.GREEN, 'GREEN', Colors.green),
+                            buildPopupMenuItem(ColorSelected.PURPLE, 'PURPLE', Colors.purple),
+                            buildPopupMenuItem(ColorSelected.RED, 'RED', Colors.red),
+                          ],
+                        ),
                       ],
                     ),
                   ],
                 ) : Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     MaterialButton(
                       height: 72,
                       onPressed: () {
                         // TODO(onPressed): Send to note creation page
-                        notePageRoot.noteBloc.createNote('NOTE #TEST-${random.nextInt(99)}', 'Lorem ipsum tititi');
+                        //notePageRoot.noteBloc.createNote('');
+                        Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
+                          builder: (BuildContext context) => NoteEditionPage(
+                            noteBloc: notePageRoot.noteBloc,
+                          )));
                       },
                       child: Text('Create a new note...', style: Style.commonTextStyle.copyWith(color: Colors.grey),),
                     ),
-                    const SizedBox(width: 150.0),
-                    IconButton(
-                      icon: const Icon(Icons.brightness_2),
-                      onPressed: () {
-                        // TODO(onPressed): Implement dark mode
-                        notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
-                      },
+                    Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.brightness_2),
+                          onPressed: () {
+                            // TODO(onPressed): Implement dark mode
+                            notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.import_export),
+                          onPressed: () {
+                            // TODO(onPressed): Implement import / export
+                            notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
+                          },
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.import_export),
-                      onPressed: () {
-                        // TODO(onPressed): Implement import / export
-                        notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
-                      },
-                    )
                   ],
                 ),
               ),

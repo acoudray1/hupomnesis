@@ -1,16 +1,26 @@
-import 'dart:math';
-
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:hupomnesis/src/model/note.dart';
 
 class NotePageBloc {
   
   /// 
-  /// Generate random tiles for the sliver grid view
+  /// Generate tiles instead of the length of the note's text for the sliver grid view
   /// 
-  List<StaggeredTile> generateRandomTiles(int count) {
-    final Random rnd = Random();
+  List<StaggeredTile> generateTiles(int count, List<Note> notes) {
+    
+    final List<double> heights = <double>[];
+
+    for (Note note in notes) {
+      if (note.text.runes.length < 50) 
+        heights.add(1.5);
+      else if (50 <= note.text.runes.length && note.text.runes.length < 100)
+        heights.add(2.5);
+      else 
+        heights.add(3.5);
+    }
+    
     return List<StaggeredTile>.generate(count,
-      (int i) => StaggeredTile.count(2, rnd.nextInt(3).isEven ? 2.5 : 1.5));
+      (int i) => StaggeredTile.count(2, heights[i]));
   }
 
   ///
