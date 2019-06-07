@@ -1,9 +1,11 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
 import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
+import 'package:dynamic_theme/theme_switcher_widgets.dart';
 
 ///
 /// Builds the header of the main view
@@ -107,8 +109,8 @@ class BuildHeader extends StatelessWidget {
                         IconButton(
                           icon: const Icon(Icons.brightness_2),
                           onPressed: () {
-                            // TODO(onPressed): Implement dark mode
-                            notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
+                            changeBrightness(context);
+                            changeColor(context);
                           },
                         ),
                         IconButton(
@@ -143,6 +145,38 @@ class BuildHeader extends StatelessWidget {
       child: ListTile(
         leading: Icon(Icons.brightness_1, color: color,),
         title: Text('$textToDisplay', style: Style.smallTextStyle.copyWith(color: Colors.black54),),
+      ),
+    );
+  }
+
+  void showChooser(BuildContext context) {
+    showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return BrightnessSwitcherDialog(
+            onSelectedTheme: (Brightness brightness) {
+              DynamicTheme.of(context).setBrightness(brightness);
+            },
+          );
+        });
+  }
+
+  void changeBrightness(BuildContext context) {
+    DynamicTheme.of(context).setBrightness(
+        Theme.of(context).brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark);
+  }
+
+  void changeColor(BuildContext context) {
+    DynamicTheme.of(context).setThemeData(
+      ThemeData(
+        primaryColor: Theme.of(context).primaryColor == Colors.indigo
+            ? Colors.red
+            : Colors.indigo,
+        backgroundColor: Theme.of(context).backgroundColor == Colors.blueGrey
+            ? Colors.white
+            : Colors.blueGrey,
       ),
     );
   }

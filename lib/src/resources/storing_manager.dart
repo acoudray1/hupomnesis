@@ -1,5 +1,4 @@
-import 'package:hupomnesis/src/model/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+/*import 'package:shared_preferences/shared_preferences.dart';
 
 ///
 /// This class is used to interact with shared preferences package in order 
@@ -10,7 +9,7 @@ class StoringManager {
   StoringManager();
 
   SharedPreferences prefs;
-  
+
   ///
   /// Check what is the initial theme 
   /// 
@@ -36,4 +35,4 @@ class StoringManager {
 }
 
 // We create a singleton for the app
-StoringManager data = StoringManager();
+StoringManager prefs = StoringManager();*/
