@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hupomnesis/src/views/note_page/note_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:hupomnesis/theme/theme_data.dart';
 
 void main() {
   runApp(Hupomnesis());
@@ -20,11 +21,7 @@ class Hupomnesis extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicTheme(
       defaultBrightness: Brightness.light,
-      data: (Brightness brightness) => ThemeData(
-        primarySwatch: Colors.indigo,
-        backgroundColor: Colors.blueGrey,
-        brightness: brightness,
-      ),
+      data: (Brightness brightness) => buildDarkTheme(),
       themedWidgetBuilder: (BuildContext context, ThemeData theme) {
         return MaterialApp(
           title: 'Hupomnesis',

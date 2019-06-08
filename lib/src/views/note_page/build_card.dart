@@ -48,11 +48,11 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
         }
 
         if (notes[index].isSelected) {
-          _borderColor = Colors.blue;
+          _borderColor = Theme.of(context).accentColor;
           _borderWidth = 2.5;
           _elevation = 3.0;
         } else if (!notes[index].isSelected) {
-          _borderColor = Colors.grey;
+          _borderColor = Theme.of(context).toggleableActiveColor;
           _borderWidth = 1.0;
           _elevation = 0.0;
         }
@@ -74,7 +74,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                   ),
                   color: _noteColor,
                   child: InkWell(
-                    splashColor: Colors.blue.withAlpha(70),
+                    splashColor: Colors.pinkAccent.withAlpha(70),
                     // TODO(interactions): Implement actions
                     onTap: () => snapshot.data 
                       ? noteSelectionBloc.handleNoteToggle(notes[index]) 

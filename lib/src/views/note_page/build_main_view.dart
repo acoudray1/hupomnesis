@@ -25,7 +25,7 @@ class BuildMainView extends StatelessWidget {
     notePageRoot.noteBloc.getNotesFromDatabase();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: <Widget>[ 
           // Builds the header
