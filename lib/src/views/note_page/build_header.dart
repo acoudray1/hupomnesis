@@ -45,7 +45,7 @@ class BuildHeader extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: const Icon(Icons.close),
+                          icon: Icon(Icons.close, color: Theme.of(context).accentColor,),
                           splashColor: Colors.transparent,
                           onPressed: () {
                             notePageRoot.noteSelectionBloc.handleCompleteDiscard(notePageRoot.noteBloc.notes);

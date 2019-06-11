@@ -4,8 +4,8 @@
 import 'package:flutter/material.dart';
 
 ThemeData buildDarkTheme() {
-  const Color primaryColor = Color(0xFF0175c2);
-  const Color secondaryColor = Color(0xFF13B9FD);
+  const Color primaryColor = Color(0xFFF39237);
+  const Color secondaryColor = Color(0xFFD63230);
   final ColorScheme colorScheme = const ColorScheme.dark().copyWith(
     primary: primaryColor,
     secondary: secondaryColor,
@@ -18,7 +18,7 @@ ThemeData buildDarkTheme() {
     primaryColorLight: secondaryColor,
     buttonColor: primaryColor,
     indicatorColor: Colors.white,
-    toggleableActiveColor: const Color(0xFF6997DF),
+    toggleableActiveColor: const Color(0xFF40BCD8),
     accentColor: secondaryColor,
     canvasColor: const Color(0xFF202124),
     scaffoldBackgroundColor: const Color(0xFF202124),
@@ -33,8 +33,8 @@ ThemeData buildDarkTheme() {
 }
 
 ThemeData buildLightTheme() {
-  const Color primaryColor = Color(0xFF0175c2);
-  const Color secondaryColor = Color(0xFF13B9FD);
+  const Color primaryColor = Color(0xFF1C77C3);
+  const Color secondaryColor = Color(0xFF39A9DB);
   final ColorScheme colorScheme = const ColorScheme.light().copyWith(
     primary: primaryColor,
     secondary: secondaryColor,
@@ -46,7 +46,7 @@ ThemeData buildLightTheme() {
     primaryColor: primaryColor,
     buttonColor: primaryColor,
     indicatorColor: Colors.white,
-    toggleableActiveColor: const Color(0xFF1E88E5),
+    toggleableActiveColor: const Color(0xFFF39237),
     splashColor: Colors.white24,
     splashFactory: InkRipple.splashFactory,
     accentColor: secondaryColor,

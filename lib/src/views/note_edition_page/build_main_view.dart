@@ -109,7 +109,7 @@ class _BuildMainViewState extends State<BuildMainView> {
                   builder: (BuildContext context, AsyncSnapshot<IconData> snapshot) {
                     if (snapshot.hasData) {
                       return IconButton(
-                        icon: Icon(snapshot.data, color: snapshot.data == Icons.done ? Theme.of(context).buttonColor : Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),
+                        icon: Icon(snapshot.data, color: snapshot.data == Icons.done ? Theme.of(context).buttonColor : Theme.of(context).accentColor),
                         onPressed: () {
                           if(noteEditionPageRoot.note == null) {
                             noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);

@@ -52,7 +52,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
           _borderWidth = 2.5;
           _elevation = 3.0;
         } else if (!notes[index].isSelected) {
-          _borderColor = Theme.of(context).toggleableActiveColor;
+          _borderColor = Colors.grey;
           _borderWidth = 1.0;
           _elevation = 0.0;
         }
@@ -69,7 +69,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                 child: Card(
                   elevation: _elevation,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: _borderColor, width: _borderWidth),
+                    side: BorderSide(color: notes[index].colorSelected == ColorSelected.NORMAL ? _borderColor : notes[index].colorSelected != ColorSelected.NORMAL && notes[index].isSelected ? _borderColor : _noteColor, width: _borderWidth),
                     borderRadius: BorderRadius.circular(6.0)
                   ),
                   color: _noteColor,
