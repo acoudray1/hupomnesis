@@ -96,8 +96,6 @@ class BuildHeader extends StatelessWidget {
                     MaterialButton(
                       height: 72,
                       onPressed: () {
-                        // TODO(onPressed): Send to note creation page
-                        //notePageRoot.noteBloc.createNote('');
                         Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
                           builder: (BuildContext context) => NoteEditionPage(
                             noteBloc: notePageRoot.noteBloc,
@@ -112,13 +110,6 @@ class BuildHeader extends StatelessWidget {
                           onPressed: () {
                             changeBrightness(context);
                             changeColor(context);
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.import_export, color: Theme.of(context).primaryColor,),
-                          onPressed: () {
-                            // TODO(onPressed): Implement import / export
-                            notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
                           },
                         ),
                       ],

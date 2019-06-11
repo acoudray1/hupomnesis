@@ -40,10 +40,10 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
             _noteColor = Colors.red.shade300;
             break;
           case ColorSelected.NORMAL:
-            _noteColor = Colors.white;
+            _noteColor = Theme.of(context).backgroundColor;
             break;
           default:
-            _noteColor = Colors.white;
+            _noteColor = Theme.of(context).backgroundColor;
             break;
         }
 
@@ -74,7 +74,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                   ),
                   color: _noteColor,
                   child: InkWell(
-                    splashColor: Colors.pinkAccent.withAlpha(70),
+                    splashColor: Theme.of(context).accentColor,
                     // TODO(interactions): Implement actions
                     onTap: () => snapshot.data 
                       ? noteSelectionBloc.handleNoteToggle(notes[index]) 
