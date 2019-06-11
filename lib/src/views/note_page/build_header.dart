@@ -7,7 +7,6 @@ import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
 import 'package:hupomnesis/theme/theme_data.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 
 ///
 /// Builds the header of the main view
@@ -111,7 +110,7 @@ class BuildHeader extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Theme.of(context).brightness == Brightness.dark ? Icons.brightness_2 : OMIcons.brightness2, color: Theme.of(context).buttonColor,),
+                          icon: Icon(Theme.of(context).brightness == Brightness.dark ? Icons.brightness_2 : StyleIcons.wb_sunny, color: Theme.of(context).buttonColor,),
                           onPressed: () => showChooser(context),
                         ),
                       ],

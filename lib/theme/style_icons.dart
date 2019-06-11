@@ -16,6 +16,14 @@
 ///         Author:    Stephen Hutchings
 ///         License:   SIL (http://scripts.sil.org/OFL)
 ///         Homepage:  http://typicons.com/
+/// * Font Awesome, Copyright (C) 2016 by Dave Gandy
+///         Author:    Dave Gandy
+///         License:   SIL ()
+///         Homepage:  http://fortawesome.github.com/Font-Awesome/
+/// * Material Design Icons, Copyright (C) Google, Inc
+///         Author:    Google
+///         License:   Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+///         Homepage:  https://design.google.com/icons/
 ///
 import 'package:flutter/widgets.dart';
 
@@ -26,4 +34,8 @@ class StyleIcons {
 
   static const IconData pin = IconData(0xe800, fontFamily: _kFontFam);
   static const IconData pin_outline = IconData(0xe801, fontFamily: _kFontFam);
+  static const IconData eye = IconData(0xe802, fontFamily: _kFontFam);
+  static const IconData eye_off = IconData(0xe803, fontFamily: _kFontFam);
+  static const IconData help = IconData(0xe804, fontFamily: _kFontFam);
+  static const IconData wb_sunny = IconData(0xe805, fontFamily: _kFontFam);
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hupomnesis/src/model/enum_edition_status.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page_root.dart';
+import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
 import 'package:hupomnesis/utils/markdown_help_sample.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -126,31 +127,43 @@ class _BuildMainViewState extends State<BuildMainView> {
                     }
                   },
                 ),
-                Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.remove_red_eye, color: Theme.of(context).buttonColor,),
-                      onPressed: () {
-                        if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING) {
-                          if(noteEditionPageRoot.note == null) {
-                            noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
-                          } else {
-                            if(noteEditionPageRoot.note.text != _textEditingController.text) {
-                              noteEditionPageRoot.note.text = _textEditingController.text;
-                              noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
-                            }
-                          }
-                        }
-                        noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode();
-                      },
-                      splashColor: Colors.transparent,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.help_outline, color: Theme.of(context).buttonColor,),
-                      onPressed: () => buildHelpPopup(context),
-                      splashColor: Colors.transparent,
-                    ),
-                  ],
+                StreamBuilder<EditionStatus>(
+                  stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
+                  initialData: noteEditionPageRoot.noteEditionPageBloc.editionStatus,
+                  builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING 
+                              ? StyleIcons.eye
+                              : StyleIcons.eye_off, color: Theme.of(context).buttonColor,),
+                            onPressed: () {
+                              if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING) {
+                                if(noteEditionPageRoot.note == null) {
+                                  noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
+                                } else {
+                                  if(noteEditionPageRoot.note.text != _textEditingController.text) {
+                                    noteEditionPageRoot.note.text = _textEditingController.text;
+                                    noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                                  }
+                                }
+                              }
+                              noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode();
+                            },
+                            splashColor: Colors.transparent,
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.help_outline, color: Theme.of(context).buttonColor,),
+                            onPressed: () => buildHelpPopup(context),
+                            splashColor: Colors.transparent,
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
                 ),
               ],
             ),
