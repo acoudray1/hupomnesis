@@ -26,7 +26,7 @@ class BuildEmptyListOfNotes extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15,),
-        Center(child: Text('There is no notes created :\'(\nCreate a new one !', textAlign: TextAlign.center, style: Style.subtitleTextStyle.copyWith(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),)),
+        Center(child: Text('Start writing notes', textAlign: TextAlign.center, style: Style.subtitleTextStyle.copyWith(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),)),
         // TODO(axelc): Add sad image
       ],
     );
