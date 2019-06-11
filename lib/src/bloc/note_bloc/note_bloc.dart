@@ -72,17 +72,15 @@ class NoteBloc {
   Future<void> _insertNote(Note note) async => NoteProvider.instance.insertNewNote(note);
 
   ///
-  /// Create a note
+  /// Creates a note if the text is not null
   /// 
   void createNote(String text) {
-    
-    final Note noteToCreate = Note(text: text, status: Status.NORMAL, colorSelected: ColorSelected.NORMAL);
-
-    notes.add(noteToCreate);
-
-    _insertNote(noteToCreate);
-
-    notesSink.add(notes);
+    if(text != '') {
+      final Note noteToCreate = Note(text: text, status: Status.NORMAL, colorSelected: ColorSelected.NORMAL);
+      notes.add(noteToCreate);
+      _insertNote(noteToCreate);
+      getNotesFromDatabase();
+    }
   }
 
   ///
