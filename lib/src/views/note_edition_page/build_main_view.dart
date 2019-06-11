@@ -62,7 +62,7 @@ class _BuildMainViewState extends State<BuildMainView> {
               initialData: noteEditionPageRoot.noteEditionPageBloc.editionStatus,
               builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
                 if (snapshot.hasData) {
-                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot) : buildMarkdownRendering();
+                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot, context) : buildMarkdownRendering();
                 } else {
                   return Container();
                 }
@@ -82,17 +82,23 @@ class _BuildMainViewState extends State<BuildMainView> {
       leading: Container(),
       elevation: 1.0,
       pinned: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       flexibleSpace: Column(
         children: <Widget>[
           Container(
-            color: Colors.blue,
+            color: Theme.of(context).primaryColor,
             height: 24.0,
           ),
           AnimatedContainer(
-            duration: Duration(seconds: 1),
+            duration: Duration(seconds: 0),
             height: 50,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
+              color: Theme.of(context).backgroundColor,
+              boxShadow: <BoxShadow>[
+                BoxShadow(offset: const Offset(0, 0.2), color: Theme.of(context).brightness == Brightness.dark ? Colors.white10 : Colors.black12,)
+              ]
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -102,7 +108,7 @@ class _BuildMainViewState extends State<BuildMainView> {
                   builder: (BuildContext context, AsyncSnapshot<IconData> snapshot) {
                     if (snapshot.hasData) {
                       return IconButton(
-                        icon: Icon(snapshot.data),
+                        icon: Icon(snapshot.data, color: snapshot.data == Icons.done ? Theme.of(context).buttonColor : Colors.white,),
                         onPressed: () {
                           if(noteEditionPageRoot.note == null) {
                             noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
@@ -123,7 +129,7 @@ class _BuildMainViewState extends State<BuildMainView> {
                 Row(
                   children: <Widget>[
                     IconButton(
-                      icon: const Icon(Icons.remove_red_eye),
+                      icon: Icon(Icons.remove_red_eye, color: Theme.of(context).buttonColor,),
                       onPressed: () {
                         if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING) {
                           if(noteEditionPageRoot.note == null) {
@@ -140,7 +146,7 @@ class _BuildMainViewState extends State<BuildMainView> {
                       splashColor: Colors.transparent,
                     ),
                     IconButton(
-                      icon: const Icon(Icons.help_outline),
+                      icon: Icon(Icons.help_outline, color: Theme.of(context).buttonColor,),
                       onPressed: () => buildHelpPopup(context),
                       splashColor: Colors.transparent,
                     ),
@@ -157,15 +163,15 @@ class _BuildMainViewState extends State<BuildMainView> {
   ///
   /// Builds Text Editor
   /// 
-  SliverFillRemaining buildTextEditor(NoteEditionPageRoot noteEditionPageRoot) {
+  SliverFillRemaining buildTextEditor(NoteEditionPageRoot noteEditionPageRoot, BuildContext context) {
     return SliverFillRemaining(
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: TextField(
-          style: const TextStyle(fontSize: 14,
-            color: Colors.black,
+          style: TextStyle(fontSize: 14,
+            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
             fontFamily: 'Roboto-Light'),
-          cursorColor: Colors.black,
+          cursorColor: Theme.of(context).accentColor,
           decoration: InputDecoration.collapsed(
             hintText: 'Write your note',
           ),
@@ -210,7 +216,7 @@ class _BuildMainViewState extends State<BuildMainView> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
           ),
-          title: Center(child: Text('MARKDOWN GUIDE', style: Style.subtitleTextStyle.copyWith(fontWeight: FontWeight.w500),)),
+          title: Center(child: Text('MARKDOWN GUIDE', style: Style.subtitleTextStyle.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),)),
           children: <Widget>[
             Container(
               padding: const EdgeInsets.all(10.0),

@@ -46,6 +46,7 @@ class BuildHeader extends StatelessWidget {
                       children: <Widget>[
                         IconButton(
                           icon: const Icon(Icons.close),
+                          splashColor: Colors.transparent,
                           onPressed: () {
                             notePageRoot.noteSelectionBloc.handleCompleteDiscard(notePageRoot.noteBloc.notes);
                           },
@@ -58,22 +59,25 @@ class BuildHeader extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon:  Icon(StyleIcons.pin, color: Theme.of(context).primaryColor,),
+                          icon:  Icon(StyleIcons.pin, color: Theme.of(context).buttonColor,),
+                          splashColor: Colors.transparent,
                           onPressed: () =>
                             notePageRoot.noteBloc.noteToPinned(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                         ),
                         IconButton(
-                          icon: Icon(Icons.archive, color: Theme.of(context).primaryColor,),
+                          icon: Icon(Icons.archive, color: Theme.of(context).buttonColor,),
+                          splashColor: Colors.transparent,
                           onPressed: () =>
                             notePageRoot.noteBloc.noteToArchived(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                         ),
                         IconButton(
-                          icon: Icon(Icons.delete, color: Theme.of(context).primaryColor,),
+                          icon: Icon(Icons.delete, color: Theme.of(context).buttonColor,),
+                          splashColor: Colors.transparent,
                           onPressed: () =>
                             notePageRoot.noteBloc.deleteNote(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                         ),
                         PopupMenuButton<ColorSelected>(
-                          icon: Icon(Icons.color_lens, color: Theme.of(context).primaryColor,),
+                          icon: Icon(Icons.color_lens, color: Theme.of(context).buttonColor,),
                           offset: const Offset(100,100),
                           padding: const EdgeInsets.all(0.0),
                           tooltip: 'Choose a color for your notes!',
@@ -106,11 +110,8 @@ class BuildHeader extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.brightness_2, color: Theme.of(context).primaryColor,),
-                          onPressed: () {
-                            changeBrightness(context);
-                            changeColor(context);
-                          },
+                          icon: Icon(Icons.brightness_2, color: Theme.of(context).buttonColor,),
+                          onPressed: () => showChooser(context),
                         ),
                       ],
                     ),
@@ -143,14 +144,15 @@ class BuildHeader extends StatelessWidget {
 
   void showChooser(BuildContext context) {
     showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return BrightnessSwitcherDialog(
-            onSelectedTheme: (Brightness brightness) {
-              DynamicTheme.of(context).setBrightness(brightness);
-            },
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return BrightnessSwitcherDialog(
+          onSelectedTheme: (Brightness brightness) {
+            DynamicTheme.of(context).setBrightness(brightness);
+          },
+        );
+      }
+    );
   }
 
   void changeBrightness(BuildContext context) {
