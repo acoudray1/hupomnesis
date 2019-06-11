@@ -2,10 +2,10 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
+import 'package:hupomnesis/src/views/note_page/build_pop_up_theme.dart';
 import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
-import 'package:dynamic_theme/theme_switcher_widgets.dart';
 import 'package:hupomnesis/theme/theme_data.dart';
 
 ///
@@ -146,26 +146,17 @@ class BuildHeader extends StatelessWidget {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return BrightnessSwitcherDialog(
+        return BrightnessSwitcherPopup(
           onSelectedTheme: (Brightness brightness) {
             DynamicTheme.of(context).setBrightness(brightness);
+            DynamicTheme.of(context).setThemeData(
+              Theme.of(context).brightness == Brightness.dark
+                ? buildLightTheme()
+                : buildDarkTheme()
+            );
           },
         );
       }
     );
-  }
-
-  void changeBrightness(BuildContext context) {
-    DynamicTheme.of(context).setBrightness(
-        Theme.of(context).brightness == Brightness.dark
-            ? Brightness.light
-            : Brightness.dark);
-  }
-
-  void changeColor(BuildContext context) {
-    DynamicTheme.of(context).setThemeData(
-      Theme.of(context).brightness == Brightness.dark
-            ? buildLightTheme()
-            : buildDarkTheme());
   }
 }
