@@ -148,12 +148,14 @@ class BuildHeader extends StatelessWidget {
       builder: (BuildContext context) {
         return BrightnessSwitcherPopup(
           onSelectedTheme: (Brightness brightness) {
-            DynamicTheme.of(context).setBrightness(brightness);
-            DynamicTheme.of(context).setThemeData(
-              Theme.of(context).brightness == Brightness.dark
-                ? buildLightTheme()
-                : buildDarkTheme()
-            );
+            if(brightness != Theme.of(context).brightness) {
+              DynamicTheme.of(context).setBrightness(brightness);
+              DynamicTheme.of(context).setThemeData(
+                Theme.of(context).brightness == Brightness.dark
+                  ? buildLightTheme()
+                  : buildDarkTheme()
+              );
+            }
           },
         );
       }
