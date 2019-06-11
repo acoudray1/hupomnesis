@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hupomnesis/theme/style_texte.dart';
 
 class BrightnessSwitcherPopup extends StatelessWidget {
   const BrightnessSwitcherPopup({Key key, this.onSelectedTheme})
@@ -9,9 +10,9 @@ class BrightnessSwitcherPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: const Center(child: Text('Select Theme')),
+      title: Center(child: Text('Select Theme', style: Style.titleTextStyle.copyWith(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),)),
       children: <Widget>[
-        const SizedBox(height: 4.0,),
+        const SizedBox(height: 12.0,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -30,10 +31,10 @@ class BrightnessSwitcherPopup extends StatelessWidget {
             Column(
               children: <Widget>[
                 FloatingActionButton(
-                  backgroundColor: Colors.black,
+                  backgroundColor: const Color(0xFF202124),
                   elevation: Theme.of(context).brightness == Brightness.dark ? 12.0 : 0.0,
                   onPressed: () => onSelectedTheme(Brightness.dark),
-                  shape: CircleBorder(side: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).accentColor : Colors.black)),
+                  shape: CircleBorder(side: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).accentColor : const Color(0xFF202124))),
                 ),
                 const SizedBox(height: 12.0,),
                 const Center(child: Text('Dark Theme'),),

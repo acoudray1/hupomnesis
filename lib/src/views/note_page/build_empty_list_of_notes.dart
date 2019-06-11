@@ -11,7 +11,7 @@ class BuildEmptyListOfNotes extends StatelessWidget {
     
     return Column(
       children: <Widget>[
-        SizedBox(height: MediaQuery.of(context).size.height * 0.4),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.38),
         Center(
           child: FloatingActionButton(
             backgroundColor: Theme.of(context).buttonColor,
@@ -26,7 +26,7 @@ class BuildEmptyListOfNotes extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 15,),
-        Center(child: Text('Start writing notes', textAlign: TextAlign.center, style: Style.subtitleTextStyle.copyWith(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),)),
+        Center(child: Text('Start writing notes!', textAlign: TextAlign.center, style: Style.subtitleTextStyle.copyWith(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,),)),
         // TODO(axelc): Add sad image
       ],
     );
