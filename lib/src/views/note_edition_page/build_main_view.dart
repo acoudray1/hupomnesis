@@ -60,7 +60,7 @@ class _BuildMainViewState extends State<BuildMainView> {
             buildHeader(noteEditionPageRoot),
             StreamBuilder<EditionStatus>(
               stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
-              initialData: noteEditionPageRoot.noteEditionPageBloc.editionStatus,
+              initialData: noteEditionPageRoot.editionStatus,
               builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
                 if (snapshot.hasData) {
                   return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot, context) : buildMarkdownRendering();

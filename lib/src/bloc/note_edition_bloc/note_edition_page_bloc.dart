@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 ///
 class NoteEditionPageBloc {
 
-  EditionStatus editionStatus = EditionStatus.WRITING;
+  EditionStatus editionStatus = EditionStatus.RENDERING;
 
   final BehaviorSubject<EditionStatus> _editionStatus = BehaviorSubject<EditionStatus>();
   Observable<EditionStatus> get editionStatusStream => _editionStatus.stream;

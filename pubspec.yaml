@@ -10,7 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
   
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -25,7 +24,12 @@ dev_dependencies:
   sqflite: ^1.1.0
   dynamic_theme: ^1.0.0
   shared_preferences: ^0.5.3+1
+  flutter_launcher_icons: ^0.7.2
 
+flutter_icons:
+  image_path: "assets/hupomnesis_logo_couleur.png" 
+  android: true
+  ios: true
 
 flutter:
   uses-material-design: true
