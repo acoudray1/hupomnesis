@@ -4,8 +4,9 @@
 import 'package:flutter/material.dart';
 
 ThemeData buildDarkTheme() {
-  const Color primaryColor = Color(0xFFF39237);
-  const Color secondaryColor = Color(0xFFD63230);
+  const Color primaryColor = Colors.deepPurple;//Color(0xFF5e35b1);
+  const Color secondaryColor = Colors.deepPurpleAccent;
+  const Color accentColor = Color(0xFFffb300);
   final ColorScheme colorScheme = const ColorScheme.dark().copyWith(
     primary: primaryColor,
     secondary: secondaryColor,
@@ -16,10 +17,10 @@ ThemeData buildDarkTheme() {
     primaryColor: primaryColor,
     primaryColorDark: const Color(0xFF0050a0),
     primaryColorLight: secondaryColor,
-    buttonColor: primaryColor,
+    buttonColor: secondaryColor,
     indicatorColor: Colors.white,
     toggleableActiveColor: const Color(0xFF40BCD8),
-    accentColor: secondaryColor,
+    accentColor: accentColor,
     canvasColor: const Color(0xFF202124),
     scaffoldBackgroundColor: const Color(0xFF202124),
     backgroundColor: const Color(0xFF202124),
@@ -33,8 +34,9 @@ ThemeData buildDarkTheme() {
 }
 
 ThemeData buildLightTheme() {
-  const Color primaryColor = Color(0xFF1C77C3);
-  const Color secondaryColor = Color(0xFF39A9DB);
+  const Color primaryColor = Colors.blue;
+  const Color secondaryColor = Colors.blueAccent;//Color(0xFF1976d2);
+  const Color accentColor = Colors.indigoAccent;
   final ColorScheme colorScheme = const ColorScheme.light().copyWith(
     primary: primaryColor,
     secondary: secondaryColor,
@@ -44,12 +46,12 @@ ThemeData buildLightTheme() {
     accentColorBrightness: Brightness.dark,
     colorScheme: colorScheme,
     primaryColor: primaryColor,
-    buttonColor: primaryColor,
+    buttonColor: secondaryColor,
     indicatorColor: Colors.white,
-    toggleableActiveColor: const Color(0xFFF39237),
+    toggleableActiveColor: const Color(0xFF1e88e5),
     splashColor: Colors.white24,
     splashFactory: InkRipple.splashFactory,
-    accentColor: secondaryColor,
+    accentColor: accentColor,
     canvasColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
     backgroundColor: Colors.white,

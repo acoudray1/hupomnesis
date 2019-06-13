@@ -22,7 +22,7 @@ class BrightnessSwitcherPopup extends StatelessWidget {
                   backgroundColor: Colors.white,
                   elevation: Theme.of(context).brightness == Brightness.dark ? 0.0 : 12.0,
                   onPressed: () => onSelectedTheme(Brightness.light),
-                  shape: CircleBorder(side: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Theme.of(context).accentColor)),
+                  shape: CircleBorder(side: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Theme.of(context).accentColor, width: 2.0)),
                 ),
                 const SizedBox(height: 12.0,),
                 const Center(child: Text('Light Theme'),),
