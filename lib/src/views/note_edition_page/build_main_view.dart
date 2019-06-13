@@ -129,27 +129,25 @@ class _BuildMainViewState extends State<BuildMainView> {
                 ),
                 StreamBuilder<EditionStatus>(
                   stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
-                  initialData: noteEditionPageRoot.noteEditionPageBloc.editionStatus,
+                  initialData: noteEditionPageRoot.editionStatus,
                   builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
                     if (snapshot.hasData) {
                       return Row(
                         children: <Widget>[
                           IconButton(
-                            icon: Icon(noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING 
+                            icon: Icon(snapshot.data == EditionStatus.WRITING 
                               ? StyleIcons.eye
                               : StyleIcons.eye_off, color: Theme.of(context).buttonColor,),
                             onPressed: () {
-                              if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING) {
-                                if(noteEditionPageRoot.note == null) {
-                                  noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
-                                } else {
+                              if (snapshot.data == EditionStatus.WRITING) {
+                                if(noteEditionPageRoot.note != null) {
                                   if(noteEditionPageRoot.note.text != _textEditingController.text) {
                                     noteEditionPageRoot.note.text = _textEditingController.text;
                                     noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
                                   }
                                 }
                               }
-                              noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode();
+                              noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode(snapshot.data);
                             },
                             splashColor: Colors.transparent,
                           ),
