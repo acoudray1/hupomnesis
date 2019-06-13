@@ -40,15 +40,15 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
             _noteColor = Colors.red.shade300;
             break;
           case ColorSelected.NORMAL:
-            _noteColor = Colors.white;
+            _noteColor = Theme.of(context).backgroundColor;
             break;
           default:
-            _noteColor = Colors.white;
+            _noteColor = Theme.of(context).backgroundColor;
             break;
         }
 
         if (notes[index].isSelected) {
-          _borderColor = Colors.blue;
+          _borderColor = Theme.of(context).accentColor;
           _borderWidth = 2.5;
           _elevation = 3.0;
         } else if (!notes[index].isSelected) {
@@ -69,12 +69,12 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                 child: Card(
                   elevation: _elevation,
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: _borderColor, width: _borderWidth),
+                    side: BorderSide(color: notes[index].colorSelected == ColorSelected.NORMAL ? _borderColor : notes[index].colorSelected != ColorSelected.NORMAL && notes[index].isSelected ? _borderColor : _noteColor, width: _borderWidth),
                     borderRadius: BorderRadius.circular(6.0)
                   ),
                   color: _noteColor,
                   child: InkWell(
-                    splashColor: Colors.blue.withAlpha(70),
+                    splashColor: Theme.of(context).accentColor.withAlpha(70),
                     // TODO(interactions): Implement actions
                     onTap: () => snapshot.data 
                       ? noteSelectionBloc.handleNoteToggle(notes[index]) 

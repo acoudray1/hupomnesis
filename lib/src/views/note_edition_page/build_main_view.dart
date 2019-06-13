@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hupomnesis/src/model/enum_edition_status.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page_root.dart';
+import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
 import 'package:hupomnesis/utils/markdown_help_sample.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -59,10 +60,10 @@ class _BuildMainViewState extends State<BuildMainView> {
             buildHeader(noteEditionPageRoot),
             StreamBuilder<EditionStatus>(
               stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
-              initialData: noteEditionPageRoot.noteEditionPageBloc.editionStatus,
+              initialData: noteEditionPageRoot.editionStatus,
               builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
                 if (snapshot.hasData) {
-                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot) : buildMarkdownRendering();
+                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot, context) : buildMarkdownRendering();
                 } else {
                   return Container();
                 }
@@ -82,17 +83,23 @@ class _BuildMainViewState extends State<BuildMainView> {
       leading: Container(),
       elevation: 1.0,
       pinned: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       flexibleSpace: Column(
         children: <Widget>[
           Container(
-            color: Colors.blue,
+            color: Theme.of(context).primaryColor,
             height: 24.0,
           ),
           AnimatedContainer(
-            duration: Duration(seconds: 1),
+            duration: Duration(seconds: 0),
             height: 50,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
+              color: Theme.of(context).backgroundColor,
+              boxShadow: <BoxShadow>[
+                BoxShadow(offset: const Offset(0, 0.2), color: Theme.of(context).brightness == Brightness.dark ? Colors.white10 : Colors.black12,)
+              ]
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -102,7 +109,7 @@ class _BuildMainViewState extends State<BuildMainView> {
                   builder: (BuildContext context, AsyncSnapshot<IconData> snapshot) {
                     if (snapshot.hasData) {
                       return IconButton(
-                        icon: Icon(snapshot.data),
+                        icon: Icon(snapshot.data, color: snapshot.data == Icons.done ? Theme.of(context).buttonColor : Theme.of(context).accentColor),
                         onPressed: () {
                           if(noteEditionPageRoot.note == null) {
                             noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
@@ -120,31 +127,41 @@ class _BuildMainViewState extends State<BuildMainView> {
                     }
                   },
                 ),
-                Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.remove_red_eye),
-                      onPressed: () {
-                        if (noteEditionPageRoot.noteEditionPageBloc.editionStatus == EditionStatus.WRITING) {
-                          if(noteEditionPageRoot.note == null) {
-                            noteEditionPageRoot.noteBloc.createNote(_textEditingController.text);
-                          } else {
-                            if(noteEditionPageRoot.note.text != _textEditingController.text) {
-                              noteEditionPageRoot.note.text = _textEditingController.text;
-                              noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
-                            }
-                          }
-                        }
-                        noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode();
-                      },
-                      splashColor: Colors.transparent,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.help_outline),
-                      onPressed: () => buildHelpPopup(context),
-                      splashColor: Colors.transparent,
-                    ),
-                  ],
+                StreamBuilder<EditionStatus>(
+                  stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
+                  initialData: noteEditionPageRoot.editionStatus,
+                  builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(snapshot.data == EditionStatus.WRITING 
+                              ? StyleIcons.eye
+                              : StyleIcons.eye_off, color: Theme.of(context).buttonColor,),
+                            onPressed: () {
+                              if (snapshot.data == EditionStatus.WRITING) {
+                                if(noteEditionPageRoot.note != null) {
+                                  if(noteEditionPageRoot.note.text != _textEditingController.text) {
+                                    noteEditionPageRoot.note.text = _textEditingController.text;
+                                    noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                                  }
+                                }
+                              }
+                              noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode(snapshot.data);
+                            },
+                            splashColor: Colors.transparent,
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.help_outline, color: Theme.of(context).buttonColor,),
+                            onPressed: () => buildHelpPopup(context),
+                            splashColor: Colors.transparent,
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
                 ),
               ],
             ),
@@ -157,15 +174,15 @@ class _BuildMainViewState extends State<BuildMainView> {
   ///
   /// Builds Text Editor
   /// 
-  SliverFillRemaining buildTextEditor(NoteEditionPageRoot noteEditionPageRoot) {
+  SliverFillRemaining buildTextEditor(NoteEditionPageRoot noteEditionPageRoot, BuildContext context) {
     return SliverFillRemaining(
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: TextField(
-          style: const TextStyle(fontSize: 14,
-            color: Colors.black,
+          style: TextStyle(fontSize: 14,
+            color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
             fontFamily: 'Roboto-Light'),
-          cursorColor: Colors.black,
+          cursorColor: Theme.of(context).accentColor,
           decoration: InputDecoration.collapsed(
             hintText: 'Write your note',
           ),
@@ -210,7 +227,7 @@ class _BuildMainViewState extends State<BuildMainView> {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
           ),
-          title: Center(child: Text('MARKDOWN GUIDE', style: Style.subtitleTextStyle.copyWith(fontWeight: FontWeight.w500),)),
+          title: Center(child: Text('MARKDOWN GUIDE', style: Style.subtitleTextStyle.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),)),
           children: <Widget>[
             Container(
               padding: const EdgeInsets.all(10.0),

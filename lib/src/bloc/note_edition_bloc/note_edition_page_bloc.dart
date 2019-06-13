@@ -9,8 +9,6 @@ import 'package:rxdart/rxdart.dart';
 ///
 class NoteEditionPageBloc {
 
-  EditionStatus editionStatus = EditionStatus.WRITING;
-
   final BehaviorSubject<EditionStatus> _editionStatus = BehaviorSubject<EditionStatus>();
   Observable<EditionStatus> get editionStatusStream => _editionStatus.stream;
   StreamSink<EditionStatus> get editionStatusSink => _editionStatus.sink;
@@ -34,15 +32,13 @@ class NoteEditionPageBloc {
   ///
   /// Handle the change to Writing Mode or Rendering Mode
   /// 
-  void toggleEditionMode() {
+  void toggleEditionMode(EditionStatus editionStatus) {
     switch (editionStatus) {
       case EditionStatus.WRITING:
-        editionStatus = EditionStatus.RENDERING;
-        editionStatusSink.add(editionStatus);
+        editionStatusSink.add(EditionStatus.RENDERING);
         break;
       case EditionStatus.RENDERING:
-        editionStatus = EditionStatus.WRITING;
-        editionStatusSink.add(editionStatus);
+        editionStatusSink.add(EditionStatus.WRITING);
         break;
     }
   }

@@ -31,10 +31,10 @@ class BuildStickyHeaderGrid extends StatelessWidget {
     
     return SliverStickyHeader(
       header: Container(
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Text(notes.isNotEmpty ? '$title' : '', style: Style.commonTextStyle.copyWith(fontWeight: FontWeight.w500)),
+          child: Text(notes.isNotEmpty ? '$title' : '', style: Style.commonTextStyle.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black)),
         ),
       ),
       sliver: SliverStaggeredGrid.countBuilder(

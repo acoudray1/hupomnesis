@@ -1,9 +1,12 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
+import 'package:hupomnesis/src/views/note_page/build_pop_up_theme.dart';
 import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
+import 'package:hupomnesis/theme/theme_data.dart';
 
 ///
 /// Builds the header of the main view
@@ -22,17 +25,17 @@ class BuildHeader extends StatelessWidget {
           return Column(
             children: <Widget>[
               Container(
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
                 height: 24.0,
               ),
               AnimatedContainer(
                 height: 72,
-                duration: Duration(seconds: 1),
+                duration: Duration(seconds: 0),
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
-                  color: Colors.white,
+                  color: Theme.of(context).backgroundColor,
                   boxShadow: <BoxShadow>[
-                    BoxShadow(offset: const Offset(0, 0.2), color: Colors.grey)
+                    BoxShadow(offset: const Offset(0, 0.2), color: Theme.of(context).brightness == Brightness.dark ? Colors.white10 : Colors.black12,)
                   ]
                 ),
                 child: snapshot.data 
@@ -42,46 +45,50 @@ class BuildHeader extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: const Icon(Icons.close),
+                          icon: Icon(Icons.close, color: Theme.of(context).accentColor,),
+                          splashColor: Colors.transparent,
                           onPressed: () {
                             notePageRoot.noteSelectionBloc.handleCompleteDiscard(notePageRoot.noteBloc.notes);
                           },
                         ),
                         Text('${notePageRoot.noteSelectionBloc.numberOfNotesSelected}', 
-                          style: Style.subtitleTextStyle.copyWith(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 18),
+                          style: Style.subtitleTextStyle.copyWith(color: Theme.of(context).buttonColor, fontWeight: FontWeight.w600, fontSize: 18),
                         ),
                       ]
                     ),
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon:  const Icon(StyleIcons.pin),
+                          icon:  Icon(StyleIcons.pin, color: Theme.of(context).buttonColor,),
+                          splashColor: Colors.transparent,
                           onPressed: () =>
                             notePageRoot.noteBloc.noteToPinned(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.archive),
+                          icon: Icon(Icons.archive, color: Theme.of(context).buttonColor,),
+                          splashColor: Colors.transparent,
                           onPressed: () =>
                             notePageRoot.noteBloc.noteToArchived(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.delete),
+                          icon: Icon(Icons.delete, color: Theme.of(context).buttonColor,),
+                          splashColor: Colors.transparent,
                           onPressed: () =>
                             notePageRoot.noteBloc.deleteNote(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc),
                         ),
                         PopupMenuButton<ColorSelected>(
-                          icon: const Icon(Icons.color_lens),
+                          icon: Icon(Icons.color_lens, color: Theme.of(context).buttonColor,),
                           offset: const Offset(100,100),
                           padding: const EdgeInsets.all(0.0),
                           tooltip: 'Choose a color for your notes!',
                           onSelected: (ColorSelected colorSelected) => 
                             notePageRoot.noteBloc.changeColor(listOfNotes: notePageRoot.noteBloc.notes, noteSelectionBloc: notePageRoot.noteSelectionBloc, colorSelected: colorSelected),
                           itemBuilder: (BuildContext context) => <PopupMenuEntry<ColorSelected>> [
-                            buildPopupMenuItem(ColorSelected.YELLOW, 'YELLOW', Colors.yellow),
-                            buildPopupMenuItem(ColorSelected.BLUE, 'BLUE', Colors.blue),
-                            buildPopupMenuItem(ColorSelected.GREEN, 'GREEN', Colors.green),
-                            buildPopupMenuItem(ColorSelected.PURPLE, 'PURPLE', Colors.purple),
-                            buildPopupMenuItem(ColorSelected.RED, 'RED', Colors.red),
+                            buildPopupMenuItem(ColorSelected.YELLOW, 'YELLOW', Colors.yellow, context),
+                            buildPopupMenuItem(ColorSelected.BLUE, 'BLUE', Colors.blue, context),
+                            buildPopupMenuItem(ColorSelected.GREEN, 'GREEN', Colors.green, context),
+                            buildPopupMenuItem(ColorSelected.PURPLE, 'PURPLE', Colors.purple, context),
+                            buildPopupMenuItem(ColorSelected.RED, 'RED', Colors.red, context),
                           ],
                         ),
                       ],
@@ -93,30 +100,18 @@ class BuildHeader extends StatelessWidget {
                     MaterialButton(
                       height: 72,
                       onPressed: () {
-                        // TODO(onPressed): Send to note creation page
-                        //notePageRoot.noteBloc.createNote('');
                         Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
                           builder: (BuildContext context) => NoteEditionPage(
                             noteBloc: notePageRoot.noteBloc,
                           )));
                       },
-                      child: Text('Create a new note...', style: Style.commonTextStyle.copyWith(color: Colors.grey),),
+                      child: Text('Create a new note...', style: Style.commonTextStyle.copyWith(color: Theme.of(context).brightness == Brightness.dark ? Colors.white54 : Colors.black54),),
                     ),
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: const Icon(Icons.brightness_2),
-                          onPressed: () {
-                            // TODO(onPressed): Implement dark mode
-                            notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.import_export),
-                          onPressed: () {
-                            // TODO(onPressed): Implement import / export
-                            notePageRoot.noteBloc.deleteNote(note: notePageRoot.noteBloc.notes.last);
-                          },
+                          icon: Icon(Theme.of(context).brightness == Brightness.dark ? Icons.brightness_2 : StyleIcons.wb_sunny, color: Theme.of(context).buttonColor,),
+                          onPressed: () => showChooser(context),
                         ),
                       ],
                     ),
@@ -136,14 +131,34 @@ class BuildHeader extends StatelessWidget {
   ///
   /// Function that builds PopupMenuItem for PopupMenuButton
   /// 
-  PopupMenuItem<ColorSelected> buildPopupMenuItem(ColorSelected colorSelected, String textToDisplay, Color color) {
+  PopupMenuItem<ColorSelected> buildPopupMenuItem(ColorSelected colorSelected, String textToDisplay, Color color, BuildContext context) {
 
     return PopupMenuItem<ColorSelected>(
       value: colorSelected,
       child: ListTile(
         leading: Icon(Icons.brightness_1, color: color,),
-        title: Text('$textToDisplay', style: Style.smallTextStyle.copyWith(color: Colors.black54),),
+        title: Text('$textToDisplay', style: Style.smallTextStyle.copyWith(color: Theme.of(context).brightness == Brightness.dark ? Colors.white54 : Colors.black54),),
       ),
+    );
+  }
+
+  void showChooser(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return BrightnessSwitcherPopup(
+          onSelectedTheme: (Brightness brightness) {
+            if(brightness != Theme.of(context).brightness) {
+              DynamicTheme.of(context).setBrightness(brightness);
+              DynamicTheme.of(context).setThemeData(
+                Theme.of(context).brightness == Brightness.dark
+                  ? buildLightTheme()
+                  : buildDarkTheme()
+              );
+            }
+          },
+        );
+      }
     );
   }
 }
