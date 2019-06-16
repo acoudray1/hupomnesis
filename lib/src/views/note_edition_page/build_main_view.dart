@@ -58,6 +58,44 @@ class _BuildMainViewState extends State<BuildMainView> {
         }
       },
       child: Scaffold(
+        floatingActionButton: StreamBuilder<EditionStatus>(
+          stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
+          initialData: noteEditionPageRoot.editionStatus,
+          builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
+            if (snapshot.hasData) {
+              return FloatingActionButton(
+                backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF202124),
+                child: ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return RadialGradient(
+                      center: Alignment.topLeft,
+                      radius: 0.5,
+                      colors: <Color>[
+                        Theme.of(context).primaryColor,
+                        Theme.of(context).accentColor,
+                      ],
+                      tileMode: TileMode.clamp,
+                    ).createShader(bounds);
+                  },
+                  child: Icon(snapshot.data == EditionStatus.WRITING 
+                    ? StyleIcons.eye
+                    : StyleIcons.eye_off),
+                ),
+                onPressed: () {
+                  if (snapshot.data == EditionStatus.WRITING) {
+                    if(noteEditionPageRoot.note != null) {
+                      if(noteEditionPageRoot.note.text != _textEditingController.text) {
+                        noteEditionPageRoot.note.text = _textEditingController.text;
+                        noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                      }
+                    }
+                  }
+                  noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode(snapshot.data);
+                }
+              );
+            }
+          }
+        ),
         body: SafeArea(
           top: true,
           child: CustomScrollView(
