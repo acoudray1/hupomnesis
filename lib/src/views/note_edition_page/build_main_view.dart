@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:hupomnesis/src/model/enum_edition_status.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
@@ -43,6 +44,8 @@ class _BuildMainViewState extends State<BuildMainView> {
     final NoteEditionPageRoot noteEditionPageRoot = NoteEditionPageRoot.of(context);
     _textEditingController..addListener(() => noteEditionPageRoot.noteEditionPageBloc.handleTextEdited(widget.text, _textEditingController.text),);
     
+    FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
+    
     return WillPopScope(
       onWillPop: () {
         if(noteEditionPageRoot.note == null) {
@@ -55,22 +58,25 @@ class _BuildMainViewState extends State<BuildMainView> {
         }
       },
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            buildHeader(noteEditionPageRoot),
-            StreamBuilder<EditionStatus>(
-              stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
-              initialData: noteEditionPageRoot.editionStatus,
-              builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
-                if (snapshot.hasData) {
-                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot, context) : buildMarkdownRendering();
-                } else {
-                  return Container();
-                }
-              },
-            ),
-          ],
-        ),
+        body: SafeArea(
+          top: true,
+          child: CustomScrollView(
+            slivers: <Widget>[
+              buildHeader(noteEditionPageRoot),
+              StreamBuilder<EditionStatus>(
+                stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
+                initialData: noteEditionPageRoot.editionStatus,
+                builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
+                  if (snapshot.hasData) {
+                    return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot, context) : buildMarkdownRendering();
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ],
+          ),
+        )
       ),
     );
   }
@@ -86,10 +92,6 @@ class _BuildMainViewState extends State<BuildMainView> {
       backgroundColor: Theme.of(context).backgroundColor,
       flexibleSpace: Column(
         children: <Widget>[
-          Container(
-            color: Theme.of(context).primaryColor,
-            height: 24.0,
-          ),
           AnimatedContainer(
             duration: Duration(seconds: 0),
             height: 50,
