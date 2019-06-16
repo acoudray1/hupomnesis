@@ -68,13 +68,13 @@ class _BuildMainViewState extends State<BuildMainView> {
                 child: ShaderMask(
                   shaderCallback: (Rect bounds) {
                     return RadialGradient(
-                      center: Alignment.topLeft,
-                      radius: 0.5,
+                      center: Alignment.center,
+                      radius: 1,
                       colors: <Color>[
                         Theme.of(context).primaryColor,
                         Theme.of(context).accentColor,
                       ],
-                      tileMode: TileMode.clamp,
+                      tileMode: TileMode.repeated,
                     ).createShader(bounds);
                   },
                   child: Icon(snapshot.data == EditionStatus.WRITING 

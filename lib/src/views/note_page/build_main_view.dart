@@ -44,7 +44,7 @@ class BuildMainView extends StatelessWidget {
                 Theme.of(context).primaryColor,
                 Theme.of(context).accentColor,
               ],
-              tileMode: TileMode.clamp,
+              tileMode: TileMode.repeated,
             ).createShader(bounds);
           },
           child: const Icon(Icons.add),
