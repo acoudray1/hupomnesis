@@ -33,7 +33,7 @@ class BuildStickyHeaderGrid extends StatelessWidget {
       header: Container(
         color: Theme.of(context).backgroundColor,
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(8.0),
           child: Text(notes.isNotEmpty ? '$title' : '', style: Style.commonTextStyle.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black)),
         ),
       ),

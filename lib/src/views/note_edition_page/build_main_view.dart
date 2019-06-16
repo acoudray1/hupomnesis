@@ -217,9 +217,9 @@ class _BuildMainViewState extends State<BuildMainView> {
   SliverFillRemaining buildTextEditor(NoteEditionPageRoot noteEditionPageRoot, BuildContext context) {
     return SliverFillRemaining(
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(12.0),
         child: TextField(
-          style: TextStyle(fontSize: 14,
+          style: TextStyle(fontSize: 16,
             color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
             fontFamily: 'Roboto-Light'),
           cursorColor: Theme.of(context).accentColor,
