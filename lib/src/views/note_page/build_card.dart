@@ -25,19 +25,19 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
       if (snapshot.hasData) {
         switch (notes[index].colorSelected) {
           case ColorSelected.BLUE:
-            _noteColor = Colors.blue.shade300;
+            _noteColor = Colors.blue;
             break;
           case ColorSelected.PURPLE:
-            _noteColor = Colors.purple.shade300;
+            _noteColor = Colors.purple;
             break;
           case ColorSelected.GREEN:
-            _noteColor = Colors.green.shade300;
+            _noteColor = Colors.green;
             break;
           case ColorSelected.YELLOW:
-            _noteColor = Colors.yellow.shade300;
+            _noteColor = Colors.yellow;
             break;
           case ColorSelected.RED:
-            _noteColor = Colors.red.shade300;
+            _noteColor = Colors.red;
             break;
           case ColorSelected.NORMAL:
             _noteColor = Theme.of(context).backgroundColor;
@@ -53,7 +53,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
           _elevation = 3.0;
         } else if (!notes[index].isSelected) {
           _borderColor = Colors.grey;
-          _borderWidth = 1.0;
+          _borderWidth = 1.5;
           _elevation = 0.0;
         }
 
@@ -72,7 +72,7 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                     side: BorderSide(color: notes[index].colorSelected == ColorSelected.NORMAL ? _borderColor : notes[index].colorSelected != ColorSelected.NORMAL && notes[index].isSelected ? _borderColor : _noteColor, width: _borderWidth),
                     borderRadius: BorderRadius.circular(6.0)
                   ),
-                  color: _noteColor,
+                  color: Theme.of(context).backgroundColor,
                   child: InkWell(
                     splashColor: Theme.of(context).accentColor.withAlpha(70),
                     // TODO(interactions): Implement actions
@@ -89,15 +89,15 @@ Widget buildCard(BuildContext context, int index, List<Note> notes, NoteSelectio
                       child: Wrap(
                         children: <Widget>[
                           // For informations about color selected or notifications
-                          /* notes[index].colorSelected != ColorSelected.NORMAL 
+                          /*notes[index].colorSelected != ColorSelected.NORMAL 
                           ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               const SizedBox(width: 13.0),
                               Icon(Icons.brightness_1, color: _noteColor,),
                             ],
-                          ) : Container(),*/
-                          //const SizedBox(height: 2.0,),
+                          ) : Container(),
+                          const SizedBox(height: 2.0,),*/
                           MarkdownBody(data: notes[index].text,),
                         ],
                       ),

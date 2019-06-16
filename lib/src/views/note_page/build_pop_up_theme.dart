@@ -21,7 +21,10 @@ class BrightnessSwitcherPopup extends StatelessWidget {
                 FloatingActionButton(
                   backgroundColor: Colors.white,
                   elevation: Theme.of(context).brightness == Brightness.dark ? 0.0 : 12.0,
-                  onPressed: () => onSelectedTheme(Brightness.light),
+                  onPressed: () {
+                    onSelectedTheme(Brightness.light);
+                    Navigator.pop(context);
+                  },
                   shape: CircleBorder(side: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Theme.of(context).accentColor, width: 2.0)),
                 ),
                 const SizedBox(height: 12.0,),
@@ -33,7 +36,10 @@ class BrightnessSwitcherPopup extends StatelessWidget {
                 FloatingActionButton(
                   backgroundColor: const Color(0xFF202124),
                   elevation: Theme.of(context).brightness == Brightness.dark ? 12.0 : 0.0,
-                  onPressed: () => onSelectedTheme(Brightness.dark),
+                  onPressed: () {
+                    onSelectedTheme(Brightness.dark);
+                    Navigator.pop(context);
+                  },
                   shape: CircleBorder(side: BorderSide(color: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).accentColor : const Color(0xFF202124))),
                 ),
                 const SizedBox(height: 12.0,),

@@ -24,10 +24,6 @@ class BuildHeader extends StatelessWidget {
         if(snapshot.hasData) {
           return Column(
             children: <Widget>[
-              Container(
-                color: Theme.of(context).primaryColor,
-                height: 24.0,
-              ),
               AnimatedContainer(
                 height: 72,
                 duration: Duration(seconds: 0),

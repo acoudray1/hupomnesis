@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:hupomnesis/src/bloc/note_bloc/note_bloc.dart';
 import 'package:hupomnesis/src/model/note.dart';
+import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
 import 'package:hupomnesis/src/views/note_page/build_empty_list_of_notes.dart';
 import 'package:hupomnesis/src/views/note_page/build_header.dart';
 import 'package:hupomnesis/src/views/note_page/build_list_of_notes.dart';
@@ -27,27 +29,55 @@ class BuildMainView extends StatelessWidget {
     onStart(notePageRoot.noteBloc);
     notePageRoot.noteBloc.getNotesFromDatabase();
 
+    FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Column(
-        children: <Widget>[ 
-          // Builds the header
-          BuildHeader(),
-          // Builds the list of notes
-          Expanded(
-            child: StreamBuilder<List<Note>>(
-              stream: notePageRoot.noteBloc.notesStream,
-              initialData: notePageRoot.noteBloc.notes,
-              builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
-                if (snapshot.hasData) {
-                  return notePageRoot.noteBloc.notes.isNotEmpty ? BuildListOfNotes() : BuildEmptyListOfNotes();
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF202124),
+        child: ShaderMask(
+          shaderCallback: (Rect bounds) {
+            return RadialGradient(
+              center: Alignment.topLeft,
+              radius: 0.5,
+              colors: <Color>[
+                Theme.of(context).primaryColor,
+                Theme.of(context).accentColor,
+              ],
+              tileMode: TileMode.repeated,
+            ).createShader(bounds);
+          },
+          child: const Icon(Icons.add),
+        ),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute<NoteEditionPage>(
+            builder: (BuildContext context) => NoteEditionPage(
+              noteBloc: notePageRoot.noteBloc,
+            )));
+        },
+      ),
+      body: SafeArea(
+        top: true,
+        child: Column(
+          children: <Widget>[ 
+            // Builds the header
+            BuildHeader(),
+            // Builds the list of notes
+            Expanded(
+              child: StreamBuilder<List<Note>>(
+                stream: notePageRoot.noteBloc.notesStream,
+                initialData: notePageRoot.noteBloc.notes,
+                builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
+                  if (snapshot.hasData) {
+                    return notePageRoot.noteBloc.notes.isNotEmpty ? BuildListOfNotes() : BuildEmptyListOfNotes();
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -59,6 +89,7 @@ Future<void> onStart(NoteBloc noteBloc) async {
   const String _markdownData = '''
   # Click me to see what you can do!
   Markdown allows you to easily include formatted text, images, and even formatted code.
+  Write your notes in markdown and see how it looks by clicking the eye above. 
 
   Here is a quick demo of what you can do:
   

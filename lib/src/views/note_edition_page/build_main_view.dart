@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:hupomnesis/src/model/enum_edition_status.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
@@ -43,6 +44,8 @@ class _BuildMainViewState extends State<BuildMainView> {
     final NoteEditionPageRoot noteEditionPageRoot = NoteEditionPageRoot.of(context);
     _textEditingController..addListener(() => noteEditionPageRoot.noteEditionPageBloc.handleTextEdited(widget.text, _textEditingController.text),);
     
+    FlutterStatusbarcolor.setStatusBarColor(Theme.of(context).primaryColor);
+    
     return WillPopScope(
       onWillPop: () {
         if(noteEditionPageRoot.note == null) {
@@ -55,22 +58,63 @@ class _BuildMainViewState extends State<BuildMainView> {
         }
       },
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            buildHeader(noteEditionPageRoot),
-            StreamBuilder<EditionStatus>(
-              stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
-              initialData: noteEditionPageRoot.editionStatus,
-              builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
-                if (snapshot.hasData) {
-                  return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot, context) : buildMarkdownRendering();
-                } else {
-                  return Container();
+        floatingActionButton: StreamBuilder<EditionStatus>(
+          stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
+          initialData: noteEditionPageRoot.editionStatus,
+          builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
+            if (snapshot.hasData) {
+              return FloatingActionButton(
+                backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : const Color(0xFF202124),
+                child: ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return RadialGradient(
+                      center: Alignment.center,
+                      radius: 1,
+                      colors: <Color>[
+                        Theme.of(context).primaryColor,
+                        Theme.of(context).accentColor,
+                      ],
+                      tileMode: TileMode.repeated,
+                    ).createShader(bounds);
+                  },
+                  child: Icon(snapshot.data == EditionStatus.WRITING 
+                    ? StyleIcons.eye
+                    : StyleIcons.eye_off),
+                ),
+                onPressed: () {
+                  if (snapshot.data == EditionStatus.WRITING) {
+                    if(noteEditionPageRoot.note != null) {
+                      if(noteEditionPageRoot.note.text != _textEditingController.text) {
+                        noteEditionPageRoot.note.text = _textEditingController.text;
+                        noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
+                      }
+                    }
+                  }
+                  noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode(snapshot.data);
                 }
-              },
-            ),
-          ],
+              );
+            }
+          }
         ),
+        body: SafeArea(
+          top: true,
+          child: CustomScrollView(
+            slivers: <Widget>[
+              buildHeader(noteEditionPageRoot),
+              StreamBuilder<EditionStatus>(
+                stream: noteEditionPageRoot.noteEditionPageBloc.editionStatusStream,
+                initialData: noteEditionPageRoot.editionStatus,
+                builder: (BuildContext context, AsyncSnapshot<EditionStatus> snapshot) {
+                  if (snapshot.hasData) {
+                    return snapshot.data == EditionStatus.WRITING ? buildTextEditor(noteEditionPageRoot, context) : buildMarkdownRendering();
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ],
+          ),
+        )
       ),
     );
   }
@@ -86,10 +130,6 @@ class _BuildMainViewState extends State<BuildMainView> {
       backgroundColor: Theme.of(context).backgroundColor,
       flexibleSpace: Column(
         children: <Widget>[
-          Container(
-            color: Theme.of(context).primaryColor,
-            height: 24.0,
-          ),
           AnimatedContainer(
             duration: Duration(seconds: 0),
             height: 50,
@@ -177,9 +217,9 @@ class _BuildMainViewState extends State<BuildMainView> {
   SliverFillRemaining buildTextEditor(NoteEditionPageRoot noteEditionPageRoot, BuildContext context) {
     return SliverFillRemaining(
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(12.0),
         child: TextField(
-          style: TextStyle(fontSize: 14,
+          style: TextStyle(fontSize: 16,
             color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
             fontFamily: 'Roboto-Light'),
           cursorColor: Theme.of(context).accentColor,
