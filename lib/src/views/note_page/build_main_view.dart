@@ -38,13 +38,13 @@ class BuildMainView extends StatelessWidget {
         child: ShaderMask(
           shaderCallback: (Rect bounds) {
             return RadialGradient(
-              center: Alignment.topLeft,
+              center: Alignment.center,
               radius: 0.5,
               colors: <Color>[
                 Theme.of(context).primaryColor,
-                Theme.of(context).accentColor,
+                Theme.of(context).buttonColor,
               ],
-              tileMode: TileMode.repeated,
+              tileMode: TileMode.mirror,
             ).createShader(bounds);
           },
           child: const Icon(Icons.add),
