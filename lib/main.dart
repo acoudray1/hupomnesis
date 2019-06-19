@@ -21,7 +21,7 @@ class Hupomnesis extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicTheme(
       defaultBrightness: Brightness.light,
-      data: (Brightness brightness) => buildDarkTheme(),
+      data: (Brightness brightness) => buildLightTheme(),
       themedWidgetBuilder: (BuildContext context, ThemeData theme) {
         return MaterialApp(
           title: 'Hupomnesis',

@@ -107,7 +107,20 @@ class BuildHeader extends StatelessWidget {
                       children: <Widget>[
                         IconButton(
                           icon: Icon(Theme.of(context).brightness == Brightness.dark ? Icons.brightness_2 : StyleIcons.wb_sunny, color: Theme.of(context).buttonColor,),
-                          onPressed: () => showChooser(context),
+                          onPressed: () {
+                            if(Theme.of(context).brightness == Brightness.dark) {
+                              DynamicTheme.of(context).setBrightness(
+                                Theme.of(context).brightness == Brightness.dark
+                                  ? Brightness.dark
+                                  : Brightness.light
+                              );
+                              DynamicTheme.of(context).setThemeData(
+                                Theme.of(context).brightness == Brightness.dark
+                                  ? buildLightTheme()
+                                  : buildDarkTheme()
+                              );
+                            }
+                          },
                         ),
                       ],
                     ),
