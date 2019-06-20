@@ -27,6 +27,21 @@ class NoteSelectionBloc {
     }
   }
 
+  /// 
+  /// returns a list of the notes selected
+  /// 
+  List<Note> getNotesSelected(List<Note> notes) {
+    final List<Note> ret = <Note>[];
+
+    for (Note n in notes) {
+      if(n.isSelected)
+        ret.add(n);
+    }
+
+    return ret;
+  }
+
+
   ///
   /// handle complete discard
   /// 

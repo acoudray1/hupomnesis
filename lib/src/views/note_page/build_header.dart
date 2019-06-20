@@ -2,11 +2,11 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hupomnesis/src/model/enum_color_selected.dart';
 import 'package:hupomnesis/src/views/note_edition_page/note_edition_page.dart';
-import 'package:hupomnesis/src/views/note_page/build_pop_up_theme.dart';
 import 'package:hupomnesis/src/views/note_page/note_page_root.dart';
 import 'package:hupomnesis/theme/style_icons.dart';
 import 'package:hupomnesis/theme/style_texte.dart';
 import 'package:hupomnesis/theme/theme_data.dart';
+import 'package:share/share.dart';
 
 ///
 /// Builds the header of the main view
@@ -87,6 +87,14 @@ class BuildHeader extends StatelessWidget {
                             buildPopupMenuItem(ColorSelected.RED, 'RED', Colors.red, context),
                           ],
                         ),
+                        notePageRoot.noteSelectionBloc.numberOfNotesSelected == 1 
+                        ? IconButton(
+                          icon: Icon(Icons.share, color: Theme.of(context).buttonColor),
+                          onPressed: () {
+                            Share.share(notePageRoot.noteSelectionBloc.getNotesSelected(notePageRoot.noteBloc.notes).first.text);
+                          },
+                        )
+                        : Container(),
                       ],
                     ),
                   ],
@@ -147,26 +155,6 @@ class BuildHeader extends StatelessWidget {
         leading: Icon(Icons.brightness_1, color: color,),
         title: Text('$textToDisplay', style: Style.smallTextStyle.copyWith(color: Theme.of(context).brightness == Brightness.dark ? Colors.white54 : Colors.black54),),
       ),
-    );
-  }
-
-  void showChooser(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return BrightnessSwitcherPopup(
-          onSelectedTheme: (Brightness brightness) {
-            if(brightness != Theme.of(context).brightness) {
-              DynamicTheme.of(context).setBrightness(brightness);
-              DynamicTheme.of(context).setThemeData(
-                Theme.of(context).brightness == Brightness.dark
-                  ? buildLightTheme()
-                  : buildDarkTheme()
-              );
-            }
-          },
-        );
-      }
     );
   }
 }
