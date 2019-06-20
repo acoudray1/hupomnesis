@@ -89,8 +89,8 @@ class _BuildMainViewState extends State<BuildMainView> {
                         noteEditionPageRoot.noteBloc.updateNote(noteEditionPageRoot.note);
                       }
                     }
-                    noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode(snapshot.data);
                   }
+                  noteEditionPageRoot.noteEditionPageBloc.toggleEditionMode(snapshot.data);
                 }
               );
             }
