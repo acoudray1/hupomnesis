@@ -108,19 +108,18 @@ class BuildHeader extends StatelessWidget {
                         IconButton(
                           icon: Icon(Theme.of(context).brightness == Brightness.dark ? Icons.brightness_2 : StyleIcons.wb_sunny, color: Theme.of(context).buttonColor,),
                           onPressed: () {
-                            if(Theme.of(context).brightness == Brightness.dark) {
-                              DynamicTheme.of(context).setBrightness(
-                                Theme.of(context).brightness == Brightness.dark
-                                  ? Brightness.dark
-                                  : Brightness.light
-                              );
-                              DynamicTheme.of(context).setThemeData(
-                                Theme.of(context).brightness == Brightness.dark
-                                  ? buildLightTheme()
-                                  : buildDarkTheme()
-                              );
-                            }
+                            DynamicTheme.of(context).setBrightness(
+                              Theme.of(context).brightness == Brightness.dark
+                                ? Brightness.dark
+                                : Brightness.light
+                            );
+                            DynamicTheme.of(context).setThemeData(
+                              Theme.of(context).brightness == Brightness.dark
+                                ? buildLightTheme()
+                                : buildDarkTheme()
+                            );
                           },
+                          splashColor: Colors.transparent,
                         ),
                       ],
                     ),

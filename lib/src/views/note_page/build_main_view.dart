@@ -12,15 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// Builds the main view of the note display
 /// 
-/// Widget Tree : **NotePage** -> **BuildMainView**
-///                                        -> **BuildHeader**
-///                                        -> noteBloc.notes.isNotEmpty() 
-///                                           ? **BuildListOfNotes**
-///                                                  -> **BuildStickyHeaderGrid**
-///                                                          -> BuildCard()
-///                                           : **BuildEmptyListOfNotes**
-///                                                  -> 
-///                                        -> **BuildBottomNavBar**
 class BuildMainView extends StatelessWidget {
 
   @override
@@ -69,7 +60,7 @@ class BuildMainView extends StatelessWidget {
                 initialData: notePageRoot.noteBloc.notes,
                 builder: (BuildContext context, AsyncSnapshot<List<Note>> snapshot) {
                   if (snapshot.hasData) {
-                    return notePageRoot.noteBloc.notes.isNotEmpty ? BuildListOfNotes() : BuildEmptyListOfNotes();
+                    return snapshot.data.isNotEmpty ? BuildListOfNotes() : BuildEmptyListOfNotes();
                   } else {
                     return const CircularProgressIndicator();
                   }

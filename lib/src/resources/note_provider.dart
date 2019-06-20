@@ -70,15 +70,7 @@ class NoteProvider {
     final List<Note> notes = <Note>[];
 
     for(Map<String, dynamic> map in noteMaps){
-      print(map);
-      print('call to database');
       notes.add(Note.fromMap(map));
-
-      /*if(map[columnText] != '') {
-        
-      } else if (map[columnText] == '') {
-        deleteNote(Note.fromMap(map));
-      }*/
     }
 
     return notes;
